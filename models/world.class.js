@@ -1,11 +1,6 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(), new Chicken(), new Chicken(), new Chicken()];
-  clouds = [new Cloud(), new Cloud(), new Cloud()];
-  /*   clouds2 = [new Cloud2(), new Cloud2(), new Cloud2()]; */
-
-  background = [];
-
+  level = level1;
   camera_x = 0;
   canvas;
   ctx;
@@ -19,57 +14,8 @@ class World {
     this.draw();
     this.keyboard = keyboard;
     this.setWorld();
-    this.generateBackground();
-  }
-
-  setFirstBG(i) {
-    this.background.push(
-      new Background(
-        `../img/5_background/layers/1_first_layer/${this.png}.png`,
-        this.distance * i
-      )
-    );
-  }
-
-  setSecondBG(i) {
-    this.background.push(
-      new Background(
-        `../img/5_background/layers/2_second_layer/${this.png}.png`,
-        this.distance * i
-      )
-    );
-  }
-
-  setThirdBG(i) {
-    this.background.push(
-      new Background(
-        `../img/5_background/layers/3_third_layer/${this.png}.png`,
-        this.distance * i
-      )
-    );
-  }
-
-  setAir(i) {
-    this.background.push(
-      new Background("../img/5_background/layers/air.png", this.distance * i)
-    );
-  }
-
-  generateBackground() {
-    this.png = 1;
-
-    this.distance = 719;
-    for (let i = -1; i < 10; i++) {
-      this.setAir(i);
-      this.setSecondBG(i);
-      this.setThirdBG(i);
-      this.setFirstBG(i);
-      if (this.png == 1) {
-        this.png = 2;
-      } else {
-        this.png = 1;
-      }
-    }
+    /*     this.generateBackground();
+     */
   }
 
   setWorld() {
@@ -81,10 +27,10 @@ class World {
 
     this.ctx.translate(this.camera_x, 0);
 
-    this.addObjectToMap(this.background);
+    this.addObjectToMap(this.level.background);
     this.addToMap(this.character);
-    this.addObjectToMap(this.enemies);
-    this.addObjectToMap(this.clouds, 50);
+    this.addObjectToMap(this.level.enemies);
+    this.addObjectToMap(this.level.cloud, 50);
     this.ctx.translate(-this.camera_x, 0);
 
     /*     this.addObjectToMap(this.clouds2); */

@@ -1,6 +1,6 @@
 class Background extends MovableObject {
   width = 720;
-  height = canvas.height;
+  height = 480;
 
   constructor(path, x) {
     super().loadImage(path);

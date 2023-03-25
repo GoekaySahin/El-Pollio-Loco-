@@ -4,6 +4,7 @@ class Character extends MovableObject {
   y = 180;
   imageCounter = 0;
   speed = 14;
+  camera_x = 0;
 
   world;
   IMAGES_WALKING = [
@@ -24,18 +25,18 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (keyboard.RIGHT) {
+      if (keyboard.RIGHT && this.x < this.world.level.level_end) {
         this.x += this.speed;
         this.otherDirection = false;
       }
     }, 1000 / 60);
 
     setInterval(() => {
-      if (keyboard.LEFT) {
+      if (keyboard.LEFT && this.x >= -600) {
         this.x -= this.speed;
         this.otherDirection = true;
       }
-      this.world.camera_x = -this.x;
+      this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
     setInterval(() => {

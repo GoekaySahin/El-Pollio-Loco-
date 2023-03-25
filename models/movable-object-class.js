@@ -3,7 +3,7 @@ class MovableObject {
   speed = 0.15;
 
   img;
-  heigth = canvas.height;
+  heigth = 480;
   width = 100;
   imageCache = {};
   otherDirection = false;
