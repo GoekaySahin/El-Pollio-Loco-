@@ -1,6 +1,6 @@
 class Cloud extends MovableObject {
   width = 350;
-  heigth = 250;
+  height = 250;
   y = 50;
   cloudIndex = 400;
   x = this.cloudIndex;

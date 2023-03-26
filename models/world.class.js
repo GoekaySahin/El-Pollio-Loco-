@@ -12,12 +12,23 @@ class World {
     this.draw();
     this.keyboard = keyboard;
     this.setWorld();
+    this.checkCollisions();
     /*     this.generateBackground();
      */
   }
 
   setWorld() {
     this.character.world = this;
+  }
+
+  checkCollisions() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy)) {
+          console.log("COllision with Character", enemy);
+        }
+      });
+    }, 1000);
   }
 
   draw() {
@@ -39,27 +50,44 @@ class World {
       self.draw();
     });
   }
+
   addToMap(obj) {
     if (obj.otherDirection) {
-      this.ctx.save();
-      this.ctx.translate(obj.width, 0);
-      this.ctx.scale(-1, 1);
-      obj.x = obj.x * -1;
+      this.flipImage(obj);
     }
-    try {
-      this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.heigth);
-    } catch (e) {
-      console.warn("Error loading image", e);
-      console.log("Could not load image, ", this.img.src);
+
+    obj.draw(this.ctx);
+    if (this.figure(obj)) {
+      obj.drawFrame(this.ctx);
     }
+
     if (obj.otherDirection) {
-      obj.x = obj.x * -1;
-      this.ctx.restore();
+      this.flipImageBack(obj);
     }
   }
   addObjectToMap(objs) {
     objs.forEach((element) => {
       this.addToMap(element);
     });
+  }
+
+  flipImage(obj) {
+    this.ctx.save();
+    this.ctx.translate(obj.width, 0);
+    this.ctx.scale(-1, 1);
+    obj.x = obj.x * -1;
+  }
+
+  flipImageBack(obj) {
+    obj.x = obj.x * -1;
+    this.ctx.restore();
+  }
+
+  figure(obj) {
+    return (
+      obj == this.character ||
+      obj.constructor.name == this.level.enemies[0].constructor.name ||
+      obj.constructor.name == this.level.enemies[4].constructor.name
+    );
   }
 }
