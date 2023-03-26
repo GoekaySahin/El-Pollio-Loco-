@@ -5,8 +5,6 @@ class World {
   canvas;
   ctx;
   keyboard;
-  png;
-  distance;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -48,7 +46,12 @@ class World {
       this.ctx.scale(-1, 1);
       obj.x = obj.x * -1;
     }
-    this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.heigth);
+    try {
+      this.ctx.drawImage(obj.img, obj.x, obj.y, obj.width, obj.heigth);
+    } catch (e) {
+      console.warn("Error loading image", e);
+      console.log("Could not load image, ", this.img.src);
+    }
     if (obj.otherDirection) {
       obj.x = obj.x * -1;
       this.ctx.restore();

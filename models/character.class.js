@@ -6,14 +6,16 @@ class Character extends MovableObject {
   speed = 14;
   camera_x = 0;
 
+  walking_sound = new Audio("../audio/walking.mp3");
+
   world;
   IMAGES_WALKING = [
-    "../img/2_character_pepe/2_walk/W-21.png",
-    "../img/2_character_pepe/2_walk/W-22.png",
-    "../img/2_character_pepe/2_walk/W-23.png",
-    "../img/2_character_pepe/2_walk/W-24.png",
-    "../img/2_character_pepe/2_walk/W-25.png",
-    "../img/2_character_pepe/2_walk/W-26.png",
+    "img/2_character_pepe/2_walk/W-21.png",
+    "img/2_character_pepe/2_walk/W-22.png",
+    "img/2_character_pepe/2_walk/W-23.png",
+    "img/2_character_pepe/2_walk/W-24.png",
+    "img/2_character_pepe/2_walk/W-25.png",
+    "img/2_character_pepe/2_walk/W-26.png",
   ];
   constructor() {
     super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
@@ -25,14 +27,17 @@ class Character extends MovableObject {
 
   animate() {
     setInterval(() => {
+      this.walking_sound.pause();
       if (keyboard.RIGHT && this.x < this.world.level.level_end) {
         this.x += this.speed;
         this.otherDirection = false;
+        this.walking_sound.play();
       }
     }, 1000 / 60);
 
     setInterval(() => {
       if (keyboard.LEFT && this.x >= -600) {
+        this.walking_sound.play();
         this.x -= this.speed;
         this.otherDirection = true;
       }
@@ -41,10 +46,7 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if (keyboard.RIGHT || keyboard.LEFT) {
-        let i = this.imageCounter % this.IMAGES_WALKING.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren
-        let path = this.IMAGES_WALKING[i];
-        this.img = this.imageCache[path];
-        this.imageCounter++;
+        this.playAnimation(this.IMAGES_WALKING);
       }
     }, 93);
   }

@@ -5,6 +5,6 @@ class Cloud2 extends MovableObject {
   x = Math.random() * 400;
 
   constructor() {
-    super().loadImage("../img/5_background/layers/4_clouds/2.png");
+    super().loadImage("img/5_background/layers/4_clouds/2.png");
   }
 }

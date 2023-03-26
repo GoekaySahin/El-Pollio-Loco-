@@ -1,10 +1,8 @@
 class Level {
   enemies;
-  clouds;
+  cloud;
   background;
-  png;
-  distance;
-  level_end = 700;
+  level_end = 1000;
 
   constructor(enemies, clouds, background) {
     this.enemies = enemies;
