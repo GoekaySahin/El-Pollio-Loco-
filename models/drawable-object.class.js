@@ -27,4 +27,12 @@ class DrawableObject {
       console.warn("Error loading image", e);
     }
   }
+
+  drawFrame(ctx) {
+    ctx.beginPath();
+    ctx.lineWidth = "6";
+    ctx.strokeStyle = "red";
+    ctx.rect(this.x, this.y, this.width, this.height);
+    ctx.stroke();
+  }
 }

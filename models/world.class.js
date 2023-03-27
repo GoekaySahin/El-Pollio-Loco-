@@ -25,6 +25,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy)) {
           this.character.hit();
+          this.statusBar.setPercentage(this.character.power);
         }
       });
     }, 200);
@@ -37,7 +38,12 @@ class World {
 
     this.addObjectToMap(this.level.background);
     this.addToMap(this.character);
+
+    this.ctx.translate(-this.camera_x, 0);
+    /////// SPACE FOR FIXED OBJECTS //////////
     this.addToMap(this.statusBar);
+    this.ctx.translate(this.camera_x, 0); // <---- endd
+
     this.addObjectToMap(this.level.enemies);
     this.addObjectToMap(this.level.cloud, 50);
     this.ctx.translate(-this.camera_x, 0);

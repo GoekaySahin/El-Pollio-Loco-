@@ -43,14 +43,6 @@ class MovableObject extends DrawableObject {
     this.speedY = 30;
   }
 
-  drawFrame(ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = "6";
-    ctx.strokeStyle = "red";
-    ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.stroke();
-  }
-
   // umschreiben
   isColliding(obj) {
     return (
@@ -63,7 +55,8 @@ class MovableObject extends DrawableObject {
   }
 
   hit() {
-    this.power -= 5;
+    this.power -= 20;
+
     if (this.power <= 0) {
       this.power = 0;
     } else {
