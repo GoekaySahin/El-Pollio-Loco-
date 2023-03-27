@@ -10,6 +10,7 @@ class MovableObject {
   speedY = 0;
   acceleration = 2;
   y = 160;
+  power = 100;
 
   applyGravity() {
     setInterval(() => {
@@ -78,10 +79,17 @@ class MovableObject {
     return (
       this.x + this.width >= obj.x &&
       this.x <= obj.x + obj.width &&
-      this.y + this.offsetY + this.height >= obj.y &&
-      this.y + this.offsetY <= obj.y + obj.height &&
-      obj.onCollisionCourse
+      this.y + this.height >= obj.y &&
+      this.y <= obj.y + obj.height
+      //obj.onCollisionCourse
     );
-    // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+  }
+
+  isHurt() {
+    this.power -= 5;
+    if (this.power <= 0) {
+      this.power = 0;
+    }
+    console.log("COllision with Character ", this.power);
   }
 }

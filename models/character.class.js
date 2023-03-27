@@ -30,6 +30,12 @@ class Character extends MovableObject {
     "img/2_character_pepe/3_jump/J-39.png",
   ];
 
+  IMAGES_HURT = [
+    "img/2_character_pepe/4_hurtH-/41.png",
+    "img/2_character_pepe/4_hurtH-/42.png",
+    "img/2_character_pepe/4_hurtH-/43.png",
+  ];
+
   constructor() {
     super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_WALKING);
@@ -64,8 +70,6 @@ class Character extends MovableObject {
       }
       if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
-      }
-      if (!this.isAboveGround()) {
       }
     }, 93);
   }
