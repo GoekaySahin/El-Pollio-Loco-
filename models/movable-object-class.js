@@ -11,6 +11,7 @@ class MovableObject {
   acceleration = 2;
   y = 160;
   power = 100;
+  lastHit = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -48,7 +49,7 @@ class MovableObject {
   }
 
   playAnimation(images) {
-    let i = this.imageCounter % this.IMAGES_WALKING.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren
+    let i = this.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren
     let path = images[i];
     this.img = this.imageCache[path];
     this.imageCounter++;
@@ -85,11 +86,26 @@ class MovableObject {
     );
   }
 
-  isHurt() {
+  hit() {
     this.power -= 5;
     if (this.power <= 0) {
       this.power = 0;
+    } else {
+      this.lastHit = new Date().getTime();
     }
-    console.log("COllision with Character ", this.power);
+  }
+
+  isHurt() {
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
+    return timepassed < 1;
+  }
+
+  setOnFalse() {
+    timeOut = false;
+  }
+
+  isDead() {
+    return this.power == 0;
   }
 }
