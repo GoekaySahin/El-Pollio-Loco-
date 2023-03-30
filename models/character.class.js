@@ -92,5 +92,11 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_JUMPING);
       }
     }, 93);
+
+    setInterval(() => {
+      if (!this.isAboveGround()) {
+        this.loadImage("../img/2_character_pepe/2_walk/W-21.png");
+      }
+    }, 500);
   }
 }

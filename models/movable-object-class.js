@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   power = 100;
   lastHit = 0;
+  firstTime = true;
 
   applyGravity() {
     setInterval(() => {
@@ -16,7 +17,11 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    return this.y < 180;
+    if (this instanceof ThrowableObject) {
+      return true;
+    } else {
+      return this.y < 180;
+    }
   }
 
   moveRight() {
@@ -55,12 +60,15 @@ class MovableObject extends DrawableObject {
   }
 
   hit() {
-    this.power -= 20;
-
+    if (this.lastHit == 0) {
+      this.power -= 20;
+    }
     if (this.power <= 0) {
       this.power = 0;
     } else {
-      this.lastHit = new Date().getTime();
+      if (this.lastHit == 0) {
+        this.lastHit = new Date().getTime();
+      }
     }
   }
 
@@ -68,6 +76,10 @@ class MovableObject extends DrawableObject {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 1;
+  }
+
+  hurtTime() {
+    return !this.isHurt();
   }
 
   isDead() {

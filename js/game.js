@@ -18,6 +18,9 @@ document.onkeydown = function (e) {
     keyboard.DOWN = true;
   } else if (e.key == "w") {
     keyboard.UP = true;
+  } else if (e.code == "Space") {
+    keyboard.SPACE = true;
+    console.log(keyboard.SPACE);
   }
 };
 
@@ -26,4 +29,5 @@ document.onkeyup = function (e) {
   keyboard.LEFT = false;
   keyboard.UP = false;
   keyboard.DOWN = false;
+  keyboard.SPACE = false;
 };
