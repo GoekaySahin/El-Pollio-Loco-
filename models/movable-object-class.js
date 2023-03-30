@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
   power = 100;
   lastHit = 0;
   firstTime = true;
+  coins = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -84,5 +85,10 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.power == 0;
+  }
+
+  getCoin() {
+    this.coins += 1;
+    return this.coins;
   }
 }

@@ -6,11 +6,6 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
 
-  IMAGE_BOTTLE_GROUND = [
-    "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
-    "img/6_salsa_bottle/2_salsa_bottle_on_ground.png",
-  ];
-
   speedX = 20;
   speedY = 0;
 

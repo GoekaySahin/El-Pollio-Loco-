@@ -7,6 +7,8 @@ class World {
   keyboard;
   statusBar = new StatusBar();
   throwableObjcet = [];
+  collectable = new Collectable();
+  collectableBottle = new CollectableBottle();
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -50,6 +52,14 @@ class World {
     });
   }
 
+  checkCollect() {
+    this.level.collectable.forEach((coin) => {
+      if (this.character.isColliding(coin)) {
+        this.statusCoin.setPercentage(this.character.getCoin());
+      }
+    });
+  }
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -57,6 +67,9 @@ class World {
 
     this.addObjectToMap(this.level.background);
     this.addObjectToMap(this.level.cloud, 50);
+    this.addObjectToMap(this.level.collectable);
+    this.addObjectToMap(this.level.collectableBottle);
+
     this.addToMap(this.character);
 
     this.ctx.translate(-this.camera_x, 0);

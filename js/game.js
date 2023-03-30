@@ -20,7 +20,6 @@ document.onkeydown = function (e) {
     keyboard.UP = true;
   } else if (e.code == "Space") {
     keyboard.SPACE = true;
-    console.log(keyboard.SPACE);
   }
 };
 
