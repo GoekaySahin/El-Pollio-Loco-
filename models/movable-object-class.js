@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   firstTime = true;
   coins = 0;
+  bottle = 0;
 
   applyGravity() {
     setInterval(() => {
@@ -90,5 +91,10 @@ class MovableObject extends DrawableObject {
   getCoin() {
     this.coins += 1;
     return this.coins;
+  }
+
+  countBottle() {
+    this.bottle += 1;
+    return this.bottle;
   }
 }

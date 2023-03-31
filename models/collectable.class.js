@@ -7,7 +7,7 @@ class Collectable extends MovableObject {
 
   constructor() {
     super().loadImage("img/8_coin/coin_2.png");
-    this.x = -450 + Math.random() * (4600 - Math.random() * 10);
+    this.x = -450 + Math.random() * (3800 - Math.random() * 10);
     this.y = 70 - Math.random();
   }
 }
