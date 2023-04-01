@@ -52,12 +52,35 @@ class MovableObject extends DrawableObject {
 
   // umschreiben
   isColliding(obj) {
+    if (this.collects(obj)) {
+      return this.collidingCollects(obj);
+    } else {
+      return this.collidingEnemy(obj);
+    }
+  }
+
+  collects(obj) {
     return (
-      this.x + (this.width - 30) >= obj.x &&
+      obj.img.currentSrc.includes("coin") ||
+      obj.img.currentSrc.includes("bottle")
+    );
+  }
+
+  collidingEnemy(obj) {
+    return (
+      this.x - 20 + this.width >= obj.x &&
       this.x <= obj.x + obj.width &&
       this.y + this.height >= obj.y &&
-      this.y <= obj.y + obj.height
-      //obj.onCollisionCourse
+      this.y + 130 <= obj.y + obj.height
+    );
+  }
+
+  collidingCollects(obj) {
+    return (
+      this.x - 80 + this.width >= obj.x &&
+      this.x + 80 <= obj.x + obj.width &&
+      this.y + this.height >= obj.y &&
+      this.y + 130 <= obj.y + obj.height
     );
   }
 

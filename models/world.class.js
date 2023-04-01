@@ -31,7 +31,7 @@ class World {
       this.checkCollisions();
       this.collectCoin();
       this.collectBottle();
-    }, 90);
+    }, 50);
   }
 
   checkThrowableObjects() {
@@ -68,8 +68,8 @@ class World {
   collectBottle() {
     this.level.collectableBottle.forEach((bottle, i) => {
       if (this.character.isColliding(bottle)) {
-        this.coinbar.setBottleBar(this.character.countBottle());
-        this.level.collectable.splice(i, 1);
+        this.bottleBar.countBottle(this.character.countBottle());
+        this.level.collectableBottle.splice(i, 1);
       }
     });
   }
