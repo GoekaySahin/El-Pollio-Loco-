@@ -30,6 +30,7 @@ class World {
       this.checkThrowableObjects();
       this.checkCollisions();
       this.collectCoin();
+      this.collectBottle();
     }, 90);
   }
 
@@ -63,16 +64,16 @@ class World {
       }
     });
   }
-  /* 
-  collectCoin() {
-    this.level.bottle.forEach((bottle, i) => {
+
+  collectBottle() {
+    this.level.collectableBottle.forEach((bottle, i) => {
       if (this.character.isColliding(bottle)) {
         this.coinbar.setBottleBar(this.character.countBottle());
         this.level.collectable.splice(i, 1);
       }
     });
   }
- */
+
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 

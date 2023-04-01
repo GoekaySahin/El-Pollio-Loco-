@@ -53,7 +53,7 @@ class MovableObject extends DrawableObject {
   // umschreiben
   isColliding(obj) {
     return (
-      this.x + this.width >= obj.x &&
+      this.x + (this.width - 30) >= obj.x &&
       this.x <= obj.x + obj.width &&
       this.y + this.height >= obj.y &&
       this.y <= obj.y + obj.height
