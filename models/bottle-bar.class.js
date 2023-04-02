@@ -17,10 +17,10 @@ class BottleBar extends MovableObject {
     this.y = 0;
     this.width = 200;
     this.height = 50;
-    this.countBottle(0);
+    this.showBottle(0);
   }
 
-  countBottle(count) {
+  showBottle(count) {
     let path = this.IMAGES[count];
     this.img = this.imageCache[path];
   }

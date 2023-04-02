@@ -48,6 +48,38 @@ class MovableObject extends DrawableObject {
 
   jump() {
     this.speedY = 30;
+    this.startTimeout();
+  }
+  startTime;
+  endTime;
+  startTimeout() {
+    this.startTime = Date.now() / 1000;
+    setInterval(() => {
+      if (!(this.y == 182)) {
+        this.endTimeout();
+      } else if (this.y > 180) {
+        this.clearTime();
+      } else {
+        return;
+      }
+    }, 100);
+  }
+
+  clearTime() {
+    this.endTime = 0;
+    this.startTime = 0;
+  }
+
+  endTimeout() {
+    this.endTime = Date.now() / 1000;
+    this.logTime();
+  }
+
+  logTime() {
+    return (
+      1.21 > this.endTime - this.startTime &&
+      this.endTime - this.startTime > 0.8
+    );
   }
 
   // umschreiben
@@ -70,7 +102,7 @@ class MovableObject extends DrawableObject {
     return (
       this.x - 20 + this.width >= obj.x &&
       this.x <= obj.x + obj.width &&
-      this.y + this.height >= obj.y &&
+      this.y + this.height >= obj.y + 30 &&
       this.y + 130 <= obj.y + obj.height
     );
   }

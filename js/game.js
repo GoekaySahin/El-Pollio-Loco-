@@ -9,6 +9,8 @@ function init() {
   console.group("My, Character is", world.character);
 }
 
+let downTime = true;
+
 document.onkeydown = function (e) {
   if (e.key == "d") {
     keyboard.RIGHT = true;
@@ -18,10 +20,21 @@ document.onkeydown = function (e) {
     keyboard.DOWN = true;
   } else if (e.key == "w") {
     keyboard.UP = true;
-  } else if (e.code == "Space") {
+  } else if (e.code == "Space" && downTime) {
     keyboard.SPACE = true;
+    setTimeout(setFalse, 40);
   }
 };
+
+function setFalse() {
+  keyboard.SPACE = false;
+  downTime = false;
+  setTimeout(setTrue, 350);
+}
+
+function setTrue() {
+  downTime = true;
+}
 
 document.onkeyup = function (e) {
   keyboard.RIGHT = false;

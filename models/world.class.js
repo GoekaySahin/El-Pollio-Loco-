@@ -34,19 +34,24 @@ class World {
     }, 50);
   }
 
+  doubleTimeChecker = true;
   checkThrowableObjects() {
-    if (keyboard.SPACE) {
+    if (keyboard.SPACE && this.character.bottle > 0) {
       let bottle = new ThrowableObject(
         this.character.x + 80,
         this.character.y + 100
       );
       this.throwableObjcet.push(bottle);
+      this.character.bottle -= 1;
+      this.bottleBar.showBottle(this.character.bottle);
     }
   }
 
   checkCollisions() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && this.character.logTime())
+        console.log("enemy Dead ");
+      if (this.character.isColliding(enemy) && !this.character.logTime()) {
         this.character.hit();
         this.statusBar.setPercentage(this.character.power);
         if (this.character.hurtTime()) {
@@ -68,7 +73,7 @@ class World {
   collectBottle() {
     this.level.collectableBottle.forEach((bottle, i) => {
       if (this.character.isColliding(bottle)) {
-        this.bottleBar.countBottle(this.character.countBottle());
+        this.bottleBar.showBottle(this.character.countBottle());
         this.level.collectableBottle.splice(i, 1);
       }
     });
