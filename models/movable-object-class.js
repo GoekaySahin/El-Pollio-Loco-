@@ -8,6 +8,8 @@ class MovableObject extends DrawableObject {
   firstTime = true;
   coins = 0;
   bottle = 0;
+  timeInAir = 1.21;
+  land = 0.8;
 
   applyGravity() {
     setInterval(() => {
@@ -36,10 +38,21 @@ class MovableObject extends DrawableObject {
   }
 
   playAnimation(images) {
-    let i = this.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren
+    let i = this.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren SEXY
     let path = images[i];
     this.img = this.imageCache[path];
     this.imageCounter++;
+  }
+
+  killAnimation(obj) {
+    setInterval(() => {
+      if (obj.height == 0 || obj.width == 0 || obj.y == 450) {
+        return;
+      }
+      obj.width -= 5;
+      obj.height -= 15;
+      obj.y += 20;
+    }, 50);
   }
 
   turnLeft() {
@@ -77,8 +90,8 @@ class MovableObject extends DrawableObject {
 
   logTime() {
     return (
-      1.21 > this.endTime - this.startTime &&
-      this.endTime - this.startTime > 0.8
+      this.timeInAir > this.endTime - this.startTime &&
+      this.endTime - this.startTime > this.land
     );
   }
 
