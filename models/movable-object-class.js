@@ -8,8 +8,15 @@ class MovableObject extends DrawableObject {
   firstTime = true;
   coins = 0;
   bottle = 0;
-  timeInAir = 1.21;
-  land = 0.8;
+  timeInAir = 1.31;
+  land = 0.5;
+
+  offset = {
+    top: 120,
+    left: 40,
+    right: 30,
+    bottom: 30,
+  };
 
   applyGravity() {
     setInterval(() => {
@@ -63,10 +70,18 @@ class MovableObject extends DrawableObject {
     this.speedY = 30;
     this.startTimeout();
   }
+
+  smalJump() {
+    this.speedY = 20;
+    this.startTimeout();
+  }
+
   startTime;
   endTime;
+
   startTimeout() {
     this.startTime = Date.now() / 1000;
+
     setInterval(() => {
       if (!(this.y == 182)) {
         this.endTimeout();
@@ -112,18 +127,26 @@ class MovableObject extends DrawableObject {
   }
 
   collidingEnemy(obj) {
+    if (
+      this.x + this.width - this.offset.right >= obj.x &&
+      this.x + this.offset.left <= obj.x + obj.width - obj.offset.top &&
+      this.y + this.height - this.offset.bottom >= obj.y + 30 &&
+      this.y + this.offset.top <= obj.y + obj.height - this.offset.bottom
+    ) {
+      // debugger;
+    }
     return (
       this.x - 20 + this.width >= obj.x &&
       this.x <= obj.x + obj.width &&
       this.y + this.height >= obj.y + 30 &&
-      this.y + 130 <= obj.y + obj.height
+      this.y + 100 <= obj.y + obj.height
     );
   }
 
   collidingCollects(obj) {
     return (
       this.x - 80 + this.width >= obj.x &&
-      this.x + 80 <= obj.x + obj.width &&
+      this.x <= obj.x + obj.width &&
       this.y + this.height >= obj.y &&
       this.y + 130 <= obj.y + obj.height
     );

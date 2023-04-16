@@ -31,7 +31,7 @@ class World {
       this.checkCollisions();
       this.collectCoin();
       this.collectBottle();
-    }, 50);
+    }, 75);
   }
 
   doubleTimeChecker = true;
@@ -47,22 +47,34 @@ class World {
     }
   }
 
-  checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
+  async checkCollisions() {
+    this.level.enemies.forEach((enemy, i) => {
       if (this.character.isColliding(enemy) && this.character.logTime()) {
-        console.log("enemy Dead ");
+        //this.character.killAnimation(enemy);
+
         this.character.killAnimation(enemy);
-      } /* else {
-        if (this.character.isColliding(enemy) && !this.character.logTime()) {
-          this.character.hit();
-          this.statusBar.setPercentage(this.character.power);
-          if (this.character.hurtTime()) {
-            this.character.lastHit = 0;
-          }
+        this.character.smalJump();
+      } else if (
+        this.character.isColliding(enemy) &&
+        !this.character.logTime()
+      ) {
+        this.character.hit();
+        this.statusBar.setPercentage(this.character.power);
+        if (this.character.hurtTime()) {
+          this.character.lastHit = 0;
         }
-      } */
-    });
+      }
+    }); // schreiben / kein hurt wenn gegener hopz
+
+    /* level1.enemies.forEach((enemy, i) => {
+    if(enemy.x == obj.x){
+        console.log('deez nuts');
+        
+    }
+    }); */
   }
+
+  getHitTime(enemy) {}
 
   collectCoin() {
     this.level.collectable.forEach((coin, i) => {
@@ -99,7 +111,7 @@ class World {
     this.addToMap(this.bottleBar);
     this.addToMap(this.statusBar);
     this.addToMap(this.coinbar);
-    this.ctx.translate(this.camera_x, 0); // <---- endd
+    this.ctx.translate(this.camera_x, 0); // <---- end
 
     this.addObjectToMap(this.throwableObjcet);
     this.addObjectToMap(this.level.enemies);
@@ -147,9 +159,6 @@ class World {
   }
 
   figure(obj) {
-    if (this.level.enemies[4].constructor.name == null) {
-      debugger;
-    }
     return (
       obj == this.character ||
       obj.constructor.name == this.level.enemies[0].constructor.name ||
