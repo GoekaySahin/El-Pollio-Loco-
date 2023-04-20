@@ -45,15 +45,16 @@ class World {
       this.character.bottle -= 1;
       this.bottleBar.showBottle(this.character.bottle);
     }
+    2;
   }
 
   async checkCollisions() {
     this.level.enemies.forEach((enemy, i) => {
-      if (this.character.isColliding(enemy) && this.character.logTime()) {
-        //this.character.killAnimation(enemy);
-
+      if (this.character.isColliding(enemy) && this.character.flyDown()) {
+        this.character.hitEnemy(enemy);
         this.character.killAnimation(enemy);
         this.character.smalJump();
+        //setTimeout(this.character.spliceEnemy, 3000, i);
       } else if (
         this.character.isColliding(enemy) &&
         !this.character.logTime()
@@ -73,8 +74,6 @@ class World {
     }
     }); */
   }
-
-  getHitTime(enemy) {}
 
   collectCoin() {
     this.level.collectable.forEach((coin, i) => {
@@ -162,7 +161,8 @@ class World {
     return (
       obj == this.character ||
       obj.constructor.name == this.level.enemies[0].constructor.name ||
-      obj.constructor.name == this.level.enemies[4].constructor.name
+      obj.constructor.name ==
+        this.level.enemies[this.level.enemies.length - 1].constructor.name
     );
   }
 }

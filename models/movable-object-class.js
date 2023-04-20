@@ -5,17 +5,17 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   power = 100;
   lastHit = 0;
-  firstTime = true;
+  collision;
   coins = 0;
   bottle = 0;
   timeInAir = 1.31;
   land = 0.5;
 
   offset = {
-    top: 120,
-    left: 40,
-    right: 30,
-    bottom: 30,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   };
 
   applyGravity() {
@@ -23,6 +23,9 @@ class MovableObject extends DrawableObject {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
+      }
+      if (this.y > 182) {
+        this.y = 182;
       }
     }, 1000 / 25);
   }
@@ -73,7 +76,6 @@ class MovableObject extends DrawableObject {
 
   smalJump() {
     this.speedY = 20;
-    this.startTimeout();
   }
 
   startTime;
@@ -83,6 +85,7 @@ class MovableObject extends DrawableObject {
     this.startTime = Date.now() / 1000;
 
     setInterval(() => {
+      this.flyDown();
       if (!(this.y == 182)) {
         this.endTimeout();
       } else if (this.y > 180) {
@@ -103,7 +106,31 @@ class MovableObject extends DrawableObject {
     this.logTime();
   }
 
+  pos;
+  flyDown() {
+    if (this.y > this.pos) {
+      setTimeout(this.tarePos, 1000);
+      return this.y > this.pos;
+    } else {
+      this.pos = this.y;
+      setTimeout(this.flyDown, 100);
+    } /// KILLER MRK DER SCHAUT OB DER CHARACTER GERADE AM FALLEN IST SEXY MOTHER FUCKER
+  }
+
+  flyCheck(pos) {
+    console.log(this.y > pos);
+  }
+
+  tarePos() {
+    this.pos = this.y;
+  }
+
   logTime() {
+    if (
+      this.timeInAir > this.endTime - this.startTime &&
+      this.endTime - this.startTime > this.land
+    ) {
+    }
     return (
       this.timeInAir > this.endTime - this.startTime &&
       this.endTime - this.startTime > this.land
@@ -120,26 +147,20 @@ class MovableObject extends DrawableObject {
   }
 
   collects(obj) {
-    return (
-      obj.img.currentSrc.includes("coin") ||
-      obj.img.currentSrc.includes("bottle")
-    );
+    if (!(obj.src == undefined) && obj.img.src.includes("Collectable")) {
+      return (
+        obj.img.currentSrc.includes("coin") ||
+        obj.img.currentSrc.includes("bottle")
+      );
+    }
   }
 
   collidingEnemy(obj) {
-    if (
-      this.x + this.width - this.offset.right >= obj.x &&
-      this.x + this.offset.left <= obj.x + obj.width - obj.offset.top &&
-      this.y + this.height - this.offset.bottom >= obj.y + 30 &&
-      this.y + this.offset.top <= obj.y + obj.height - this.offset.bottom
-    ) {
-      // debugger;
-    }
     return (
-      this.x - 20 + this.width >= obj.x &&
-      this.x <= obj.x + obj.width &&
-      this.y + this.height >= obj.y + 30 &&
-      this.y + 100 <= obj.y + obj.height
+      this.x + this.width - this.offset.right >= obj.x + obj.offset.left && // Rechts zu Links
+      this.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
+      this.y + this.height - this.offset.bottom >= obj.y + obj.offset.top && // Top zu Bottom
+      this.y + this.offset.top <= obj.y + obj.height - this.offset.bottom // Bottom zu Top
     );
   }
 
@@ -184,8 +205,16 @@ class MovableObject extends DrawableObject {
     return this.coins;
   }
 
+  hitEnemy(obj) {
+    obj.power -= 5;
+  }
+
   countBottle() {
     this.bottle += 1;
     return this.bottle;
+  }
+
+  spliceEnemy(i) {
+    level1.enemies.splice(i, 1);
   }
 }

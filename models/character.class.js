@@ -6,6 +6,13 @@ class Character extends MovableObject {
   speed = 14;
   camera_x = 0;
 
+  offset = {
+    top: 120,
+    left: 40,
+    right: 10,
+    bottom: 10,
+  };
+
   walking_sound = new Audio("../audio/walking.mp3");
 
   world;
