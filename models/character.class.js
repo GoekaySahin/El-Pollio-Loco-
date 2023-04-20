@@ -7,7 +7,7 @@ class Character extends MovableObject {
   camera_x = 0;
 
   offset = {
-    top: 120,
+    top: 80,
     left: 40,
     right: 10,
     bottom: 10,

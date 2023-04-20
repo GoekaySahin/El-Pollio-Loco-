@@ -54,6 +54,7 @@ class World {
         this.character.hitEnemy(enemy);
         this.character.killAnimation(enemy);
         this.character.smalJump();
+        this.character.tarePos();
         //setTimeout(this.character.spliceEnemy, 3000, i);
       } else if (
         this.character.isColliding(enemy) &&

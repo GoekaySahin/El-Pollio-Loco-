@@ -8,8 +8,6 @@ class MovableObject extends DrawableObject {
   collision;
   coins = 0;
   bottle = 0;
-  timeInAir = 1.31;
-  land = 0.5;
 
   offset = {
     top: 0,
@@ -24,7 +22,7 @@ class MovableObject extends DrawableObject {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
-      if (this.y > 182) {
+      if (this.img.src.includes("pepe") && this.y > 182) {
         this.y = 182;
       }
     }, 1000 / 25);
@@ -108,8 +106,10 @@ class MovableObject extends DrawableObject {
 
   pos;
   flyDown() {
+    if (this.y == 182) {
+      this.pos = this.y;
+    }
     if (this.y > this.pos) {
-      setTimeout(this.tarePos, 1000);
       return this.y > this.pos;
     } else {
       this.pos = this.y;
