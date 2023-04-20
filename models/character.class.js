@@ -68,6 +68,7 @@ class Character extends MovableObject {
       this.walking_sound.pause();
 
       if (keyboard.RIGHT && this.x < this.world.level.level_end) {
+        this.endBoss();
         this.moveRight();
         this.walking_sound.play();
       }
