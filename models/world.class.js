@@ -1,16 +1,17 @@
 class World {
-  character = new Character();
   level = level1;
   camera_x = 0;
   canvas;
   ctx;
   keyboard;
+  character = new Character();
   statusBar = new StatusBar();
   coinbar = new CoinBar();
   bottleBar = new BottleBar();
-  throwableObjcet = [];
   collectable = new Collectable();
   bottle = new CollectableBottle();
+  endboss = new Endboss();
+  throwableObjcet = [];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -31,7 +32,22 @@ class World {
       this.checkCollisions();
       this.collectCoin();
       this.collectBottle();
-    }, 75);
+      this.loudChicken();
+      this.bottleToEnemy();
+    }, 15);
+  }
+
+  bottleToEnemy() {
+    if (this.character.isColliding(this.bottle)) {
+      console.log("treffer");
+    }
+  }
+
+  loudChicken() {
+    if (this.character.x > 4200 && !this.endboss.chickenScream) {
+      this.endboss.bossComimg_sound.play();
+      this.endboss.chickenScream = true;
+    }
   }
 
   doubleTimeChecker = true;
@@ -45,7 +61,6 @@ class World {
       this.character.bottle -= 1;
       this.bottleBar.showBottle(this.character.bottle);
     }
-    2;
   }
 
   async checkCollisions() {

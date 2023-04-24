@@ -9,8 +9,6 @@ class MovableObject extends DrawableObject {
   coins = 0;
   bottle = 0;
 
-  endboss = false;
-
   offset = {
     top: 0,
     left: 0,
@@ -218,12 +216,5 @@ class MovableObject extends DrawableObject {
 
   spliceEnemy(i) {
     level1.enemies.splice(i, 1);
-  }
-
-  endBoss() {
-    if (this.x > 4150) {
-      this.endboss = true;
-      return this.endboss;
-    }
   }
 }
