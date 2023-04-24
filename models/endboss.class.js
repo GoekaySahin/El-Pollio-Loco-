@@ -2,9 +2,9 @@ class Endboss extends MovableObject {
   width = 200;
   height = 340;
   y = 105;
-  chickenScream = false;
+  scream = "anderes";
 
-  bossComimg_sound = new Audio("../audio/chickenLoud.mp3");
+  bossComimg_sound = new Audio("audio/chickenLoud.mp3");
 
   IMAGES_ALERT = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -59,7 +59,7 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (!this.chickenScream) {
+      if (this.scream == "anderes") {
         this.alerta();
       } else {
         this.playAnimation(this.IMAGES_WALKING);

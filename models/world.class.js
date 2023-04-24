@@ -44,9 +44,9 @@ class World {
   }
 
   loudChicken() {
-    if (this.character.x > 4200 && !this.endboss.chickenScream) {
+    if (this.character.x > 4200 && this.endboss.scream == "anderes") {
       this.endboss.bossComimg_sound.play();
-      this.endboss.chickenScream = true;
+      this.endboss.scream = true;
     }
   }
 

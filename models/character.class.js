@@ -13,7 +13,7 @@ class Character extends MovableObject {
     bottom: 10,
   };
 
-  walking_sound = new Audio("../audio/walking.mp3");
+  walking_sound = new Audio("audio/walking.mp3");
 
   world;
   IMAGES_WALKING = [
@@ -54,7 +54,7 @@ class Character extends MovableObject {
   ];
 
   constructor() {
-    super().loadImage("../img/2_character_pepe/2_walk/W-21.png");
+    super().loadImage("img/2_character_pepe/2_walk/W-21.png");
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -102,7 +102,7 @@ class Character extends MovableObject {
 
     setInterval(() => {
       if (!this.isAboveGround()) {
-        this.loadImage("../img/2_character_pepe/2_walk/W-21.png");
+        this.loadImage("img/2_character_pepe/2_walk/W-21.png");
       }
     }, 500);
   }
