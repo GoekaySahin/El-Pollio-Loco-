@@ -11,6 +11,7 @@ class World {
   collectable = new Collectable();
   bottle = new CollectableBottle();
   endboss = new Endboss();
+  flyingBottle = new ThrowableObject();
   throwableObjcet = [];
 
   constructor(canvas, keyboard) {

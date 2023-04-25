@@ -138,11 +138,15 @@ class MovableObject extends DrawableObject {
   }
 
   // umschreiben
-  isColliding(obj) {
-    if (this.collects(obj)) {
-      return this.collidingCollects(obj);
+  isColliding(obj, bottle) {
+    if (bottle == null) {
+      if (this.collects(obj)) {
+        return this.collidingCollects(obj);
+      } else {
+        return this.collidingEnemy(obj);
+      }
     } else {
-      return this.collidingEnemy(obj);
+      this.collidingEnemyBottle(obj, bottle);
     }
   }
 
@@ -161,6 +165,15 @@ class MovableObject extends DrawableObject {
       this.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
       this.y + this.height - this.offset.bottom >= obj.y + obj.offset.top && // Top zu Bottom
       this.y + this.offset.top <= obj.y + obj.height - this.offset.bottom // Bottom zu Top
+    );
+  }
+
+  collidingEnemyBottle(obj, bottle) {
+    return (
+      bottle.x + bottle.width - this.offset.right >= obj.x + obj.offset.left && // Rechts zu Links
+      bottle.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
+      bottle.y + bottle.height - this.offset.bottom >= obj.y + obj.offset.top && // Top zu Bottom
+      bottle.y + this.offset.top <= obj.y + obj.height - this.offset.bottom // Bottom zu Top
     );
   }
 
