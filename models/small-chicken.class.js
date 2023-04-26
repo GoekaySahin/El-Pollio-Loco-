@@ -5,9 +5,9 @@ class SmallChicken extends MovableObject {
   power = 5;
 
   offset = {
-    top: 00,
-    left: 0,
-    right: 0,
+    top: -10,
+    left: -5,
+    right: -5,
     bottom: 0,
   };
 

@@ -3,6 +3,12 @@ class Endboss extends MovableObject {
   height = 340;
   y = 105;
   scream = "anderes";
+  offset = {
+    top: 00,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
 
   bossComimg_sound = new Audio("audio/chickenLoud.mp3");
 
@@ -50,6 +56,7 @@ class Endboss extends MovableObject {
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_ALERT);
+    this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
@@ -62,9 +69,13 @@ class Endboss extends MovableObject {
       if (this.scream == "anderes") {
         this.alerta();
       } else {
-        this.playAnimation(this.IMAGES_WALKING);
+        this.walking();
       }
     }, 110);
+  }
+
+  walking() {
+    this.playAnimation(this.IMAGES_WALKING);
   }
 
   alerta() {

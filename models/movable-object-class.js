@@ -9,13 +9,6 @@ class MovableObject extends DrawableObject {
   coins = 0;
   bottle = 0;
 
-  offset = {
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  };
-
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround() || this.speedY > 0) {
@@ -146,7 +139,7 @@ class MovableObject extends DrawableObject {
         return this.collidingEnemy(obj);
       }
     } else {
-      this.collidingEnemyBottle(obj, bottle);
+      return this.collidingEnemyBottle(obj, bottle);
     }
   }
 
@@ -160,6 +153,9 @@ class MovableObject extends DrawableObject {
   }
 
   collidingEnemy(obj) {
+    if (obj.offset == undefined) {
+      debugger;
+    }
     return (
       this.x + this.width - this.offset.right >= obj.x + obj.offset.left && // Rechts zu Links
       this.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts

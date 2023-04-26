@@ -6,6 +6,13 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
   ];
 
+  offset = {
+    top: 0,
+    left: -20,
+    right: -20,
+    bottom: 0,
+  };
+
   speedX = 20;
   speedY = 10;
 
@@ -23,7 +30,6 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
     setInterval(() => {
       this.x += 10;
-      this.y -= 2;
     }, 25);
   }
 }

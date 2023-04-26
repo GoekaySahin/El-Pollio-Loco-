@@ -4,15 +4,17 @@ class World {
   canvas;
   ctx;
   keyboard;
+
   character = new Character();
   statusBar = new StatusBar();
   coinbar = new CoinBar();
   bottleBar = new BottleBar();
   collectable = new Collectable();
   bottle = new CollectableBottle();
-  endboss = new Endboss();
   flyingBottle = new ThrowableObject();
+
   throwableObjcet = [];
+  hitEnemy = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -21,6 +23,7 @@ class World {
     this.keyboard = keyboard;
     this.setWorld();
     this.run();
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   setWorld() {
@@ -29,7 +32,6 @@ class World {
 
   run() {
     setInterval(() => {
-      this.checkThrowableObjects();
       this.checkCollisions();
       this.collectCoin();
       this.collectBottle();
@@ -45,23 +47,89 @@ class World {
   }
 
   loudChicken() {
-    if (this.character.x > 4200 && this.endboss.scream == "anderes") {
-      this.endboss.bossComimg_sound.play();
-      this.endboss.scream = true;
+    if (
+      this.character.x > 4350 &&
+      this.level.enemies[this.level.enemies.length - 1].scream == "anderes"
+    ) {
+      this.level.enemies[this.level.enemies.length - 1].bossComimg_sound.play();
+      this.level.enemies[this.level.enemies.length - 1].scream = true;
     }
   }
 
-  doubleTimeChecker = true;
-  checkThrowableObjects() {
-    if (keyboard.SPACE && this.character.bottle > 0) {
+  doubleTimeChecker = false;
+  interBottle;
+
+  stopInter(inter) {
+    clearInterval(inter);
+  }
+
+  handleKeyDown(event) {
+    if (
+      event.code === "Space" &&
+      this.character.bottle > 0 &&
+      !this.doubleTimeChecker
+    ) {
+      console.log("Leertaste wurde gedrückt");
       let bottle = new ThrowableObject(
         this.character.x + 80,
         this.character.y + 100
       );
+      let i = 0;
+
+      this.interBottle = setInterval(() => {
+        if (this.checkCollisionBottle(bottle)) {
+          debugger;
+          console.log("treffer");
+          this.stopInter(this.interBottle);
+        }
+      }, 100);
+
+      this.throwableObjcet.push(bottle);
+      this.character.bottle -= 1;
+      this.bottleBar.showBottle(this.character.bottle);
+      // Fügen Sie hier den Code hinzu, der nach einer Verzögerung ausgeführt werden soll
+    }
+  }
+
+  falseCounter = 0;
+  checkCollisionBottle(bottle) {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy, bottle)) {
+        this.character.hitEnemy(enemy);
+
+        this.character.killAnimation(enemy);
+      } else if (this.falseCounter == 1000) {
+        this.stopInter(this.interBottle);
+        this.falseCounter = 0;
+      } else {
+        this.falseCounter++;
+        console.log(this.character.isColliding(enemy, bottle));
+      }
+    });
+  }
+
+  /*   checkThrowableObjects() {
+    if (
+      keyboard.SPACE &&
+      this.character.bottle > 0 &&
+      !this.doubleTimeChecker
+    ) {
+      let bottle = new ThrowableObject(
+        this.character.x + 80,
+        this.character.y + 100
+      );
+      this.doubleTimeChecker = true;
+      this.setFalse();
+
       this.throwableObjcet.push(bottle);
       this.character.bottle -= 1;
       this.bottleBar.showBottle(this.character.bottle);
     }
+  }
+ */
+
+  hitEnemyTrue() {
+    this.hitEnemy = true;
   }
 
   async checkCollisions() {
@@ -71,10 +139,13 @@ class World {
         this.character.killAnimation(enemy);
         this.character.smalJump();
         this.character.tarePos();
+        this.hitEnemy = true;
+        setTimeout(this.hitEnemyTrue, 250);
         //setTimeout(this.character.spliceEnemy, 3000, i);
       } else if (
         this.character.isColliding(enemy) &&
-        !this.character.logTime()
+        !this.character.logTime() &&
+        this.hitEnemy == false
       ) {
         this.character.hit();
         this.statusBar.setPercentage(this.character.power);

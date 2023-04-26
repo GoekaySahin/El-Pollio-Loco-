@@ -4,6 +4,12 @@ class CollectableBottle extends MovableObject {
   width = 100;
   height = 80;
   bottle;
+  offset = {
+    top: 00,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
 
   constructor() {
     super().loadImage("img/6_salsa_bottle/1_salsa_bottle_on_ground.png");
