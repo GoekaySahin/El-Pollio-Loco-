@@ -146,12 +146,16 @@ class World {
     this.level.enemies.forEach((enemy, i) => {
       if (this.character.isColliding(enemy) && this.character.flyDown()) {
         this.character.hitEnemy(enemy);
-        this.character.killAnimation(enemy);
         this.character.smalJump();
         this.character.tarePos();
         this.hitEnemyCollision = true;
         setTimeout(this.hitEnemyTrue, 250, this);
-        setTimeout(this.spliceEnemy, 250, this, i);
+        if (enemy.width > 150 && enemy.power == 0) {
+          setTimeout(this.spliceEnemy, 1600, this, i);
+        } else if ((enemy.width < 150 && enemy.power == 0) || enemy.power < 0) {
+          this.character.killAnimation(enemy);
+          setTimeout(this.spliceEnemy, 250, this, i);
+        }
       } else if (
         this.character.isColliding(enemy) &&
         !this.character.logTime() &&
@@ -159,7 +163,6 @@ class World {
       ) {
         if (enemy.width > 150) {
           this.character.x - 30;
-          console.log("endboss");
         }
         this.character.hit();
         this.statusBar.setPercentage(this.character.power);

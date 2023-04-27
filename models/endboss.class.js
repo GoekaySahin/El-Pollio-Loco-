@@ -4,6 +4,9 @@ class Endboss extends MovableObject {
   y = 105;
   scream = "anderes";
   characterX = 0;
+  power = 25;
+  powerChecker = 25;
+  hurtTimeBoss = false;
 
   offset = {
     top: 00,
@@ -71,29 +74,51 @@ class Endboss extends MovableObject {
     setInterval(() => {
       if (this.scream == "anderes") {
         this.alerta();
-      } else if (this.x - this.characterX < 270) {
+      } else if (this.x - this.characterX < 150) {
         this.attack();
         this.moveLeft();
+      } else if (!(this.power == this.powerChecker) || this.hurtTimeBoss) {
+        this.hurt();
+        this.hurtTimeBoss = true;
+        setTimeout(this.hurtTimeFalse, 800, this);
+      } else if (this.power == 0 || this.power < 0) {
+        this.dead();
       } else {
-        setTimeout(this.walking, 1000, this);
+        this.walking(this);
       }
     }, 110);
+  }
+  5;
+
+  hurtTimeFalse(x) {
+    x.hurtTimeBoss = false;
   }
 
   alerta() {
     this.playAnimation(this.IMAGES_ALERT);
-    this.speedX = 12;
+
+    this.speed = 12;
   }
 
   attack() {
     this.playAnimation(this.IMAGES_ATTACK);
+    this.speed = 4;
+  }
+
+  dead() {
+    this.playAnimation(this.IMAGES_DEAD);
   }
 
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
+    this.playAnimation(this.IMAGES_HURT);
+    this.playAnimation(this.IMAGES_HURT);
+    this.playAnimation(this.IMAGES_HURT);
+    this.powerChecker = this.power;
   }
   walking(bossChicken) {
     bossChicken.playAnimation(bossChicken.IMAGES_WALKING);
+    this.speed = 12;
     bossChicken.moveLeft();
   }
 }
