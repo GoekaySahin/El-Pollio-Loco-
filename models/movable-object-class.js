@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
   collision;
   coins = 0;
   bottle = 0;
+  characterX;
 
   applyGravity() {
     setInterval(() => {
@@ -153,9 +154,6 @@ class MovableObject extends DrawableObject {
   }
 
   collidingEnemy(obj) {
-    if (obj.offset == undefined) {
-      debugger;
-    }
     return (
       this.x + this.width - this.offset.right >= obj.x + obj.offset.left && // Rechts zu Links
       this.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
@@ -184,6 +182,11 @@ class MovableObject extends DrawableObject {
 
   hit() {
     if (this.lastHit == 0) {
+      setInterval(() => {
+        if (this.isHurt()) {
+          setInterval((this.x = this.x - 10), 100);
+        }
+      }, 100);
       this.power -= 20;
     }
     if (this.power <= 0) {
@@ -225,5 +228,9 @@ class MovableObject extends DrawableObject {
 
   spliceEnemy(i) {
     level1.enemies.splice(i, 1);
+  }
+
+  stopInter(inter) {
+    clearInterval(inter);
   }
 }

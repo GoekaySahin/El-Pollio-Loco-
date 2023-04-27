@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
   height = 340;
   y = 105;
   scream = "anderes";
+  characterX = 0;
+
   offset = {
     top: 00,
     left: 0,
@@ -61,6 +63,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 4800;
+    this.speed = 8 + Math.random() * 0.4;
     this.animate();
   }
 
@@ -68,18 +71,30 @@ class Endboss extends MovableObject {
     setInterval(() => {
       if (this.scream == "anderes") {
         this.alerta();
+      } else if (this.x - this.characterX < 270) {
+        this.attack();
+        this.moveLeft();
       } else {
-        this.walking();
+        setTimeout(this.walking, 1000, this);
       }
     }, 110);
   }
 
-  walking() {
-    this.playAnimation(this.IMAGES_WALKING);
-  }
-
   alerta() {
     this.playAnimation(this.IMAGES_ALERT);
+    this.speedX = 12;
+  }
+
+  attack() {
+    this.playAnimation(this.IMAGES_ATTACK);
+  }
+
+  hurt() {
+    this.playAnimation(this.IMAGES_HURT);
+  }
+  walking(bossChicken) {
+    bossChicken.playAnimation(bossChicken.IMAGES_WALKING);
+    bossChicken.moveLeft();
   }
 }
 

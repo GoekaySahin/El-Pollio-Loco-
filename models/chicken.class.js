@@ -11,6 +11,8 @@ class Chicken extends MovableObject {
     bottom: 0,
   };
 
+  get_smash = new Audio("audio/chickenLose.mp3");
+
   IMAGES_WALKING = [
     "img/3_enemies_chicken/chicken_normal/1_walk/1_w.png",
     "img/3_enemies_chicken/chicken_normal/1_walk/2_w.png",
@@ -36,8 +38,9 @@ class Chicken extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.power == 0) {
+      if (this.power == 0 && this.height > 0) {
         this.deadChicken();
+        this.get_smash.play();
       } else {
         this.moveLeft();
       }

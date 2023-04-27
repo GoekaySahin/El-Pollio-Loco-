@@ -8,8 +8,8 @@ class Character extends MovableObject {
 
   offset = {
     top: 80,
-    left: 40,
-    right: 10,
+    left: 25,
+    right: 35,
     bottom: 10,
   };
 
@@ -67,7 +67,11 @@ class Character extends MovableObject {
     setInterval(() => {
       this.walking_sound.pause();
 
-      if (keyboard.RIGHT && this.x < this.world.level.level_end) {
+      if (
+        keyboard.RIGHT &&
+        this.x < this.world.level.level_end &&
+        !this.isHurt()
+      ) {
         this.moveRight();
         this.walking_sound.play();
       }

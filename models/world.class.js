@@ -14,7 +14,7 @@ class World {
   flyingBottle = new ThrowableObject();
 
   throwableObjcet = [];
-  hitEnemy = false;
+  hitEnemyCollision = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -32,12 +32,18 @@ class World {
 
   run() {
     setInterval(() => {
+      this.setCharacterX();
       this.checkCollisions();
       this.collectCoin();
       this.collectBottle();
       this.loudChicken();
       this.bottleToEnemy();
     }, 15);
+  }
+
+  setCharacterX() {
+    this.level.enemies[this.level.enemies.length - 1].characterX =
+      this.character.x;
   }
 
   bottleToEnemy() {
@@ -128,25 +134,33 @@ class World {
   }
  */
 
-  hitEnemyTrue() {
-    this.hitEnemy = true;
+  hitEnemyTrue(that) {
+    that.hitEnemyCollision = false;
   }
 
-  async checkCollisions() {
+  spliceEnemy(x, enemy) {
+    x.level.enemies.splice(enemy, 1);
+  }
+
+  checkCollisions() {
     this.level.enemies.forEach((enemy, i) => {
       if (this.character.isColliding(enemy) && this.character.flyDown()) {
         this.character.hitEnemy(enemy);
         this.character.killAnimation(enemy);
         this.character.smalJump();
         this.character.tarePos();
-        this.hitEnemy = true;
-        setTimeout(this.hitEnemyTrue, 250);
-        //setTimeout(this.character.spliceEnemy, 3000, i);
+        this.hitEnemyCollision = true;
+        setTimeout(this.hitEnemyTrue, 250, this);
+        setTimeout(this.spliceEnemy, 250, this, i);
       } else if (
         this.character.isColliding(enemy) &&
         !this.character.logTime() &&
-        this.hitEnemy == false
+        this.hitEnemyCollision == false
       ) {
+        if (enemy.width > 150) {
+          this.character.x - 30;
+          console.log("endboss");
+        }
         this.character.hit();
         this.statusBar.setPercentage(this.character.power);
         if (this.character.hurtTime()) {
