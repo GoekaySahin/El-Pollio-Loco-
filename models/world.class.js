@@ -99,18 +99,32 @@ class World {
 
   falseCounter = 0;
   checkCollisionBottle(bottle) {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy, bottle)) {
-        this.character.hitEnemy(enemy);
-
+    this.level.enemies.forEach((enemy, i) => {
+      enemy.offset.left = -50;
+      enemy.offset.right = +50;
+      if (this.character.isColliding(enemy, bottle) && enemy.width < 150) {
+        this.character.hitEnemy(enemy, bottle);
         this.character.killAnimation(enemy);
-      } else if (this.falseCounter == 1000) {
+        setTimeout(this.spliceEnemy, 250, this, i);
+      } else if (
+        this.character.isColliding(enemy, bottle) &&
+        enemy.width > 150 &&
+        !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
+      ) {
+        this.character.hitEnemy(enemy);
+        if (enemy.power == 0) {
+          setTimeout(this.killAnimation, 1000, enemy);
+          setTimeout(this.spliceEnemy, 1800, this, i);
+        }
+      } else if (this.falseCounter == 1000 || this.falseCounter > 1000) {
         this.stopInter(this.interBottle);
         this.falseCounter = 0;
       } else {
         this.falseCounter++;
         console.log(this.character.isColliding(enemy, bottle));
       }
+      enemy.offset.left = 0;
+      enemy.offset.right = 0;
     });
   }
 
@@ -170,14 +184,7 @@ class World {
           this.character.lastHit = 0;
         }
       }
-    }); // schreiben / kein hurt wenn gegener hopz
-
-    /* level1.enemies.forEach((enemy, i) => {
-    if(enemy.x == obj.x){
-        console.log('deez nuts');
-        
-    }
-    }); */
+    });
   }
 
   collectCoin() {

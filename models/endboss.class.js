@@ -74,13 +74,19 @@ class Endboss extends MovableObject {
     setInterval(() => {
       if (this.scream == "anderes") {
         this.alerta();
-      } else if (this.x - this.characterX < 150) {
+      } else if (
+        this.power == this.powerChecker &&
+        this.x - this.characterX < 150 &&
+        !this.hurtTimeBoss
+      ) {
         this.attack();
         this.moveLeft();
-      } else if (!(this.power == this.powerChecker) || this.hurtTimeBoss) {
+      } else if (!(this.power == this.powerChecker)) {
         this.hurt();
-        this.hurtTimeBoss = true;
-        setTimeout(this.hurtTimeFalse, 800, this);
+        if (!this.hurtTimeBoss) {
+          console.log("hurt");
+          this.hurtTimeBoss = true;
+        }
       } else if (this.power == 0 || this.power < 0) {
         this.dead();
       } else {
@@ -88,10 +94,10 @@ class Endboss extends MovableObject {
       }
     }, 110);
   }
-  5;
 
   hurtTimeFalse(x) {
     x.hurtTimeBoss = false;
+    x.powerChecker = x.power;
   }
 
   alerta() {
@@ -111,10 +117,7 @@ class Endboss extends MovableObject {
 
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
-    this.playAnimation(this.IMAGES_HURT);
-    this.playAnimation(this.IMAGES_HURT);
-    this.playAnimation(this.IMAGES_HURT);
-    this.powerChecker = this.power;
+    setTimeout(this.hurtTimeFalse, 800, this);
   }
   walking(bossChicken) {
     bossChicken.playAnimation(bossChicken.IMAGES_WALKING);

@@ -5,7 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   power = 100;
   lastHit = 0;
-  collision;
+  collision = false;
   coins = 0;
   bottle = 0;
   characterX;
@@ -213,15 +213,24 @@ class MovableObject extends DrawableObject {
   }
 
   getCoin() {
+    if (this.coins > 5 || this.coins == 5) {
+      return 5;
+    }
     this.coins += 1;
     return this.coins;
   }
 
-  hitEnemy(obj) {
+  hitEnemy(obj, bottle) {
     obj.power -= 5;
+    if (!(bottle == null) || !(bottle == undefined)) {
+      bottle.collision = true;
+    }
   }
 
   countBottle() {
+    if (this.bottle > 5 || this.bottle == 5) {
+      return 5;
+    }
     this.bottle += 1;
     return this.bottle;
   }
