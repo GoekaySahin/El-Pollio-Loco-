@@ -116,13 +116,13 @@ class World {
           setTimeout(this.killAnimation, 1000, enemy);
           setTimeout(this.spliceEnemy, 1800, this, i);
         }
-      } else if (this.falseCounter == 1000 || this.falseCounter > 1000) {
+      } /*  else if (this.falseCounter == 1000 || this.falseCounter > 1000) {
         this.stopInter(this.interBottle);
         this.falseCounter = 0;
       } else {
         this.falseCounter++;
         console.log(this.character.isColliding(enemy, bottle));
-      }
+      } */
       enemy.offset.left = 0;
       enemy.offset.right = 0;
     });

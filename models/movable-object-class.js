@@ -221,7 +221,11 @@ class MovableObject extends DrawableObject {
   }
 
   hitEnemy(obj, bottle) {
-    obj.power -= 5;
+    if (bottle == undefined) {
+      obj.power -= 5;
+    } else if (bottle.collision == false) {
+      obj.power -= 5;
+    }
     if (!(bottle == null) || !(bottle == undefined)) {
       bottle.collision = true;
     }

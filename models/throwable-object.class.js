@@ -45,7 +45,7 @@ class ThrowableObject extends MovableObject {
       this.x = this.x;
       if (this.collision == true) {
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
-        setTimeout(this.splashFalse, 250, this);
+        setTimeout(this.splashFalse, 100, this);
       } else {
         this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
         this.x += 10;
@@ -55,5 +55,11 @@ class ThrowableObject extends MovableObject {
 
   splashFalse(x) {
     x.collision = false;
+    x.bottleImplode(x);
+  }
+
+  bottleImplode(x) {
+    x.width = 0;
+    x.height = 0;
   }
 }
