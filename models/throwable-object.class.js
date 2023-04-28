@@ -42,9 +42,10 @@ class ThrowableObject extends MovableObject {
     this.speedY = 20;
     this.applyGravity();
     setInterval(() => {
+      this.x = this.x;
       if (this.collision == true) {
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
-        setTimeout(this.splashFalse, 300, this);
+        setTimeout(this.splashFalse, 250, this);
       } else {
         this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
         this.x += 10;
