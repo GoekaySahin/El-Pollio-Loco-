@@ -8,6 +8,9 @@ class Endboss extends MovableObject {
   powerChecker = 25;
   hurtTimeBoss = false;
 
+  boss_dead_guitar = new Audio("audio/guitar.mp3");
+  boss_dead_applaud = new Audio("audio/applaud.mp3");
+
   offset = {
     top: 00,
     left: 0,
@@ -16,6 +19,8 @@ class Endboss extends MovableObject {
   };
 
   bossComimg_sound = new Audio("audio/chickenLoud.mp3");
+  boss_hurt_sound = new Audio("audio/bossHurt.mp3");
+  boss_dead_sound = new Audio("audio/bossDead.mp3");
 
   IMAGES_ALERT = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -77,18 +82,23 @@ class Endboss extends MovableObject {
       } else if (
         this.power == this.powerChecker &&
         this.x - this.characterX < 150 &&
-        !this.hurtTimeBoss
+        !this.hurtTimeBoss &&
+        this.power > 0
       ) {
         this.attack();
-        this.moveLeft();
+        this.moveLeft(this);
       } else if (!(this.power == this.powerChecker)) {
         this.hurt();
+        this.bossInvisible();
+        this.boss_hurt_sound.play();
         if (!this.hurtTimeBoss) {
-          console.log("hurt");
           this.hurtTimeBoss = true;
         }
-      } else if (this.power == 0 || this.power < 0) {
+      } else if (this.power <= 0 && this.width > 0) {
         this.dead();
+        //this.boss_dead_sound.play();
+        console.log(this.hurtTimeBoss);
+        setTimeout(this.winningSound, 800, this);
       } else {
         this.walking(this);
       }
@@ -98,6 +108,17 @@ class Endboss extends MovableObject {
   hurtTimeFalse(x) {
     x.hurtTimeBoss = false;
     x.powerChecker = x.power;
+  }
+
+  bossInvisible() {
+    this.width = 0;
+    this.height = 0;
+    setTimeout(this.bossVisible, 50, this);
+  }
+
+  bossVisible(x) {
+    x.width = 200;
+    x.height = 340;
   }
 
   alerta() {
@@ -113,16 +134,28 @@ class Endboss extends MovableObject {
 
   dead() {
     this.playAnimation(this.IMAGES_DEAD);
+    setTimeout(this.implodeBoss, 1500, this);
+  }
+
+  implodeBoss(x) {
+    x.width = 0;
   }
 
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
+
     setTimeout(this.hurtTimeFalse, 800, this);
   }
   walking(bossChicken) {
     bossChicken.playAnimation(bossChicken.IMAGES_WALKING);
     this.speed = 12;
-    bossChicken.moveLeft();
+    bossChicken.moveLeft(bossChicken);
+  }
+
+  winningSound(x) {
+    if (x.width > 0) {
+      x.boss_dead_applaud.play();
+    }
   }
 }
 

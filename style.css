@@ -2,15 +2,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5%;
+  margin: 0;
   background-image: url("img/background/background_ai.png");
   background-size: cover;
   font-family: "Quinthero", Arial, Helvetica, sans-serif;
 }
 
 h1 {
-  font-size: 140px;
-  margin-top: -2%;
+  margin-top: 3%;
+  font-size: 64px;
   margin-bottom: 0%;
   color: #de2121cf;
   letter-spacing: 3px;
@@ -29,22 +29,13 @@ canvas {
   src: url("fonts/Quinthero.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
-@media (width < 1920px) {
-  h1 {
-    margin-top: -4%;
-    font-size: 64px;
-  }
-}
-
-@media only screen and (max-width: 720px) {
-  body {
-    margin-top: 0;
-    background-image: none;
-    background-color: black;
-  }
+@media (width < 1024px) {
   h1 {
     display: none;
   }
+}
+
+@media only screen and (max-width: 900px) {
   canvas {
     width: 100%;
     border: none;
@@ -53,6 +44,6 @@ canvas {
 
 @media only screen and (max-height: 480px) {
   canvas {
-    height: 100%;
+    height: 100vh;
   }
 }

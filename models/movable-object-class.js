@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject {
-  speed = 0.15;
+  speed = 0;
   otherDirection = false;
   speedY = 0;
   acceleration = 2;
@@ -10,9 +10,12 @@ class MovableObject extends DrawableObject {
   bottle = 0;
   characterX;
 
+  get_bottle = new Audio("audio/getABottle.mp3");
+  get_coins = new Audio("audio/collectCoins.mp3");
+
   applyGravity() {
     setInterval(() => {
-      if (this.isAboveGround() || this.speedY > 0) {
+      if ((this.isAboveGround() || this.speedY > 0) && this.power > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
       }
@@ -30,13 +33,17 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  moveRight() {
-    this.x += this.speed;
-    this.otherDirection = false;
+  moveRight(x) {
+    if (x.power > 0) {
+      x.x += this.speed;
+      x.otherDirection = false;
+    }
   }
 
-  moveLeft() {
-    this.x -= this.speed;
+  moveLeft(x) {
+    if (x.power == undefined || x.power > 0) {
+      x.x -= this.speed;
+    }
   }
 
   playAnimation(images) {
@@ -54,7 +61,15 @@ class MovableObject extends DrawableObject {
       obj.width -= 5;
       obj.height -= 15;
       obj.y += 20;
+      setTimeout(this.enemyImplode(obj), 300);
     }, 50);
+  }
+
+  enemyImplode(obj) {
+    obj.x = 0;
+    obj.y = 0;
+    obj.width = 0;
+    obj.height = 0;
   }
 
   turnLeft() {
@@ -100,15 +115,17 @@ class MovableObject extends DrawableObject {
 
   pos;
   flyDown() {
-    if (this.y == 182) {
-      this.pos = this.y;
+    if (this.power > 0) {
+      if (this.y == 182) {
+        this.pos = this.y;
+      }
+      if (this.y > this.pos) {
+        return this.y > this.pos;
+      } else {
+        this.pos = this.y;
+        setTimeout(this.flyDown, 100);
+      } /// KILLER MRK DER SCHAUT OB DER CHARACTER GERADE AM FALLEN IST SEXY MOTHER FUCKER
     }
-    if (this.y > this.pos) {
-      return this.y > this.pos;
-    } else {
-      this.pos = this.y;
-      setTimeout(this.flyDown, 100);
-    } /// KILLER MRK DER SCHAUT OB DER CHARACTER GERADE AM FALLEN IST SEXY MOTHER FUCKER
   }
 
   flyCheck(pos) {
@@ -116,7 +133,9 @@ class MovableObject extends DrawableObject {
   }
 
   tarePos() {
-    this.pos = this.y;
+    if (this.power > 0) {
+      this.pos = this.y;
+    }
   }
 
   logTime() {
@@ -183,7 +202,7 @@ class MovableObject extends DrawableObject {
   hit() {
     if (this.lastHit == 0) {
       setInterval(() => {
-        if (this.isHurt()) {
+        if (this.isHurt() && this.x > -500) {
           setInterval((this.x = this.x - 10), 100);
         }
       }, 100);

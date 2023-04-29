@@ -88,7 +88,7 @@ class World {
           console.log("treffer");
           this.stopInter(this.interBottle);
         }
-      }, 100);
+      }, 50);
 
       this.throwableObjcet.push(bottle);
       this.character.bottle -= 1;
@@ -100,8 +100,13 @@ class World {
   falseCounter = 0;
   checkCollisionBottle(bottle) {
     this.level.enemies.forEach((enemy, i) => {
-      enemy.offset.left = -50;
-      enemy.offset.right = +50;
+      enemy.offset.left = -35;
+      enemy.offset.right = -35;
+      if (bottle.y > 380 && bottle.y < 1000) {
+        bottle.collision = true;
+        bottle.speedY = 0;
+        setTimeout(bottle.splashFalse, 75, bottle);
+      }
       if (this.character.isColliding(enemy, bottle) && enemy.width < 150) {
         this.character.hitEnemy(enemy, bottle);
         this.character.killAnimation(enemy);
@@ -111,42 +116,16 @@ class World {
         enemy.width > 150 &&
         !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
       ) {
-        this.character.hitEnemy(enemy);
+        this.character.hitEnemy(enemy, bottle);
         if (enemy.power == 0) {
           setTimeout(this.killAnimation, 1000, enemy);
           setTimeout(this.spliceEnemy, 1800, this, i);
         }
-      } /*  else if (this.falseCounter == 1000 || this.falseCounter > 1000) {
-        this.stopInter(this.interBottle);
-        this.falseCounter = 0;
-      } else {
-        this.falseCounter++;
-        console.log(this.character.isColliding(enemy, bottle));
-      } */
+      }
       enemy.offset.left = 0;
       enemy.offset.right = 0;
     });
   }
-
-  /*   checkThrowableObjects() {
-    if (
-      keyboard.SPACE &&
-      this.character.bottle > 0 &&
-      !this.doubleTimeChecker
-    ) {
-      let bottle = new ThrowableObject(
-        this.character.x + 80,
-        this.character.y + 100
-      );
-      this.doubleTimeChecker = true;
-      this.setFalse();
-
-      this.throwableObjcet.push(bottle);
-      this.character.bottle -= 1;
-      this.bottleBar.showBottle(this.character.bottle);
-    }
-  }
- */
 
   hitEnemyTrue(that) {
     that.hitEnemyCollision = false;
@@ -175,7 +154,7 @@ class World {
         !this.character.logTime() &&
         this.hitEnemyCollision == false
       ) {
-        if (enemy.width > 150) {
+        if (enemy.width > 150 && enemy.x > -500) {
           this.character.x - 30;
         }
         this.character.hit();
@@ -192,6 +171,7 @@ class World {
       if (this.character.isColliding(coin)) {
         this.coinbar.setCoinsBar(this.character.getCoin());
         this.level.collectable.splice(i, 1);
+        this.character.get_coins.play();
       }
     });
   }
@@ -201,6 +181,7 @@ class World {
       if (this.character.isColliding(bottle)) {
         this.bottleBar.showBottle(this.character.countBottle());
         this.level.collectableBottle.splice(i, 1);
+        this.character.get_bottle.play();
       }
     });
   }
@@ -243,9 +224,10 @@ class World {
     }
 
     obj.draw(this.ctx);
-    if (this.figure(obj)) {
-      obj.drawFrame(this.ctx);
-    }
+    /*  if (this.figure(obj)) {
+      //obj.drawFrame(this.ctx);
+      return;
+    } */
 
     if (obj.otherDirection) {
       this.flipImageBack(obj);

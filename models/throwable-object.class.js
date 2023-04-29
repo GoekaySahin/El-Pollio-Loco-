@@ -14,16 +14,18 @@ class ThrowableObject extends MovableObject {
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
     "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
+  x;
+  y;
 
   offset = {
-    top: 0,
-    left: 0,
+    top: -20,
+    left: -20,
     right: 0,
     bottom: 0,
   };
 
+  bottle_splash_sound = new Audio("audio/drowBottle.mp3");
   enemy;
-
   speedX = 20;
   speedY = 10;
 
@@ -35,16 +37,18 @@ class ThrowableObject extends MovableObject {
     this.y = y;
     this.width = 60;
     this.height = 70;
-    this.throw(100, 150);
+    this.throw();
   }
 
   throw() {
     this.speedY = 20;
     this.applyGravity();
+
     setInterval(() => {
       this.x = this.x;
-      if (this.collision == true) {
+      if (this.collision == true && this.width > 0) {
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
+        this.bottle_splash_sound.play();
         setTimeout(this.splashFalse, 100, this);
       } else {
         this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
@@ -61,5 +65,7 @@ class ThrowableObject extends MovableObject {
   bottleImplode(x) {
     x.width = 0;
     x.height = 0;
+    x.x = 0;
+    x.y = 0;
   }
 }
