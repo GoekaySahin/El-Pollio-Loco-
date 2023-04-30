@@ -13,7 +13,15 @@ class CollectableBottle extends MovableObject {
 
   constructor() {
     super().loadImage("img/6_salsa_bottle/1_salsa_bottle_on_ground.png");
-    this.x = -450 + Math.random() * (4600 - Math.random() * 10);
+    this.x = this.setX(); //-450 + Math.random() * (4600 - Math.random() * 10);
     this.y = 90 - Math.random() * 100;
+  }
+
+  setX() {
+    let result = 250 + Math.random() * (4000 - Math.random() * 10);
+    if (result > -20 && result < 20) {
+      this.setX();
+    }
+    return result;
   }
 }

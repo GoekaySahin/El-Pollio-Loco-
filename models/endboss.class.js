@@ -20,7 +20,7 @@ class Endboss extends MovableObject {
 
   bossComimg_sound = new Audio("audio/chickenLoud.mp3");
   boss_hurt_sound = new Audio("audio/bossHurt.mp3");
-  boss_dead_sound = new Audio("audio/bossDead.mp3");
+  boss_dead_sound = new Audio("audio/winGame.mp3");
 
   IMAGES_ALERT = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",
@@ -81,7 +81,7 @@ class Endboss extends MovableObject {
         this.alerta();
       } else if (
         this.power == this.powerChecker &&
-        this.x - this.characterX < 150 &&
+        this.x - this.characterX < 100 &&
         !this.hurtTimeBoss &&
         this.power > 0
       ) {
@@ -96,24 +96,26 @@ class Endboss extends MovableObject {
         }
       } else if (this.power <= 0 && this.width > 0) {
         this.dead();
-        //this.boss_dead_sound.play();
-        console.log(this.hurtTimeBoss);
+        this.boss_dead_sound.play();
         setTimeout(this.winningSound, 800, this);
       } else {
         this.walking(this);
       }
-    }, 110);
+    }, 90);
   }
 
   hurtTimeFalse(x) {
     x.hurtTimeBoss = false;
     x.powerChecker = x.power;
   }
+  hurtTimeTrue(x) {
+    x.hurtTimeBoss = true;
+  }
 
   bossInvisible() {
     this.width = 0;
     this.height = 0;
-    setTimeout(this.bossVisible, 50, this);
+    setTimeout(this.bossVisible, 100, this);
   }
 
   bossVisible(x) {

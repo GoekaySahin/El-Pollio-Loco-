@@ -6,7 +6,6 @@ let keyboard = new Keyboard();
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-  console.group("My, Character is", world.character);
 }
 
 let downTime = true;
@@ -23,6 +22,10 @@ document.onkeydown = function (e) {
   } else if (e.code == "Space" && downTime) {
     keyboard.SPACE = true;
     setTimeout(setFalse, 40);
+  }
+  if (!world.game_start) {
+    world.character.startCharacter();
+    world.game_start = true;
   }
 };
 

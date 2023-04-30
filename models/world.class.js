@@ -4,6 +4,7 @@ class World {
   canvas;
   ctx;
   keyboard;
+  game_start = false;
 
   character = new Character();
   statusBar = new StatusBar();
@@ -26,30 +27,32 @@ class World {
     document.addEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
+  setSpeed() {
+    if (this.game_start) {
+      world.level.enemies.forEach((enemy) => {
+        enemy.speed = this.speed = 0.2 + Math.random() * 0.4;
+      });
+    }
+  }
+
   setWorld() {
     this.character.world = this;
   }
 
   run() {
     setInterval(() => {
+      this.setSpeed();
       this.setCharacterX();
       this.checkCollisions();
       this.collectCoin();
       this.collectBottle();
       this.loudChicken();
-      this.bottleToEnemy();
     }, 15);
   }
 
   setCharacterX() {
     this.level.enemies[this.level.enemies.length - 1].characterX =
       this.character.x;
-  }
-
-  bottleToEnemy() {
-    if (this.character.isColliding(this.bottle)) {
-      console.log("treffer");
-    }
   }
 
   loudChicken() {
@@ -73,9 +76,9 @@ class World {
     if (
       event.code === "Space" &&
       this.character.bottle > 0 &&
-      !this.doubleTimeChecker
+      !this.doubleTimeChecker &&
+      !this.character.otherDirection
     ) {
-      console.log("Leertaste wurde gedrückt");
       let bottle = new ThrowableObject(
         this.character.x + 80,
         this.character.y + 100
@@ -84,8 +87,6 @@ class World {
 
       this.interBottle = setInterval(() => {
         if (this.checkCollisionBottle(bottle)) {
-          debugger;
-          console.log("treffer");
           this.stopInter(this.interBottle);
         }
       }, 50);

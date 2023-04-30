@@ -30,8 +30,34 @@
     <h1>EL Pollio Locco</h1>
 
     <canvas id="canvas" width="720" height="480"> </canvas>
-    <div class="startscreen" style="display: none">
-      <img src="img/9_intro_outro_screens/start/startscreen_1.png" alt="" />
+    <div class="startscreen">
+      <img
+        class="startscreen-img"
+        src="img/9_intro_outro_screens/start/startscreen_1.png"
+        alt=""
+      />
+      <button class="start-btn" onclick="startGame()">START</button>
+      <div class="start"></div>
+      <div class="control">
+        <div class="a">
+          <p>a = Walk left</p>
+        </div>
+        <div class="w">
+          <p>w = Jump</p>
+          <p></p>
+        </div>
+
+        <div class="d">
+          <p>d = Walk right</p>
+          <p></p>
+        </div>
+
+        <div class="space">
+          <p>space = Throw bottle</p>
+          <p></p>
+        </div>
+      </div>
     </div>
   </body>
+  <!-- http://david-osipov.developerakademie.net/Pollo_Loco/index.html -->
 </html>
