@@ -81,7 +81,7 @@ class Endboss extends MovableObject {
         this.alerta();
       } else if (
         this.power == this.powerChecker &&
-        this.x - this.characterX < 100 &&
+        this.x - this.characterX < 150 &&
         !this.hurtTimeBoss &&
         this.power > 0
       ) {

@@ -6,6 +6,7 @@ let keyboard = new Keyboard();
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
+  checkWidth();
 }
 
 let downTime = true;
@@ -23,11 +24,16 @@ document.onkeydown = function (e) {
     keyboard.SPACE = true;
     setTimeout(setFalse, 40);
   }
+};
+
+function startGame() {
   if (!world.game_start) {
+    let startScreen = document.getElementById("start");
+    startScreen.classList.add("d-none");
     world.character.startCharacter();
     world.game_start = true;
   }
-};
+}
 
 function setFalse() {
   keyboard.SPACE = false;
@@ -46,3 +52,13 @@ document.onkeyup = function (e) {
   keyboard.DOWN = false;
   keyboard.SPACE = false;
 };
+
+function checkWidth() {
+  let message = document.getElementById("message");
+
+  if (this.innerWidth < 480 || this.innerHeight < 720) {
+    message.classList.remove("d-none");
+  } else {
+    message.classList.add("d-none");
+  }
+}

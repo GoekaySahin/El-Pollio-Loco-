@@ -26,11 +26,19 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
   </head>
-  <body onload="init()">
-    <h1>EL Pollio Locco</h1>
-
+  <body onload="init()" onresize="checkWidth()">
+    <h1>EL Pollio Loco</h1>
     <canvas id="canvas" width="720" height="480"> </canvas>
-    <div class="startscreen">
+
+    <div class="device-message d-none" id="message">
+      <img src="img/background/device-message.png" class="device-img" />
+      <h3>
+        Please switch to a larger device<br />
+        (min 720x480).
+      </h3>
+    </div>
+
+    <div class="startscreen" id="start">
       <img
         class="startscreen-img"
         src="img/9_intro_outro_screens/start/startscreen_1.png"
