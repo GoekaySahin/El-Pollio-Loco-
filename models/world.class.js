@@ -83,13 +83,13 @@ class World {
         this.character.x + 80,
         this.character.y + 100
       );
-      let i = 0;
 
-      this.interBottle = setInterval(() => {
+      /* this.interBottle = setInterval(() => {
         if (this.checkCollisionBottle(bottle)) {
           this.stopInter(this.interBottle);
         }
-      }, 50);
+      }, 50); */
+      this.checkCollisionBottle(bottle);
 
       this.throwableObjcet.push(bottle);
       this.character.bottle -= 1;
@@ -100,32 +100,41 @@ class World {
 
   falseCounter = 0;
   checkCollisionBottle(bottle) {
-    this.level.enemies.forEach((enemy, i) => {
-      enemy.offset.left = -35;
-      enemy.offset.right = -35;
-      if (bottle.y > 380 && bottle.y < 1000) {
-        bottle.collision = true;
-        bottle.speedY = 0;
-        setTimeout(bottle.splashFalse, 75, bottle);
-      }
-      if (this.character.isColliding(enemy, bottle) && enemy.width < 150) {
-        this.character.hitEnemy(enemy, bottle);
-        this.character.killAnimation(enemy);
-        setTimeout(this.spliceEnemy, 250, this, i);
-      } else if (
-        this.character.isColliding(enemy, bottle) &&
-        enemy.width > 150 &&
-        !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
-      ) {
-        this.character.hitEnemy(enemy, bottle);
-        if (enemy.power == 0) {
-          setTimeout(this.killAnimation, 1000, enemy);
-          setTimeout(this.spliceEnemy, 1800, this, i);
+    setInterval(() => {
+      this.level.enemies.forEach((enemy, i) => {
+        enemy.offset.left = -15;
+        enemy.offset.right = -15;
+        if (bottle.y > 380 && bottle.y < 1000) {
+          bottle.collision = true;
+          bottle.speedY = 0;
+          //setTimeout(bottle.splashFalse, 75, bottle);
         }
-      }
-      enemy.offset.left = 0;
-      enemy.offset.right = 0;
-    });
+        if (this.character.isColliding(enemy, bottle) && enemy.width < 150) {
+          this.character.hitEnemy(enemy, bottle);
+          this.character.killAnimation(enemy);
+          setTimeout(this.spliceEnemy, 250, this, i);
+          /*           bottle.width = 0;
+          bottle.height = 0;
+          bottle.x = 0;
+          bottle.y = 0;
+          bottle.speedX = 0;
+          bottle.speedY = 0; */
+          bottle = 0;
+        } else if (
+          this.character.isColliding(enemy, bottle) &&
+          enemy.width > 150 &&
+          !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
+        ) {
+          this.character.hitEnemy(enemy, bottle);
+          if (enemy.power == 0) {
+            setTimeout(this.killAnimation, 1000, enemy);
+            setTimeout(this.spliceEnemy, 1800, this, i);
+          }
+        }
+        enemy.offset.left = 0;
+        enemy.offset.right = 0;
+      });
+    }, 75);
   }
 
   hitEnemyTrue(that) {
@@ -133,7 +142,11 @@ class World {
   }
 
   spliceEnemy(x, enemy) {
-    x.level.enemies.splice(enemy, 1);
+    //console.log("Not spliced :", x.level.enemies[enemy]);
+    if (x.level.enemies[enemy].x == 0) {
+      console.log(x.level.enemies[enemy], enemy);
+      x.level.enemies.splice(enemy, 1);
+    }
   }
 
   checkCollisions() {

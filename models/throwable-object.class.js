@@ -17,9 +17,15 @@ class ThrowableObject extends MovableObject {
   x;
   y;
 
-  offset = {
+  /*   offset = {
     top: -20,
     left: -20,
+    right: 0,
+    bottom: 0,
+  }; */
+  offset = {
+    top: 0,
+    left: 0,
     right: 0,
     bottom: 0,
   };
@@ -45,12 +51,11 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
 
     setInterval(() => {
-      this.x = this.x;
       if (this.collision == true && this.width > 0) {
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
         this.bottle_splash_sound.play();
         setTimeout(this.splashFalse, 100, this);
-      } else {
+      } else if (this.collision == false) {
         this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
         this.x += 10;
       }
@@ -67,5 +72,7 @@ class ThrowableObject extends MovableObject {
     x.height = 0;
     x.x = 0;
     x.y = 0;
+    x.speedX = 0;
+    x.speedY = 0;
   }
 }

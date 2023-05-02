@@ -183,10 +183,10 @@ class MovableObject extends DrawableObject {
 
   collidingEnemyBottle(obj, bottle) {
     return (
-      bottle.x + bottle.width - this.offset.right >= obj.x + obj.offset.left && // Rechts zu Links
-      bottle.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
-      bottle.y + bottle.height - this.offset.bottom >= obj.y + obj.offset.top && // Top zu Bottom
-      bottle.y + this.offset.top <= obj.y + obj.height - this.offset.bottom // Bottom zu Top
+      bottle.x + bottle.width >= obj.x + obj.offset.left && // Rechts zu Links
+      bottle.x <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
+      bottle.y + bottle.height >= obj.y + obj.offset.top && // Top zu Bottom
+      bottle.y <= obj.y + obj.height // Bottom zu Top
     );
   }
 
@@ -257,10 +257,11 @@ class MovableObject extends DrawableObject {
     this.bottle += 1;
     return this.bottle;
   }
-
+  /* 
   spliceEnemy(i) {
+    debugger;
     level1.enemies.splice(i, 1);
-  }
+  } */
 
   stopInter(inter) {
     clearInterval(inter);
