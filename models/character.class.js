@@ -6,6 +6,7 @@ class Character extends MovableObject {
   speed = 8;
   camera_x = 0;
   powerControl = 100;
+  standTime;
 
   offset = {
     top: 80,
@@ -21,6 +22,9 @@ class Character extends MovableObject {
   lose = new Audio("audio/lose.mp3");
 
   world;
+
+  IMAGE_GAME_OVER = "img/9_intro_outro_screens/game_over/game over!.png";
+
   IMAGES_WALKING = [
     "img/2_character_pepe/2_walk/W-21.png",
     "img/2_character_pepe/2_walk/W-22.png",
@@ -28,6 +32,49 @@ class Character extends MovableObject {
     "img/2_character_pepe/2_walk/W-24.png",
     "img/2_character_pepe/2_walk/W-25.png",
     "img/2_character_pepe/2_walk/W-26.png",
+  ];
+
+  IMAGES_SLEEPING = [
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
 
   IMAGES_JUMPING = [
@@ -60,13 +107,12 @@ class Character extends MovableObject {
 
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
-
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_DEAD);
-    /*
-     */
+    this.loadImages(this.IMAGES_SLEEPING);
+    this.standTimer();
   }
 
   startCharacter() {
@@ -79,20 +125,18 @@ class Character extends MovableObject {
       this.walking_sound.pause();
 
       if (
-        keyboard.RIGHT &&
-        this.x < this.world.level.level_end &&
+        this.fallInSleep() &&
+        !this.isAboveGround() &&
+        this.x < 3000 &&
         !this.isHurt()
       ) {
-        this.moveRight(this);
-        if (!this.isAboveGround()) {
-          this.walking_sound.play();
-        }
-      }
-      if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_SLEEPING);
+      } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
         if (!(this.power == this.powerControl)) {
           this.hurt_sound.play();
           this.powerControl = this.power;
+          this.standTimer();
         }
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
@@ -104,23 +148,35 @@ class Character extends MovableObject {
       } else if (keyboard.UP && !this.isAboveGround()) {
         this.jump();
         this.jump_sound.play();
+        this.standTimer();
+      }
+      if (
+        keyboard.RIGHT &&
+        this.x < this.world.level.level_end &&
+        !this.isHurt()
+      ) {
+        this.moveRight(this);
+        if (!this.isAboveGround()) {
+          this.standTimer();
+          this.walking_sound.play();
+        }
       }
 
       if (keyboard.LEFT && this.x >= -600) {
-        this.walking_sound.play();
         this.turnLeft();
         this.moveLeft(this);
+        this.standTimer();
+        if (!this.isAboveGround()) {
+          this.walking_sound.play();
+        }
       }
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
 
     setInterval(() => {
       if (keyboard.RIGHT || keyboard.LEFT) {
-        /* if (this.isHurt()) {
-          this.playAnimation(this.IMAGES_HURT);
-        } else {
-        }*/
         this.playAnimation(this.IMAGES_WALKING);
+        this.standTimer();
       }
       if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
@@ -133,6 +189,7 @@ class Character extends MovableObject {
       }
     }, 500);
   }
+
   characterKill() {
     this.y += 20;
     setTimeout(this.charaterImplode, 80, this);
@@ -141,5 +198,19 @@ class Character extends MovableObject {
   charaterImplode(x) {
     x.width = 0;
     this.height = 0;
+  }
+
+  characterInSleep() {
+    return this.xControl == this.x;
+  }
+
+  standTimer() {
+    this.standTime = new Date().getTime();
+  }
+
+  fallInSleep() {
+    let timepassed = new Date().getTime() - this.standTime;
+    timepassed = timepassed / 1000;
+    return timepassed > 3.4;
   }
 }

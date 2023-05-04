@@ -46,11 +46,18 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  playAnimation(images) {
-    let i = this.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren SEXY
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.imageCounter++;
+  playAnimation(images, x) {
+    if (this.imageCounter == undefined) {
+      let i = x.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren SEXY
+      let path = images[i];
+      x.img = x.imageCache[path];
+      x.imageCounter++;
+    } else {
+      let i = this.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren SEXY
+      let path = images[i];
+      this.img = this.imageCache[path];
+      this.imageCounter++;
+    }
   }
 
   killAnimation(obj) {
@@ -83,6 +90,7 @@ class MovableObject extends DrawableObject {
 
   smalJump() {
     this.speedY = 20;
+    this.standTimer();
   }
 
   startTime;

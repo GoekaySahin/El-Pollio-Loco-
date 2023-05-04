@@ -83,6 +83,7 @@ class World {
         this.character.x + 80,
         this.character.y + 100
       );
+      this.character.standTimer();
 
       /* this.interBottle = setInterval(() => {
         if (this.checkCollisionBottle(bottle)) {
@@ -144,7 +145,6 @@ class World {
   spliceEnemy(x, enemy) {
     //console.log("Not spliced :", x.level.enemies[enemy]);
     if (x.level.enemies[enemy].x == 0) {
-      console.log(x.level.enemies[enemy], enemy);
       x.level.enemies.splice(enemy, 1);
     }
   }

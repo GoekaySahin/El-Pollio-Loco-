@@ -84,6 +84,34 @@ h3 {
   text-align: center;
   font-size: 24px;
 }
+.win {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0000004d;
+}
+
+span {
+  font-size: 48px;
+  color: #ebeb44;
+}
+
+.responsive-control {
+  position: absolute;
+  z-index: 218;
+  top: 86vh;
+  left: 103px;
+  width: 319px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.respons-btn {
+  border-radius: 8px;
+  background-color: #e8d052;
+  width: 55px;
+  height: 24px;
+}
 
 @font-face {
   font-family: "Quinthero";
