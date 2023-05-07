@@ -1,20 +1,24 @@
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 0;
   background-image: url("img/background/background_ai.png");
   background-size: cover;
   font-family: "Quinthero", Arial, Helvetica, sans-serif;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-  margin-top: 3%;
+  position: fixed;
+  top: 3%;
   font-size: 64px;
   margin-bottom: 0%;
   color: #de2121cf;
   letter-spacing: 3px;
-  text-shadow: 12px 13px 4px rgba(0, 14, 0, 0.5);
+  text-shadow: 8px 8px 8px rgba(0, 14, 0, 0.5);
 }
 
 canvas {
@@ -22,31 +26,32 @@ canvas {
   box-shadow: 19px 24px 23px rgba(0, 0, 0, 0.3);
   border-radius: 9px;
   display: block;
-  position: absolute;
-  margin-top: 146px;
+}
+
+.contentbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .d-none {
   display: none !important;
 }
 
-.startscreen {
-  position: absolute;
-}
-
 .startscreen-img {
   width: 720px;
   height: 481px;
-  margin-top: 150px;
+  position: absolute;
 }
 
 .start-btn {
   position: absolute;
-  top: 195px;
-  right: 52px;
+  top: 32px;
+  right: 32px;
   width: 150px;
   height: 36px;
-  background-color: #cfd213;
+  background-color: #f5f91b;
   border-radius: 8px;
   border-color: #9a3a17;
   font-family: "Quinthero", Arial, Helvetica, sans-serif;
@@ -60,22 +65,25 @@ canvas {
 }
 
 .control {
-  position: absolute;
   display: flex;
   justify-content: space-between;
+  position: absolute;
   width: 480px;
   margin-block-start: -55px;
-  margin-left: 16px;
   color: #000000d4;
   font-size: 17px;
+  bottom: 0;
 }
 .device-message {
-  width: 80%;
   position: fixed;
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 h3 {
@@ -99,8 +107,8 @@ span {
 .responsive-control {
   position: absolute;
   z-index: 218;
-  top: 86vh;
-  left: 103px;
+  top: 695px;
+  margin-left: 90px;
   width: 319px;
   display: flex;
   justify-content: space-between;
@@ -113,20 +121,70 @@ span {
   height: 24px;
 }
 
+.dflex {
+  display: flex;
+}
+
+.respons-control {
+  display: flex;
+  align-items: center;
+  width: 42vw;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 3px;
+  left: 48px;
+}
+.salsa-bottle {
+  width: 50px;
+  height: 50px;
+}
+
+.option {
+  position: absolute;
+  top: 80px;
+  right: 32px;
+  width: 151px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.options {
+  width: 32px;
+}
+
+.controller {
+  width: 40px;
+  padding-bottom: 0px;
+}
+
+.landscape {
+  backdrop-filter: blur(10px);
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #8080808f;
+}
+
+.fullscreen-modus {
+  width: 100%;
+  height: 100vh;
+}
+
 @font-face {
   font-family: "Quinthero";
   src: url("fonts/Quinthero.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+@media (width > 1550px) {
+  h1 {
+    margin-top: 20px;
+  }
 }
 
 @media (width < 1024px) {
   h1 {
     display: none;
-  }
-}
-
-@media (width > 1550px) {
-  h1 {
-    margin-top: 20px;
   }
 }
 
@@ -138,196 +196,154 @@ span {
   canvas {
     width: 100%;
     border: none;
-  }
-
-  .startscreen {
-    width: 100%;
     margin-top: 0;
   }
 
-  .startscreen-img {
+  .interact {
     width: 100%;
-    height: 595px;
-    margin-top: 144px;
+    margin-top: 0;
   }
 }
 
 @media (width < 869px) {
-  .startscreen-img {
-    height: 69vh;
-  }
-}
-@media (width < 847px) {
-  .startscreen-img {
-    height: 68vh;
-  }
-}
-@media (width < 844px) {
-  .startscreen-img {
-    height: 67vh;
-  }
-}
-@media (width < 840px) {
-  .startscreen-img {
-    height: 66vh;
-  }
-}
-@media (width < 810px) {
-  .startscreen-img {
-    height: 65vh;
-  }
-}
-@media (width < 790px) {
-  .startscreen-img {
-    height: 64vh;
-  }
-}
-@media (width < 780px) {
-  .startscreen-img {
-    height: 63vh;
-  }
-}
-@media (width < 760px) {
-  .startscreen-img {
-    height: 62vh;
+  .responsive-control {
+    top: 675px;
   }
 }
 
-@media (width < 750px) {
-  .startscreen-img {
-    height: 61vh;
+@media (width < 850px) {
+  .responsive-control {
+    top: 649px;
+    margin-left: 86px;
   }
 }
-@media (width < 740px) {
-  .startscreen-img {
-    height: 59vh;
+
+@media (width < 820px) {
+  .responsive-control {
+    top: 636px;
+    margin-left: 79px;
   }
 }
-@media (width < 730px) {
-  .startscreen-img {
-    height: 58vh;
+
+@media (width < 800px) {
+  .responsive-control {
+    top: 621px;
+    margin-left: 77px;
   }
 }
+
+@media (width < 780px) {
+  .responsive-control {
+    top: 610px;
+    margin-left: 72px;
+  }
+}
+
+@media (width <= 750px) {
+  .responsive-control {
+    top: 593px;
+    margin-left: 67px;
+  }
+}
+
+@media (width <= 730px) {
+  .responsive-control {
+    top: 580px;
+    margin-left: 61px;
+  }
+  .landscape {
+    width: 720px;
+  }
+}
+
 @media (width < 720px) {
-  .startscreen-img {
-    height: 57vh;
+  body {
+    width: 720px;
   }
 }
-@media (width < 700px) {
-  .startscreen-img {
-    height: 55vh;
+
+@media (width <= 706px) {
+  .responsive-control {
+    top: 563px;
+    margin-left: 57px;
+  }
+
+  .start-btn {
+    right: 1%;
+  }
+
+  .option {
+    right: 1%;
   }
 }
-@media (width < 690px) {
-  .startscreen-img {
-    height: 54vh;
+
+@media (width <= 674px) {
+  .responsive-control {
+    top: 549px;
+    margin-left: 47px;
   }
 }
-@media (width < 670px) {
-  .startscreen-img {
-    height: 53vh;
+
+@media (width <= 660px) {
+  .responsive-control {
+    top: 538px;
+    margin-left: 43px;
   }
 }
 @media (width < 650px) {
-  .startscreen-img {
-    height: 52vh;
+  .responsive-control {
+    top: 529px;
+    margin-left: 38px;
   }
+  /*   .phone {
+    margin-inline-start: 26px;
+  } */
+}
+
+@media (width < 630px) {
+  .responsive-control {
+    top: 521px;
+    margin-left: 35px;
+  }
+
+  /*   .phone {
+    margin-inline-start: 30px;
+  } */
 }
 
 @media (width < 620px) {
-  .startscreen-img {
-    height: 51vh;
-  }
   .start-btn {
-    top: 176px;
-    right: 34px;
-    width: 121px;
     height: 31px;
     font-size: larger;
   }
 }
 
-@media (width < 600px) {
-  .startscreen-img {
-    height: 49vh;
-  }
-}
-@media (width < 580px) {
-  .startscreen-img {
-    height: 47vh;
-  }
-}
-@media (width < 560px) {
-  .startscreen-img {
-    height: 46vh;
-  }
-}
-@media (width < 540px) {
-  .startscreen-img {
-    height: 45vh;
+@media (width <=614px) {
+  .responsive-control {
+    top: 510px;
+    margin-left: 33px;
   }
 }
 
 @media (width < 520px) {
-  .startscreen-img {
-    height: 43vh;
-  }
-
   .control {
     font-weight: bold;
     font-size: 12px;
     margin-block-start: -45px;
     width: 94%;
   }
-
-  .start-btn {
-    width: 98px;
-    height: 26px;
-    font-size: medium;
-    padding-top: 2px;
-  }
 }
 
-@media (width < 500px) {
-  .startscreen-img {
-    height: 42vh;
-  }
-}
-@media (width < 480px) {
-  .startscreen-img {
-    height: 41vh;
-  }
-}
-@media (width < 460px) {
-  .startscreen-img {
-    height: 39vh;
-  }
-}
-@media (width < 440px) {
-  .startscreen-img {
-    height: 37vh;
-  }
-}
 @media (width < 420px) {
-  .startscreen-img {
-    height: 35vh;
-  }
-
   .control {
     font-size: 10px;
     width: 92%;
   }
 }
-@media (width < 400px) {
-  .startscreen-img {
-    height: 34vh;
-  }
 
-  .start-btn {
-    width: 81px;
-    height: 23px;
-    font-size: revert;
-    padding-top: 1px;
+@media (height < 591px) {
+  h1 {
+    display: none;
   }
 }
 
@@ -336,11 +352,16 @@ span {
     height: 100vh;
   }
 
-  .startscreen {
+  .interact {
     height: 100vh;
   }
 
   .startscreen-img {
     height: 100vh;
+    width: 100%;
+  }
+
+  .start-btn {
+    scale: 0.7;
   }
 }

@@ -30,44 +30,10 @@ document.onkeydown = function (e) {
   }
 };
 
-function responsWalkLeft() {
-  keyboard.LEFT = true;
-}
-
-function responsWalkRight() {
-  keyboard.RIGHT = true;
-}
-
-function responsJump() {
-  keyboard.UP = true;
-}
-
-function responsThrow() {
-  keyboard.SPACE = true;
-}
-
-function responsWalkLeftFalse() {
-  keyboard.LEFT = false;
-}
-
-function responsWalkRightFalse() {
-  keyboard.RIGHT = false;
-}
-
-function responsJumpFalse() {
-  keyboard.UP = false;
-}
-
-function responsThrowFalse() {
-  keyboard.SPACE = false;
-}
-
 function startGame() {
   let resControl = document.getElementById("respons_control");
-  let resInfo = document.getElementById("control_info_respons");
-  if (this.innerWidth < 900) {
+  if (window.screen.width < 900) {
     resControl.classList.remove("d-none");
-    resInfo.classList.add("d-none");
   } else {
     resControl.classList.add("d-none");
   }
@@ -109,69 +75,99 @@ document.onkeyup = function (e) {
 
 function checkWidth() {
   let message = document.getElementById("message");
-  let responsInfo = document.getElementById("control_info_respons");
   let info = document.getElementById("control");
+  let device = document.getElementById("device");
+  let rotatePhone = document.getElementById("landscape");
+  let startScreen = document.getElementById("start");
 
-  if (this.innerWidth < 480 || this.innerHeight < 720) {
+  if (
+    (this.screen.availWidth < 480 && this.screen.availHeight > 720) ||
+    (this.screen.availWidth > 480 && this.screen.availHeight < 480) ||
+    (this.screen.availWidth > 720 && this.screen.availHeight < 480) ||
+    (this.screen.availWidth < 720 && this.screen.availHeight < 480) ||
+    (this.screen.availWidth < 720 &&
+      this.screen.availHeight > 480 &&
+      this.screen.availHeight < 720)
+  ) {
     message.classList.remove("d-none");
+    device.style = "height:" + this.screen.availHeight * 2 + "px;";
+  } else if (
+    this.screen.availWidth > this.screen.availHeight &&
+    !rotatePhone.classList.value.includes("d-none")
+  ) {
+    rotatePhone.classList.add("d-none");
+  } else if (
+    this.screen.availWidth < this.screen.availHeight &&
+    !startScreen.classList.value.includes("fullscreen-modus")
+  ) {
+    rotatePhone.classList.remove("d-none");
   }
-  if (this.innerWidth < 900) {
-    responsInfo.classList.remove("d-none");
+  if (this.screen.availWidth <= 900) {
     info.classList.add("d-none");
   } else {
-    responsInfo.classList.add("d-none");
     info.classList.remove("d-none");
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const right = document.getElementById("right");
-  right.addEventListener("touchstart", () => {
+  let right = document.getElementById("right");
+  right.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     keyboard.RIGHT = true;
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
-  const up = document.getElementById("up");
-  up.addEventListener("touchstart", () => {
+  let jump = document.getElementById("jump");
+  jump.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     keyboard.UP = true;
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
-  const left = document.getElementById("left");
-  left.addEventListener("touchstart", () => {
+  let left = document.getElementById("left");
+  left.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     keyboard.LEFT = true;
   });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const space = document.getElementById("throw");
-  space.addEventListener("touchstart", () => {
+  let space = document.getElementById("throw");
+  space.addEventListener("touchstart", (e) => {
+    e.preventDefault();
     keyboard.SPACE = true;
     document.dispatchEvent(spaceKeyEvent);
+    console.log("wo");
   });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const right = document.getElementById("right");
-  right.addEventListener("touchend", () => {
+  let right = document.getElementById("right");
+  right.addEventListener("touchend", (e) => {
+    e.preventDefault();
     keyboard.RIGHT = false;
   });
 });
 document.addEventListener("DOMContentLoaded", () => {
-  const up = document.getElementById("up");
-  up.addEventListener("touchend", () => {
+  let jump = document.getElementById("jump");
+  jump.addEventListener("touchend", (e) => {
+    e.preventDefault();
     keyboard.UP = false;
   });
 });
 document.addEventListener("DOMContentLoaded", () => {
-  const left = document.getElementById("left");
-  left.addEventListener("touchend", () => {
+  let left = document.getElementById("left");
+  left.addEventListener("touchend", (e) => {
+    e.preventDefault();
     keyboard.LEFT = false;
   });
 });
 document.addEventListener("DOMContentLoaded", () => {
-  const space = document.getElementById("throw");
-  space.addEventListener("touchend", () => {
+  let space = document.getElementById("throw");
+  space.addEventListener("touchend", (e) => {
+    e.preventDefault();
     keyboard.SPACE = false;
   });
 });
@@ -221,4 +217,63 @@ const spaceKeyEvent = new KeyboardEvent("keydown", {
 
 function turnLeft(x) {
   x.otherDirection = true;
+}
+
+function switchScreenButton() {
+  let fullscreen = document.getElementById("open_fullscreen");
+  let closeFullscreen = document.getElementById("close_fullscreen");
+
+  fullscreen.classList.toggle("d-none");
+  closeFullscreen.classList.toggle("d-none");
+}
+
+function openFullscreen() {
+  let content = document.getElementById("content");
+
+  enterFullscreen(content);
+  screenMaxWidth();
+  switchScreenButton();
+}
+
+function screenMaxWidth() {
+  let screen = document.getElementById("canvas");
+  let screenImg = document.getElementById("start");
+
+  screen.classList.add("fullscreen-modus");
+  screenImg.classList.add("fullscreen-modus");
+}
+function screenMaxWidthClose() {
+  let screen = document.getElementById("canvas");
+  let screenImg = document.getElementById("start");
+
+  screen.classList.remove("fullscreen-modus");
+  screenImg.classList.remove("fullscreen-modus");
+}
+
+function closeFullscreen() {
+  let content = document.getElementById("content");
+
+  exitFullscreen(content);
+  screenMaxWidthClose();
+  switchScreenButton();
+}
+
+function enterFullscreen(element) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.msRequestFullscreen) {
+    // for IE11 (remove June 15, 2022)
+    element.msRequestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    // iOS Safari
+    element.webkitRequestFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
 }

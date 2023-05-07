@@ -28,81 +28,105 @@
   </head>
   <body onload="init()" onresize="checkWidth()">
     <h1>EL Pollio Loco</h1>
-    <canvas id="canvas" width="720" height="480"> </canvas>
-
-    <div class="device-message d-none" id="message">
-      <img src="img/background/device-message.png" class="device-img" />
-      <h3>
-        Please switch to a larger device<br />
-        (min 720x480).
-      </h3>
-    </div>
-
-    <div class="startscreen">
-      <div class="responsive-control d-none" id="respons_control" >
-        <button class="respons-btn" id="left">←</button>
-        <button class="respons-btn" id="up">↑</button>
-        <button class="respons-btn" id="right">→</button>
-        <button class="respons-btn" id="throw">Throw</button>
-      </div>
-
-      <div class="win startscreen-img d-none" id="win">
-        <span>YOU WIN !</span>
-      </div>
-
-      <div class="game-over_screen">
-        <img
-          src="img/9_intro_outro_screens/game_over/game over!.png"
-          class="game-over startscreen-img d-none"
-          id="game_over"
-        />
-      </div>
-
+    <div class="contentbox" id="content">
+      <canvas id="canvas" width="720" height="480"> </canvas>
       <img
         class="startscreen-img"
         src="img/9_intro_outro_screens/start/startscreen_1.png"
         id="start"
       />
 
-      <button class="start-btn" id="start_btn" onclick="startGame()">
-        START
-      </button>
+      <div class="interact">
+        <button class="start-btn" id="start_btn" onclick="startGame()">
+          START
+        </button>
+        <div class="option">
+          <img
+            src="img/icons/controler.png"
+            class="controller"
+            id="controller"
+          />
+          <img
+            src="img/icons/infomartion.png"
+            class="options"
+            id="information"
+          />
+          <img
+            src="img/icons/fullscreen.png"
+            class="options"
+            id="open_fullscreen"
+            onclick="openFullscreen()"
+          />
+          <img
+            src="img/icons/close-fullscreen.png"
+            class="options d-none"
+            id="close_fullscreen"
+            onclick="closeFullscreen()"
+          />
+        </div>
+      </div>
 
-      <div class="start"></div>
-      <div class="control d-none" id="control_info_respons">
-        <div class="a">
-          <p>← = Walk left</p>
-        </div>
-        <div class="w">
-          <p>↑ = Jump</p>
-          <p></p>
-        </div>
-
-        <div class="d">
-          <p>→ = Walk right</p>
-          <p></p>
-        </div>
-
-        <div class="space">
-          <p>Throw = Throw bottle</p>
-          <p></p>
-        </div>
-      <div class="control" id="control">
+      <div class="control d-none" id="control">
         <div class="a">
           <p>a = Walk left</p>
         </div>
         <div class="w">
           <p>w = Jump</p>
-          <p></p>
         </div>
-
         <div class="d">
           <p>d = Walk right</p>
-          <p></p>
         </div>
-         
+        <div class="space">
+          <p>Space = Throw bottle</p>
+        </div>
       </div>
+
+      <div class="respons-control d-none" id="respons_control">
+        <div class="a dflex" id="left">
+          <img src="img/icons/arrow_left.png" />
+        </div>
+        <div class="w" id="jump">
+          <img src="img/icons/arrow_up.png" />
+        </div>
+        <div class="d dflex" id="right">
+          <img src="img/icons/arrow_right.png" />
+        </div>
+        <div class="space" id="throw">
+          <img src="img/icons/salsa_bottle.png" class="salsa-bottle" />
+        </div>
+      </div>
+
+      <div class="landscape d-none" id="landscape">
+        <img src="img/icons/rotate.png" class="phone" />
+      </div>
+    </div>
+
+    <div class="win startscreen-img d-none" id="win">
+      <span>YOU WIN !</span>
+    </div>
+
+    <div class="game-over_screen">
+      <img
+        src="img/9_intro_outro_screens/game_over/game over!.png"
+        class="game-over startscreen-img d-none"
+        id="game_over"
+      />
+    </div>
+
+    <div class="device-message d-none" id="message">
+      <img
+        src="img/background/device-message.png"
+        class="device-img"
+        id="device"
+      />
+      <h3>
+        Please switch to a larger device<br />
+        (min 720x480).
+      </h3>
     </div>
   </body>
   <!-- http://david-osipov.developerakademie.net/Pollo_Loco/index.html -->
 </html>
+<!-- canvas[Attributes Style] {
+    aspect-ratio: auto 780 / 480;
+} -->

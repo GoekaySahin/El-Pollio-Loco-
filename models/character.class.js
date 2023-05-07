@@ -156,6 +156,7 @@ class Character extends MovableObject {
         !this.isHurt()
       ) {
         this.moveRight(this);
+        console.log("ROGHT");
         if (!this.isAboveGround()) {
           this.standTimer();
           this.walking_sound.play();
@@ -184,7 +185,7 @@ class Character extends MovableObject {
     }, 93);
 
     setInterval(() => {
-      if (!this.isAboveGround()) {
+      if (!this.isAboveGround() && !this.fallInSleep()) {
         this.loadImage("img/2_character_pepe/2_walk/W-21.png");
       }
     }, 500);
