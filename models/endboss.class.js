@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
   width = 200;
   height = 340;
   y = 105;
-  scream = "anderes";
+  scream = false;
   characterX = 0;
   power = 25;
   powerChecker = 25;
@@ -77,7 +77,7 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.scream == "anderes") {
+      if (this.scream == false) {
         this.alerta();
       } else if (
         this.power == this.powerChecker &&
@@ -103,6 +103,13 @@ class Endboss extends MovableObject {
       }
     }, 90);
   }
+
+  /*   bossEnergyBar(){
+    if(this.scream == true){
+      this.bossEnergyBar.x -= 10
+      if(this.bossEnergyBar == )
+    }
+  } */
 
   hurtTimeFalse(x) {
     x.hurtTimeBoss = false;

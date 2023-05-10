@@ -10,6 +10,8 @@ class World {
   statusBar = new StatusBar();
   coinbar = new CoinBar();
   bottleBar = new BottleBar();
+  bossBar = new BossEnergyBar();
+  bossIcon = new StatusBarEndbossIcon();
   collectable = new Collectable();
   bottle = new CollectableBottle();
   flyingBottle = new ThrowableObject();
@@ -58,7 +60,7 @@ class World {
   loudChicken() {
     if (
       this.character.x > 4350 &&
-      this.level.enemies[this.level.enemies.length - 1].scream == "anderes"
+      this.level.enemies[this.level.enemies.length - 1].scream == false
     ) {
       this.level.enemies[this.level.enemies.length - 1].bossComimg_sound.play();
       this.level.enemies[this.level.enemies.length - 1].scream = true;
@@ -108,18 +110,12 @@ class World {
         if (bottle.y > 380 && bottle.y < 1000) {
           bottle.collision = true;
           bottle.speedY = 0;
-          //setTimeout(bottle.splashFalse, 75, bottle);
         }
         if (this.character.isColliding(enemy, bottle) && enemy.width < 150) {
           this.character.hitEnemy(enemy, bottle);
           this.character.killAnimation(enemy);
           setTimeout(this.spliceEnemy, 250, this, i);
-          /*           bottle.width = 0;
-          bottle.height = 0;
-          bottle.x = 0;
-          bottle.y = 0;
-          bottle.speedX = 0;
-          bottle.speedY = 0; */
+
           bottle = 0;
         } else if (
           this.character.isColliding(enemy, bottle) &&
@@ -143,7 +139,6 @@ class World {
   }
 
   spliceEnemy(x, enemy) {
-    //console.log("Not spliced :", x.level.enemies[enemy]);
     if (x.level.enemies[enemy].x == 0) {
       x.level.enemies.splice(enemy, 1);
     }
@@ -217,6 +212,8 @@ class World {
     this.addToMap(this.bottleBar);
     this.addToMap(this.statusBar);
     this.addToMap(this.coinbar);
+    this.addToMap(this.bossBar);
+    this.addToMap(this.bossIcon);
     this.ctx.translate(this.camera_x, 0); // <---- end
 
     this.addObjectToMap(this.throwableObjcet);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,11 +23,13 @@
     <script src="models/collectable-bottle.class.js"></script>
     <script src="models/coin-bar.class.js"></script>
     <script src="models/bottle-bar.class.js"></script>
+    <script src="models/boss-energy-bar.class.js"></script>
+    <script src="models/boss-energy-bar-icon.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
   </head>
   <body onload="init()" onresize="checkWidth()">
-    <h1>EL Pollio Loco</h1>
+    <h1 id="title_screen">EL Pollio Loco</h1>
     <div class="contentbox" id="content">
       <canvas id="canvas" width="720" height="480"> </canvas>
       <img

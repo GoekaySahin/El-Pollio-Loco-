@@ -156,7 +156,6 @@ class Character extends MovableObject {
         !this.isHurt()
       ) {
         this.moveRight(this);
-        console.log("ROGHT");
         if (!this.isAboveGround()) {
           this.standTimer();
           this.walking_sound.play();

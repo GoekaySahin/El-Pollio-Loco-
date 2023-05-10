@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
   coins = 0;
   bottle = 0;
   characterX;
+  endboss_power = 25;
 
   get_bottle = new Audio("audio/getABottle.mp3");
   get_coins = new Audio("audio/collectCoins.mp3");

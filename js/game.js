@@ -72,6 +72,16 @@ document.onkeyup = function (e) {
     keyboard.SPACE = false;
   }
 };
+function checkOrientation() {
+  if (window.matchMedia("(orientation: landscape)").matches) {
+    if (window.innerHeight < 480) {
+      newHeight = window.innerHeight;
+      document.getElementById("canvas").style.height = `${newHeight}px`;
+    }
+  } else {
+    document.getElementById("canvas").style.height = `100%`;
+  }
+}
 
 function checkWidth() {
   let message = document.getElementById("message");
@@ -79,6 +89,7 @@ function checkWidth() {
   let device = document.getElementById("device");
   let rotatePhone = document.getElementById("landscape");
   let startScreen = document.getElementById("start");
+  checkOrientation();
 
   if (
     (this.screen.availWidth < 480 && this.screen.availHeight > 720) ||
@@ -107,6 +118,22 @@ function checkWidth() {
   } else {
     info.classList.remove("d-none");
   }
+  if (this.screen.availWidth < 1441) {
+    removeTitle();
+  } else if (this.screen.availWidth > 1440) {
+    addTitle();
+  }
+}
+
+function removeTitle() {
+  let titleScreen = document.getElementById("title_screen");
+
+  titleScreen.classList.add("d-none");
+}
+function addTitle() {
+  let titleScreen = document.getElementById("title_screen");
+
+  titleScreen.classList.remove("d-none");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
