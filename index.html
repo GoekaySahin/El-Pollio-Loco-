@@ -42,7 +42,7 @@
         <button class="start-btn" id="start_btn" onclick="startGame()">
           START
         </button>
-        <div class="option">
+        <div class="option" id="option">
           <img
             src="img/icons/controler.png"
             class="controller"
@@ -109,10 +109,14 @@
           id="game_over"
         />
       </div>
-    </div>
 
-    <div class="win startscreen-img d-none pa" id="win">
-      <span>YOU WIN !</span>
+      <div class="win startscreen-img d-none pa" id="win">
+        <span>YOU WIN !</span>
+      </div>
+
+      <div class="restart d-none" id="restart" onclick="location.reload()">
+        <span>Restart</span>
+      </div>
     </div>
 
     <div class="device-message d-none" id="message">

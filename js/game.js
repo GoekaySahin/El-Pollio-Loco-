@@ -49,6 +49,7 @@ function startGame() {
     world.character.startCharacter();
     world.game_start = true;
   }
+  toggleOptions();
 }
 
 function setFalse() {
@@ -123,6 +124,16 @@ function checkWidth() {
   } else if (this.screen.availWidth > 1440) {
     addTitle();
   }
+}
+
+function toggleOptions() {
+  let con = document.getElementById("controller");
+  let info = document.getElementById("information");
+  let opt = document.getElementById("option");
+
+  con.classList.toggle("d-none");
+  info.classList.toggle("d-none");
+  opt.classList.add("correct-fullscreen-button");
 }
 
 function removeTitle() {
@@ -207,11 +218,32 @@ function gameOver() {
       setTimeout(clearAllIntervals, 450);
     } else if (world.level.enemies[endboss_index].power == 0) {
       world.character.loadImage("img/2_character_pepe/2_walk/W-21.png");
-      let win = document.getElementById("win");
-      win.classList.remove("d-none");
+      winVisible();
       setTimeout(clearAllIntervals, 1100);
     }
   }, 100);
+}
+
+function winVisible() {
+  let win = document.getElementById("win");
+  let closeFull = document.getElementById("close_fullscreen");
+
+  win.classList.remove("d-none");
+  setTimeout(restartVisible, 600);
+
+  if (!closeFull.classList.value.includes("d-none")) {
+    win.classList.add("w100");
+  } else if (
+    closeFull.classList.value.includes("d-none") &&
+    win.classList.value.includes("w100")
+  ) {
+    win.classList.remove("w100");
+  }
+}
+
+function restartVisible() {
+  let restart = document.getElementById("restart");
+  restart.classList.remove("d-none");
 }
 
 function clearAllIntervals() {
@@ -221,8 +253,15 @@ function clearAllIntervals() {
 }
 
 function gameOverVisible() {
-  let GameOverScreen = document.getElementById("game_over");
-  GameOverScreen.classList.remove("d-none");
+  let gameOverScreen = document.getElementById("game_over");
+  let closeButton = document.getElementById("close_fullscreen");
+
+  gameOverScreen.classList.remove("d-none");
+  restartVisible();
+
+  if (!closeButton.classList.value.includes("d-none")) {
+    gameOverScreen.classList.remove("startscreen-img");
+  }
 }
 
 function stopWalkingSound() {

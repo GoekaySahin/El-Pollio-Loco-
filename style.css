@@ -175,6 +175,25 @@ span {
   position: absolute;
 }
 
+.correct-fullscreen-button {
+  justify-content: flex-end;
+  top: 5%;
+  right: 4%;
+}
+
+.w100 {
+  width: 100%;
+  height: 100vh;
+}
+
+.restart {
+  position: absolute;
+  top: 70%;
+}
+
+.restart > span:hover {
+  color: red;
+}
 @font-face {
   font-family: "Quinthero";
   src: url("fonts/Quinthero.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
