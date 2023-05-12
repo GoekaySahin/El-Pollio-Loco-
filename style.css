@@ -38,6 +38,9 @@ canvas {
 .startscreen-img {
   width: 720px;
   height: 481px;
+}
+
+.pa {
   position: absolute;
 }
 
@@ -166,6 +169,10 @@ span {
 .fullscreen-modus {
   width: 100%;
   height: 100vh;
+}
+
+.game-over-screen {
+  position: absolute;
 }
 
 @font-face {

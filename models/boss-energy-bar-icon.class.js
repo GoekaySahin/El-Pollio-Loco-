@@ -3,11 +3,16 @@ class StatusBarEndbossIcon extends MovableObject {
 
   x = 422;
   y = 427;
-  width = 50;
-  height = 50;
+  width = 0;
+  height = 0;
 
   constructor() {
     super();
     this.loadImage(this.IMAGE[0]);
+  }
+
+  iconVisible(x) {
+    x.bossIcon.width = 50;
+    x.bossIcon.height = 50;
   }
 }

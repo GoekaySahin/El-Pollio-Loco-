@@ -64,6 +64,8 @@ class World {
     ) {
       this.level.enemies[this.level.enemies.length - 1].bossComimg_sound.play();
       this.level.enemies[this.level.enemies.length - 1].scream = true;
+      this.bossBar.powerVisible();
+      setTimeout(this.bossIcon.iconVisible, 1000, this);
     }
   }
 
@@ -123,6 +125,8 @@ class World {
           !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
         ) {
           this.character.hitEnemy(enemy, bottle);
+          let energy = enemy.power / 5;
+          this.bossBar.showPower(energy);
           if (enemy.power == 0) {
             setTimeout(this.killAnimation, 1000, enemy);
             setTimeout(this.spliceEnemy, 1800, this, i);
