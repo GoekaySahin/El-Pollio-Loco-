@@ -113,7 +113,11 @@ class World {
           bottle.collision = true;
           bottle.speedY = 0;
         }
-        if (this.character.isColliding(enemy, bottle) && enemy.width < 150) {
+        if (
+          this.character.isColliding(enemy, bottle) &&
+          enemy.width < 150 &&
+          this.character.x < enemy.x
+        ) {
           this.character.hitEnemy(enemy, bottle);
           this.character.killAnimation(enemy);
           setTimeout(this.spliceEnemy, 250, this, i);
@@ -122,7 +126,8 @@ class World {
         } else if (
           this.character.isColliding(enemy, bottle) &&
           enemy.width > 150 &&
-          !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
+          !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss &&
+          this.character.x <= enemy.x
         ) {
           this.character.hitEnemy(enemy, bottle);
           let energy = enemy.power / 5;
@@ -156,8 +161,12 @@ class World {
         this.character.tarePos();
         this.hitEnemyCollision = true;
         setTimeout(this.hitEnemyTrue, 250, this);
-        if (enemy.width > 150 && enemy.power == 0) {
-          setTimeout(this.spliceEnemy, 1600, this, i);
+        if (enemy.width > 150) {
+          let energy = enemy.power / 5;
+          this.bossBar.showPower(energy);
+          if (enemy.power == 0) {
+            setTimeout(this.spliceEnemy, 1600, this, i);
+          }
         } else if ((enemy.width < 150 && enemy.power == 0) || enemy.power < 0) {
           this.character.killAnimation(enemy);
           setTimeout(this.spliceEnemy, 250, this, i);

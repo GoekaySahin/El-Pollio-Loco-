@@ -92,7 +92,7 @@ function checkWidth() {
   let startScreen = document.getElementById("start");
   checkOrientation();
 
-  if (
+  /*   if (
     (this.screen.availWidth < 480 && this.screen.availHeight > 720) ||
     (this.screen.availWidth > 480 && this.screen.availHeight < 480) ||
     (this.screen.availWidth > 720 && this.screen.availHeight < 480) ||
@@ -103,7 +103,7 @@ function checkWidth() {
   ) {
     message.classList.remove("d-none");
     device.style = "height:" + this.screen.availHeight * 2 + "px;";
-  } else if (
+  } else  */ if (
     this.screen.availWidth > this.screen.availHeight &&
     !rotatePhone.classList.value.includes("d-none")
   ) {

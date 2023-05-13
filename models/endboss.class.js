@@ -120,8 +120,8 @@ class Endboss extends MovableObject {
   }
 
   bossInvisible() {
-    this.width = 0;
-    this.height = 0;
+    /*     this.width = 0;
+    this.height = 0; */
     setTimeout(this.bossVisible, 100, this);
   }
 

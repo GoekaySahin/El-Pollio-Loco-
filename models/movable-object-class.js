@@ -69,7 +69,9 @@ class MovableObject extends DrawableObject {
       obj.width -= 5;
       obj.height -= 15;
       obj.y += 20;
-      setTimeout(this.enemyImplode(obj), 300);
+      if (obj.width < 150) {
+        setTimeout(this.enemyImplode(obj), 300);
+      }
     }, 50);
   }
 
