@@ -38,6 +38,8 @@ function startGame() {
     resControl.classList.add("d-none");
   }
 
+  showSettings();
+
   if (!world.game_start) {
     let startScreen = document.getElementById("start");
     let btn = document.getElementById("start_btn");
@@ -127,11 +129,9 @@ function checkWidth() {
 }
 
 function toggleOptions() {
-  let con = document.getElementById("controller");
   let info = document.getElementById("information");
   let opt = document.getElementById("option");
 
-  con.classList.toggle("d-none");
   info.classList.toggle("d-none");
   opt.classList.add("correct-fullscreen-button");
 }
@@ -342,4 +342,71 @@ function exitFullscreen() {
   } else if (document.webkitExitFullscreen) {
     document.webkitExitFullscreen();
   }
+}
+
+function startAnimation() {
+  let setting = document.getElementById("setting");
+
+  if (setting.classList.value.includes("close")) {
+    setting.classList.remove("setting-animation-close");
+  }
+  if (!setting.classList.value.includes("h140")) {
+    setting.classList.add("setting-animation");
+    setTimeout(settingHeight, 1800);
+    optionButtonsVisible();
+  }
+}
+
+function optionButtonsVisible() {
+  setTimeout(fullscreenVisible, 250);
+  setTimeout(controllerVisible, 500);
+  setTimeout(soundVisible, 750);
+}
+
+function optionButtonsInvisible() {
+  setTimeout(fullscreenVisible, 250);
+  setTimeout(controllerVisible, 500);
+  setTimeout(soundVisible, 750);
+}
+
+function fullscreenVisible() {
+  let fullscreen = document.getElementById("open_fullscreen");
+  fullscreen.classList.toggle("d-none");
+}
+
+function controllerVisible() {
+  let controller = document.getElementById("controller");
+  controller.classList.toggle("d-none");
+}
+
+function soundVisible() {
+  let sound = document.getElementById("sound");
+  sound.classList.toggle("d-none");
+}
+
+function settingHeight() {
+  let setting = document.getElementById("setting");
+
+  setting.classList.add("h140");
+}
+
+function showSettings() {
+  let setting = document.getElementById("setting");
+  setting.classList.remove("d-none");
+}
+
+function closeSettings() {
+  let setting = document.getElementById("setting");
+  if (setting.classList.value.includes("h140")) {
+    setting.classList.remove("setting-animation");
+
+    setting.classList.add("setting-animation-close");
+    removeSettingH140();
+    optionButtonsInvisible();
+  }
+}
+
+function removeSettingH140() {
+  let setting = document.getElementById("setting");
+  setting.classList.remove("h140");
 }

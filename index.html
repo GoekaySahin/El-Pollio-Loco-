@@ -33,7 +33,7 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
   </head>
-  <body onload="init()" onresize="checkWidth()">
+  <body onload="init()" onresize="checkWidth()" onclick="closeSettings()">
     <h1 id="title_screen">EL Pollio Loco</h1>
     <div class="contentbox" id="content">
       <canvas id="canvas" width="720" height="480"> </canvas>
@@ -49,27 +49,46 @@
         </button>
         <div class="option" id="option">
           <img
-            src="img/icons/controler.png"
-            class="controller"
-            id="controller"
-          />
-          <img
             src="img/icons/infomartion.png"
             class="options"
             id="information"
           />
-          <img
+          <!--   <img
             src="img/icons/fullscreen.png"
             class="options"
             id="open_fullscreen"
             onclick="openFullscreen()"
-          />
+          /> -->
+          <!--   <img
+            src="img/icons/close-fullscreen.png"
+            class="options d-none"
+            id="close_fullscreen"
+            onclick="closeFullscreen()"
+          /> -->
+        </div>
+
+        <div class="settings d-none" id="setting" onclick="startAnimation()">
+          <img src="img/icons/settings.png" class="setting-icon" />
           <img
             src="img/icons/close-fullscreen.png"
             class="options d-none"
             id="close_fullscreen"
             onclick="closeFullscreen()"
           />
+          <img
+            src="img/icons/fullscreen.png"
+            class="options d-none"
+            id="open_fullscreen"
+            onclick="openFullscreen()"
+          />
+          <img
+            src="img/icons/controler.png"
+            id="controller"
+            class="controller d-none"
+          />
+
+          <img src="img/icons/sound.png" id="sound" class="sound d-none" />
+          <img src="img/icons/mute.png" id="mute" class="mute d-none" />
         </div>
       </div>
 
@@ -115,7 +134,7 @@
         />
       </div>
 
-      <div class="win startscreen-img d-none pa" id="win">
+      <div class="win d-none pa" id="win">
         <span>YOU WIN !</span>
       </div>
 
@@ -130,14 +149,7 @@
         class="device-img"
         id="device"
       />
-      <h3>
-        Please switch to a larger device<br />
-        (min 720x480).
-      </h3>
     </div>
   </body>
   <!-- http://david-osipov.developerakademie.net/Pollo_Loco/index.html -->
 </html>
-<!-- canvas[Attributes Style] {
-    aspect-ratio: auto 780 / 480;
-} -->

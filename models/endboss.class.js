@@ -89,7 +89,6 @@ class Endboss extends MovableObject {
         this.moveLeft(this);
       } else if (!(this.power == this.powerChecker)) {
         this.hurt();
-        this.bossInvisible();
         this.boss_hurt_sound.play();
         if (!this.hurtTimeBoss) {
           this.hurtTimeBoss = true;
@@ -117,17 +116,6 @@ class Endboss extends MovableObject {
   }
   hurtTimeTrue(x) {
     x.hurtTimeBoss = true;
-  }
-
-  bossInvisible() {
-    /*     this.width = 0;
-    this.height = 0; */
-    setTimeout(this.bossVisible, 100, this);
-  }
-
-  bossVisible(x) {
-    x.width = 200;
-    x.height = 340;
   }
 
   alerta() {

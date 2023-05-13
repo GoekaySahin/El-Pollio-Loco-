@@ -13,7 +13,7 @@ class CoinBar extends MovableObject {
   constructor() {
     super();
     this.loadImages(this.IMAGES);
-    this.x = 440;
+    this.x = 410;
     this.y = 0;
     this.width = 200;
     this.height = 50;
