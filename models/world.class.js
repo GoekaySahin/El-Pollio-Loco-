@@ -78,6 +78,14 @@ class World {
     clearInterval(inter);
   }
 
+  checkSoundBottle(bottle) {
+    if (this.character.sound == false) {
+      bottle.sound = false;
+    } else {
+      bottle.sound = true;
+    }
+  }
+
   handleKeyDown(event) {
     if (
       event.code === "Space" &&
@@ -89,6 +97,7 @@ class World {
         this.character.x + 80,
         this.character.y + 100
       );
+      this.checkSoundBottle(bottle);
       this.character.standTimer();
 
       /* this.interBottle = setInterval(() => {

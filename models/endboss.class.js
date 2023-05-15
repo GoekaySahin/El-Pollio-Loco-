@@ -151,7 +151,7 @@ class Endboss extends MovableObject {
 
   winningSound(x) {
     if (x.width > 0) {
-      x.playAudio(this.boss_dead_applaud);
+      x.playAudio(x.boss_dead_applaud);
     }
   }
 }

@@ -472,6 +472,10 @@ function menuFalse() {
 function mute() {
   toggleSoundIcons();
   world.character.sound = false;
+  chickenMute();
+  bottleMute();
+  /*   endbossMute();
+   */
 }
 
 function muteOff() {
@@ -493,3 +497,38 @@ function soundIconToggle() {
   let soundIcon = document.getElementById("sound");
   soundIcon.classList.toggle("d-none");
 }
+
+function chickenMute() {
+  world.level.enemies.forEach((enemy) => {
+    enemy.sound = false;
+  });
+}
+function chickenMuteOff() {
+  world.level.enemies.forEach((enemy) => {
+    enemy.sound = true;
+  });
+}
+
+/* function endbossMute() {
+  let endbossIndex = world.level.enemies.length - 1;
+  let endboss = world.level.enemies[endbossIndex];
+  endboss.sound = false;
+}
+
+function endbossMuteOff() {
+  let endbossIndex = world.level.enemies.length - 1;
+  let endboss = world.level.enemies[endbossIndex];
+  endboss.sound = true;
+} */
+
+function bottleMute() {
+  world.flyingBottle.sound = false;
+  world.bottle.sound = false;
+}
+
+function bottleMuteOff() {
+  world.flyingBottle.sound = true;
+  world.bottle.sound = true;
+}
+
+// Bottle will ned mute werden... Vielleicht mal in MovableObjcets verschieben dahane

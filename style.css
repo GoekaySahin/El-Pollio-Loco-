@@ -296,6 +296,12 @@ span {
   height: 30px;
 }
 
+.mute {
+  width: 27px;
+  height: 27px;
+  margin-inline-start: 3px;
+}
+
 @font-face {
   font-family: "Quinthero";
   src: url("fonts/Quinthero.ttf") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */

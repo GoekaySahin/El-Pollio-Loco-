@@ -141,7 +141,7 @@ class Character extends MovableObject {
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         if (this.width > 0) {
-          this.playAudio(this.lose)();
+          this.playAudio(this.lose);
           this.playAudio(this.game_over);
         }
         this.characterKill();
