@@ -10,6 +10,7 @@ class MovableObject extends DrawableObject {
   bottle = 0;
   characterX;
   endboss_power = 25;
+  sound = true;
 
   get_bottle = new Audio("audio/getABottle.mp3");
   get_coins = new Audio("audio/collectCoins.mp3");
@@ -276,5 +277,11 @@ class MovableObject extends DrawableObject {
 
   stopInter(inter) {
     clearInterval(inter);
+  }
+
+  playAudio(obj) {
+    if (this.sound) {
+      obj.play();
+    }
   }
 }

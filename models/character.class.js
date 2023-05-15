@@ -134,20 +134,20 @@ class Character extends MovableObject {
       } else if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
         if (!(this.power == this.powerControl)) {
-          this.hurt_sound.play();
+          this.playAudio(this.hurt_sound);
           this.powerControl = this.power;
           this.standTimer();
         }
       } else if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
         if (this.width > 0) {
-          this.lose.play();
-          this.game_over.play();
+          this.playAudio(this.lose)();
+          this.playAudio(this.game_over);
         }
         this.characterKill();
       } else if (keyboard.UP && !this.isAboveGround()) {
         this.jump();
-        this.jump_sound.play();
+        this.playAudio(this.jump_sound);
         this.standTimer();
       }
       if (
@@ -158,7 +158,7 @@ class Character extends MovableObject {
         this.moveRight(this);
         if (!this.isAboveGround()) {
           this.standTimer();
-          this.walking_sound.play();
+          this.playAudio(this.walking_sound);
         }
       }
 
@@ -167,7 +167,7 @@ class Character extends MovableObject {
         this.moveLeft(this);
         this.standTimer();
         if (!this.isAboveGround()) {
-          this.walking_sound.play();
+          this.playAudio(this.walking_sound);
         }
       }
       this.world.camera_x = -this.x + 100;

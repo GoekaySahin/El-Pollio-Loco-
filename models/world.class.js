@@ -62,7 +62,9 @@ class World {
       this.character.x > 4350 &&
       this.level.enemies[this.level.enemies.length - 1].scream == false
     ) {
-      this.level.enemies[this.level.enemies.length - 1].bossComimg_sound.play();
+      this.character.playAudio(
+        this.level.enemies[this.level.enemies.length - 1].bossComimg_sound
+      );
       this.level.enemies[this.level.enemies.length - 1].scream = true;
       this.bossBar.powerVisible();
       setTimeout(this.bossIcon.iconVisible, 1000, this);
@@ -193,7 +195,7 @@ class World {
       if (this.character.isColliding(coin)) {
         this.coinbar.setCoinsBar(this.character.getCoin());
         this.level.collectable.splice(i, 1);
-        this.character.get_coins.play();
+        this.character.playAudio(this.character.get_coins);
       }
     });
   }
@@ -203,7 +205,7 @@ class World {
       if (this.character.isColliding(bottle)) {
         this.bottleBar.showBottle(this.character.countBottle());
         this.level.collectableBottle.splice(i, 1);
-        this.character.get_bottle.play();
+        this.character.playAudio(this.character.get_bottle);
       }
     });
   }

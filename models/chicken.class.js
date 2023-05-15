@@ -40,7 +40,7 @@ class Chicken extends MovableObject {
     setInterval(() => {
       if (this.power == 0 && this.height > 0) {
         this.deadChicken();
-        this.get_smash.play();
+        this.playAudio(this.get_smash);
       } else {
         this.moveLeft(this);
       }

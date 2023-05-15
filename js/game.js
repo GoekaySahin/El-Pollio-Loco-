@@ -466,3 +466,30 @@ function menuTrue() {
 function menuFalse() {
   menu = false;
 }
+
+// Mute Funktion
+
+function mute() {
+  toggleSoundIcons();
+  world.character.sound = false;
+}
+
+function muteOff() {
+  toggleSoundIcons();
+  world.character.sound = true;
+}
+
+function toggleSoundIcons() {
+  muteIconToggle();
+  soundIconToggle();
+}
+
+function muteIconToggle() {
+  let muteIcon = document.getElementById("mute");
+  muteIcon.classList.toggle("d-none");
+}
+
+function soundIconToggle() {
+  let soundIcon = document.getElementById("sound");
+  soundIcon.classList.toggle("d-none");
+}

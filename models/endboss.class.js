@@ -89,13 +89,13 @@ class Endboss extends MovableObject {
         this.moveLeft(this);
       } else if (!(this.power == this.powerChecker)) {
         this.hurt();
-        this.boss_hurt_sound.play();
+        this.playAudio(this.boss_hurt_sound);
         if (!this.hurtTimeBoss) {
           this.hurtTimeBoss = true;
         }
       } else if (this.power <= 0 && this.width > 0) {
         this.dead();
-        this.boss_dead_sound.play();
+        this.playAudio(this.boss_dead_sound);
         setTimeout(this.winningSound, 800, this);
       } else {
         this.walking(this);
@@ -151,7 +151,7 @@ class Endboss extends MovableObject {
 
   winningSound(x) {
     if (x.width > 0) {
-      x.boss_dead_applaud.play();
+      x.playAudio(this.boss_dead_applaud);
     }
   }
 }

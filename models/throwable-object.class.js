@@ -53,7 +53,7 @@ class ThrowableObject extends MovableObject {
     setInterval(() => {
       if (this.collision == true && this.width > 0) {
         this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
-        this.bottle_splash_sound.play();
+        this.playAudio(this.bottle_splash_sound);
         setTimeout(this.splashFalse, 100, this);
       } else if (this.collision == false) {
         this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
