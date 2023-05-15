@@ -31,28 +31,44 @@ document.onkeydown = function (e) {
   }
 };
 
+function showResponsControl(resControl) {
+  resControl.classList.remove("d-none");
+}
+
+function hideResponsControl(resControl) {
+  resControl.classList.add("d-none");
+}
+
 function startGame() {
   let resControl = document.getElementById("respons_control");
+
   if (window.screen.width < 900) {
-    resControl.classList.remove("d-none");
+    showResponsControl(resControl);
   } else {
-    resControl.classList.add("d-none");
+    hideResponsControl(resControl);
   }
 
   showSettings();
 
-  if (!world.game_start) {
-    let startScreen = document.getElementById("start");
-    let btn = document.getElementById("start_btn");
-    let control = document.getElementById("control");
-
-    control.classList.add("d-none");
-    btn.classList.add("d-none");
-    startScreen.classList.add("d-none");
-    world.character.startCharacter();
-    world.game_start = true;
+  if (gameStart()) {
+    setGame();
   }
-  toggleOptions();
+}
+
+function gameStart() {
+  return !world.game_start;
+}
+
+function setGame() {
+  let startScreen = document.getElementById("start");
+  let btn = document.getElementById("start_btn");
+  let control = document.getElementById("control");
+
+  control.classList.add("d-none");
+  btn.classList.add("d-none");
+  startScreen.classList.add("d-none");
+  world.character.startCharacter();
+  world.game_start = true;
 }
 
 function setFalse() {
@@ -76,6 +92,7 @@ document.onkeyup = function (e) {
     keyboard.SPACE = false;
   }
 };
+
 function checkOrientation() {
   if (window.matchMedia("(orientation: landscape)").matches) {
     if (window.innerHeight < 480) {
@@ -88,39 +105,20 @@ function checkOrientation() {
 }
 
 function checkWidth() {
-  let message = document.getElementById("message");
   let info = document.getElementById("control");
-  let device = document.getElementById("device");
   let rotatePhone = document.getElementById("landscape");
   let startScreen = document.getElementById("start");
   checkOrientation();
 
-  /*   if (
-    (this.screen.availWidth < 480 && this.screen.availHeight > 720) ||
-    (this.screen.availWidth > 480 && this.screen.availHeight < 480) ||
-    (this.screen.availWidth > 720 && this.screen.availHeight < 480) ||
-    (this.screen.availWidth < 720 && this.screen.availHeight < 480) ||
-    (this.screen.availWidth < 720 &&
-      this.screen.availHeight > 480 &&
-      this.screen.availHeight < 720)
-  ) {
-    message.classList.remove("d-none");
-    device.style = "height:" + this.screen.availHeight * 2 + "px;";
-  } else  */ if (
-    this.screen.availWidth > this.screen.availHeight &&
-    !rotatePhone.classList.value.includes("d-none")
-  ) {
-    rotatePhone.classList.add("d-none");
-  } else if (
-    this.screen.availWidth < this.screen.availHeight &&
-    !startScreen.classList.value.includes("fullscreen-modus")
-  ) {
-    rotatePhone.classList.remove("d-none");
+  if (widthBiggerThanHeigth(rotatePhone)) {
+    rotatePhoneInvisible(rotatePhone);
+  } else if (widthSmallerThanHeight(startScreen)) {
+    rotatePhoneVisible(rotatePhone);
   }
   if (this.screen.availWidth <= 900) {
-    info.classList.add("d-none");
-  } else if (!startScreen.classList.value.includes("d-none")) {
-    info.classList.remove("d-none");
+    controlInvisible(info);
+  } else if (startscreenVisible(startScreen)) {
+    controlVisible(info);
   }
   if (this.screen.availWidth < 1441) {
     removeTitle();
@@ -129,12 +127,38 @@ function checkWidth() {
   }
 }
 
-function toggleOptions() {
-  let info = document.getElementById("information");
-  let opt = document.getElementById("option");
+function startscreenVisible(startScreen) {
+  return !startScreen.classList.value.includes("d-none");
+}
 
-  info.classList.toggle("d-none");
-  opt.classList.add("correct-fullscreen-button");
+function controlVisible(info) {
+  info.classList.remove("d-none");
+}
+
+function controlInvisible(info) {
+  info.classList.add("d-none");
+}
+
+function widthSmallerThanHeight(startScreen) {
+  return (
+    this.screen.availWidth < this.screen.availHeight &&
+    !startScreen.classList.value.includes("fullscreen-modus")
+  );
+}
+
+function widthBiggerThanHeigth(rotatePhone) {
+  return (
+    this.screen.availWidth > this.screen.availHeight &&
+    !rotatePhone.classList.value.includes("d-none")
+  );
+}
+
+function rotatePhoneVisible(rotatePhone) {
+  rotatePhone.classList.remove("d-none");
+}
+
+function rotatePhoneInvisible(rotatePhone) {
+  rotatePhone.classList.add("d-none");
 }
 
 function removeTitle() {
@@ -189,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     keyboard.RIGHT = false;
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
   let jump = document.getElementById("jump");
   jump.addEventListener("touchend", (e) => {
@@ -196,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     keyboard.UP = false;
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
   let left = document.getElementById("left");
   left.addEventListener("touchend", (e) => {
@@ -203,6 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     keyboard.LEFT = false;
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
   let space = document.getElementById("throw");
   space.addEventListener("touchend", (e) => {
@@ -258,16 +285,23 @@ function gameOverVisible() {
   let gameOver = document.getElementById("game_over");
   let closeButton = document.getElementById("close_fullscreen");
 
-  if (canvas.classList.value.includes("full")) {
-    gameOverScreen.classList.add("w100h100");
-    gameOver.classList.add("w100h100");
-  }
+  checkGameOverSize(gameOverScreen, gameOver);
   gameOverScreen.classList.remove("d-none");
   gameOver.classList.remove("d-none");
   restartVisible();
 
   if (!closeButton.classList.value.includes("d-none")) {
     gameOver.classList.remove("startscreen-img");
+  }
+}
+
+function checkGameOverSize(gameOverScreen, gameOver) {
+  if (canvas.classList.value.includes("full")) {
+    gameOverScreen.classList.add("w100h100");
+    gameOver.classList.add("w100h100");
+  } else {
+    gameOverScreen.classList.remove("w100h100");
+    gameOver.classList.remove("w100h100");
   }
 }
 
@@ -280,6 +314,7 @@ function moveRight(x) {
     x.x += x.speed;
   }
 }
+
 const spaceKeyEvent = new KeyboardEvent("keydown", {
   code: "Space",
   key: " ",
@@ -315,6 +350,7 @@ function screenMaxWidth() {
   screen.classList.add("fullscreen-modus");
   screenImg.classList.add("fullscreen-modus");
 }
+
 function screenMaxWidthClose() {
   let screen = document.getElementById("canvas");
   let screenImg = document.getElementById("start");
@@ -353,7 +389,6 @@ function exitFullscreen() {
 
 function soundOn() {
   let sound = world.character.sound;
-
   return sound;
 }
 
@@ -364,8 +399,6 @@ function soundIconInvisible() {
   sound.classList.add("d-none");
   mute.classList.remove("d-none");
 }
-
-function muteIconVisible() {}
 
 function startAnimation() {
   let setting = document.getElementById("setting");
@@ -452,7 +485,6 @@ function soundInvisible() {
 
 function settingHeight() {
   let setting = document.getElementById("setting");
-
   setting.classList.add("h140");
 }
 
@@ -543,4 +575,9 @@ function bottleMute() {
 function bottleMuteOff() {
   world.flyingBottle.sound = true;
   world.bottle.sound = true;
+}
+
+function showControl() {
+  let control = document.getElementById("control");
+  control.classList.toggle("d-none");
 }

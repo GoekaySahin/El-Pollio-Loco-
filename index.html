@@ -51,25 +51,6 @@
         <button class="start-btn" id="start_btn" onclick="startGame()">
           START
         </button>
-        <div class="option" id="option">
-          <img
-            src="img/icons/infomartion.png"
-            class="options"
-            id="information"
-          />
-          <!--   <img
-            src="img/icons/fullscreen.png"
-            class="options"
-            id="open_fullscreen"
-            onclick="openFullscreen()"
-          /> -->
-          <!--   <img
-            src="img/icons/close-fullscreen.png"
-            class="options d-none"
-            id="close_fullscreen"
-            onclick="closeFullscreen()"
-          /> -->
-        </div>
 
         <div class="settings d-none" id="setting" onclick="startAnimation()">
           <img src="img/icons/settings.png" class="setting-icon" />
@@ -89,6 +70,7 @@
             src="img/icons/controler.png"
             id="controller"
             class="controller d-none"
+            onclick="showControl()"
           />
 
           <img
@@ -147,23 +129,13 @@
           id="game_over"
         />
       </div>
+      <div class="restart d-none" id="restart" onclick="location.reload()">
+        <span>Restart</span>
+      </div>
 
       <div class="win d-none pa" id="win">
         <span>YOU WIN !</span>
       </div>
-
-      <div class="restart d-none" id="restart" onclick="location.reload()">
-        <span>Restart</span>
-      </div>
-    </div>
-
-    <div class="device-message d-none" id="message">
-      <img
-        src="img/background/device-message.png"
-        class="device-img"
-        id="device"
-      />
     </div>
   </body>
-  <!-- http://david-osipov.developerakademie.net/Pollo_Loco/index.html -->
 </html>

@@ -98,6 +98,7 @@ h3 {
   background-color: #0000004d;
   width: 100%;
   height: 100%;
+  z-index: 500;
 }
 
 span {
@@ -171,6 +172,9 @@ span {
 
 .game-over-screen {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: 500;
 }
 
 .correct-fullscreen-button {
@@ -187,6 +191,7 @@ span {
 .restart {
   position: absolute;
   top: 70%;
+  z-index: 501;
 }
 
 .restart > span:hover {
