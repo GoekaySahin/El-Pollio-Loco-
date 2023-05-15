@@ -5,6 +5,7 @@ class World {
   ctx;
   keyboard;
   game_start = false;
+  falseCounter = 0;
 
   character = new Character();
   statusBar = new StatusBar();
@@ -58,17 +59,25 @@ class World {
   }
 
   loudChicken() {
-    if (
+    if (this.comeToBoss()) {
+      this.chickenScream();
+    }
+  }
+
+  chickenScream() {
+    this.character.playAudio(
+      this.level.enemies[this.level.enemies.length - 1].bossComimg_sound
+    );
+    this.level.enemies[this.level.enemies.length - 1].scream = true;
+    this.bossBar.powerVisible();
+    setTimeout(this.bossIcon.iconVisible, 1000, this);
+  }
+
+  comeToBoss() {
+    return (
       this.character.x > 4350 &&
       this.level.enemies[this.level.enemies.length - 1].scream == false
-    ) {
-      this.character.playAudio(
-        this.level.enemies[this.level.enemies.length - 1].bossComimg_sound
-      );
-      this.level.enemies[this.level.enemies.length - 1].scream = true;
-      this.bossBar.powerVisible();
-      setTimeout(this.bossIcon.iconVisible, 1000, this);
-    }
+    );
   }
 
   doubleTimeChecker = false;
@@ -87,71 +96,102 @@ class World {
   }
 
   handleKeyDown(event) {
-    if (
+    if (this.possibilityToDrawBottle(event)) {
+      this.drawBottle();
+    }
+  }
+
+  drawBottle() {
+    let bottle = new ThrowableObject(
+      this.character.x + 80,
+      this.character.y + 100
+    );
+    this.checkSoundBottle(bottle);
+    this.character.standTimer();
+    this.checkCollisionBottle(bottle);
+    this.throwableObjcet.push(bottle);
+    this.character.bottle -= 1;
+    this.bottleBar.showBottle(this.character.bottle);
+  }
+
+  possibilityToDrawBottle(event) {
+    return (
       event.code === "Space" &&
       this.character.bottle > 0 &&
       !this.doubleTimeChecker &&
       !this.character.otherDirection
-    ) {
-      let bottle = new ThrowableObject(
-        this.character.x + 80,
-        this.character.y + 100
-      );
-      this.checkSoundBottle(bottle);
-      this.character.standTimer();
-
-      /* this.interBottle = setInterval(() => {
-        if (this.checkCollisionBottle(bottle)) {
-          this.stopInter(this.interBottle);
-        }
-      }, 50); */
-      this.checkCollisionBottle(bottle);
-
-      this.throwableObjcet.push(bottle);
-      this.character.bottle -= 1;
-      this.bottleBar.showBottle(this.character.bottle);
-      // Fügen Sie hier den Code hinzu, der nach einer Verzögerung ausgeführt werden soll
-    }
+    );
   }
 
-  falseCounter = 0;
   checkCollisionBottle(bottle) {
     setInterval(() => {
       this.level.enemies.forEach((enemy, i) => {
-        enemy.offset.left = -15;
-        enemy.offset.right = -15;
-        if (bottle.y > 380 && bottle.y < 1000) {
-          bottle.collision = true;
-          bottle.speedY = 0;
+        this.turnOffsetOn(enemy);
+        if (this.bottleOnBottom(bottle)) {
+          this.bottomSplash(bottle);
         }
-        if (
-          this.character.isColliding(enemy, bottle) &&
-          enemy.width < 150 &&
-          this.character.x < enemy.x
-        ) {
-          this.character.hitEnemy(enemy, bottle);
-          this.character.killAnimation(enemy);
-          setTimeout(this.spliceEnemy, 250, this, i);
-
-          bottle = 0;
-        } else if (
-          this.character.isColliding(enemy, bottle) &&
-          enemy.width > 150 &&
-          !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss &&
-          this.character.x <= enemy.x
-        ) {
-          this.character.hitEnemy(enemy, bottle);
-          let energy = enemy.power / 5;
-          this.bossBar.showPower(energy);
-          if (enemy.power == 0) {
-            setTimeout(this.killAnimation, 1000, enemy);
-            setTimeout(this.spliceEnemy, 1800, this, i);
-          }
+        if (this.bottleOnChicken(enemy, bottle)) {
+          this.bottleKillChicken(enemy, bottle, i);
+        } else if (this.bottleOnBoss(enemy, bottle)) {
+          this.bottleHitBoss(enemy, bottle, i);
         }
-        enemy.offset.left = 0;
-        enemy.offset.right = 0;
+        this.turnOffsetOff(enemy);
       });
     }, 75);
+  }
+
+  bottleHitBoss(enemy, bottle, i) {
+    this.character.hitEnemy(enemy, bottle);
+    let energy = enemy.power / 5;
+    this.bossBar.showPower(energy);
+    if (enemy.power == 0) {
+      setTimeout(this.killAnimation, 1000, enemy);
+      setTimeout(this.spliceEnemy, 1800, this, i);
+    }
+  }
+
+  bottleOnBoss(enemy, bottle) {
+    return (
+      this.character.isColliding(enemy, bottle) &&
+      enemy.width > 150 &&
+      !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss &&
+      this.character.x <= enemy.x
+    );
+  }
+
+  bottleKillChicken(enemy, bottle, i) {
+    this.character.hitEnemy(enemy, bottle);
+    this.character.killAnimation(enemy);
+    setTimeout(this.spliceEnemy, 250, this, i);
+
+    bottle = 0;
+  }
+
+  bottleOnChicken(enemy, bottle) {
+    return (
+      this.character.isColliding(enemy, bottle) &&
+      enemy.width < 150 &&
+      this.character.x < enemy.x
+    );
+  }
+
+  bottomSplash(bottle) {
+    bottle.collision = true;
+    bottle.speedY = 0;
+  }
+
+  bottleOnBottom(bottle) {
+    return bottle.y > 380 && bottle.y < 1000;
+  }
+
+  turnOffsetOff(enemy) {
+    enemy.offset.left = 0;
+    enemy.offset.right = 0;
+  }
+
+  turnOffsetOn(enemy) {
+    enemy.offset.left = -15;
+    enemy.offset.right = -15;
   }
 
   hitEnemyTrue(that) {
@@ -166,37 +206,57 @@ class World {
 
   checkCollisions() {
     this.level.enemies.forEach((enemy, i) => {
-      if (this.character.isColliding(enemy) && this.character.flyDown()) {
-        this.character.hitEnemy(enemy);
-        this.character.smalJump();
-        this.character.tarePos();
-        this.hitEnemyCollision = true;
-        setTimeout(this.hitEnemyTrue, 250, this);
-        if (enemy.width > 150) {
-          let energy = enemy.power / 5;
-          this.bossBar.showPower(energy);
-          if (enemy.power == 0) {
-            setTimeout(this.spliceEnemy, 1600, this, i);
-          }
-        } else if ((enemy.width < 150 && enemy.power == 0) || enemy.power < 0) {
-          this.character.killAnimation(enemy);
-          setTimeout(this.spliceEnemy, 250, this, i);
-        }
-      } else if (
-        this.character.isColliding(enemy) &&
-        !this.character.logTime() &&
-        this.hitEnemyCollision == false
-      ) {
-        if (enemy.width > 150 && enemy.x > -500) {
-          this.character.x - 30;
-        }
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.power);
-        if (this.character.hurtTime()) {
-          this.character.lastHit = 0;
-        }
+      if (this.characterJumpsOnHead(enemy)) {
+        this.damageOrDead(enemy, i);
+      } else if (this.characterGetsHit(enemy)) {
+        this.characterGetsHitAnimation(enemy);
       }
     });
+  }
+
+  characterGetsHitAnimation(enemy) {
+    if (enemy.width > 150 && enemy.x > -500) {
+      this.character.x - 30;
+    }
+    this.character.hit();
+    this.statusBar.setPercentage(this.character.power);
+    if (this.character.hurtTime()) {
+      this.character.lastHit = 0;
+    }
+  }
+
+  characterGetsHit(enemy) {
+    return (
+      this.character.isColliding(enemy) &&
+      !this.character.logTime() &&
+      this.hitEnemyCollision == false
+    );
+  }
+
+  damageOrDead(enemy, i) {
+    this.character.hitEnemy(enemy);
+    this.character.smalJump();
+    this.character.tarePos();
+    this.hitEnemyCollision = true;
+    setTimeout(this.hitEnemyTrue, 250, this);
+    this.checkEnemy(enemy, i);
+  }
+
+  checkEnemy(enemy, i) {
+    if (enemy.width > 150) {
+      let energy = enemy.power / 5;
+      this.bossBar.showPower(energy);
+      if (enemy.power == 0) {
+        setTimeout(this.spliceEnemy, 1600, this, i);
+      }
+    } else if ((enemy.width < 150 && enemy.power == 0) || enemy.power < 0) {
+      this.character.killAnimation(enemy);
+      setTimeout(this.spliceEnemy, 250, this, i);
+    }
+  }
+
+  characterJumpsOnHead(enemy) {
+    return this.character.isColliding(enemy) && this.character.flyDown();
   }
 
   collectCoin() {
@@ -220,31 +280,15 @@ class World {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.ctx.translate(this.camera_x, 0);
-
-    this.addObjectToMap(this.level.background);
-    this.addObjectToMap(this.level.cloud, 50);
-    this.addObjectToMap(this.level.collectable);
-    this.addObjectToMap(this.level.collectableBottle);
-
-    this.addToMap(this.character);
-
-    this.ctx.translate(-this.camera_x, 0);
+    this.drawStartSet();
+    this.collectAndBackground();
+    this.drawCharacter();
     /////// SPACE FOR FIXED OBJECTS //////////
-    this.addToMap(this.bottleBar);
-    this.addToMap(this.statusBar);
-    this.addToMap(this.coinbar);
-    this.addToMap(this.bossBar);
-    this.addToMap(this.bossIcon);
-    this.ctx.translate(this.camera_x, 0); // <---- end
+    this.fixObj();
+    // <---- end
 
-    this.addObjectToMap(this.throwableObjcet);
-    this.addObjectToMap(this.level.enemies);
+    this.bottleAndEnemys();
     this.ctx.translate(-this.camera_x, 0);
-
-    /*     this.addObjectToMap(this.clouds2); */
 
     // Draw wird immer wieder aufgerufen
     self = this;
@@ -253,16 +297,43 @@ class World {
     });
   }
 
+  bottleAndEnemys() {
+    this.addObjectToMap(this.throwableObjcet);
+    this.addObjectToMap(this.level.enemies);
+  }
+
+  fixObj() {
+    this.ctx.translate(-this.camera_x, 0);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.statusBar);
+    this.addToMap(this.coinbar);
+    this.addToMap(this.bossBar);
+    this.addToMap(this.bossIcon);
+    this.ctx.translate(this.camera_x, 0);
+  }
+
+  drawCharacter() {
+    this.addToMap(this.character);
+  }
+
+  collectAndBackground() {
+    this.addObjectToMap(this.level.background);
+    this.addObjectToMap(this.level.cloud, 50);
+    this.addObjectToMap(this.level.collectable);
+    this.addObjectToMap(this.level.collectableBottle);
+  }
+
+  drawStartSet() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.camera_x, 0);
+  }
+
   addToMap(obj) {
     if (obj.otherDirection) {
       this.flipImage(obj);
     }
 
     obj.draw(this.ctx);
-    /*  if (this.figure(obj)) {
-      //obj.drawFrame(this.ctx);
-      return;
-    } */
 
     if (obj.otherDirection) {
       this.flipImageBack(obj);

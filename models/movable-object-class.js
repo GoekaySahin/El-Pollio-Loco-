@@ -11,6 +11,9 @@ class MovableObject extends DrawableObject {
   characterX;
   endboss_power = 25;
   sound = true;
+  pos;
+  startTime;
+  endTime;
 
   get_bottle = new Audio("audio/getABottle.mp3");
   get_coins = new Audio("audio/collectCoins.mp3");
@@ -97,9 +100,6 @@ class MovableObject extends DrawableObject {
     this.standTimer();
   }
 
-  startTime;
-  endTime;
-
   startTimeout() {
     this.startTime = Date.now() / 1000;
 
@@ -125,7 +125,6 @@ class MovableObject extends DrawableObject {
     this.logTime();
   }
 
-  pos;
   flyDown() {
     if (this.power > 0) {
       if (this.y == 182) {
@@ -136,7 +135,7 @@ class MovableObject extends DrawableObject {
       } else {
         this.pos = this.y;
         setTimeout(this.flyDown, 100);
-      } /// KILLER MRK DER SCHAUT OB DER CHARACTER GERADE AM FALLEN IST SEXY MOTHER FUCKER
+      }
     }
   }
 
@@ -162,7 +161,6 @@ class MovableObject extends DrawableObject {
     );
   }
 
-  // umschreiben
   isColliding(obj, bottle) {
     if (bottle == null) {
       if (this.collects(obj)) {
@@ -269,11 +267,6 @@ class MovableObject extends DrawableObject {
     this.bottle += 1;
     return this.bottle;
   }
-  /* 
-  spliceEnemy(i) {
-    debugger;
-    level1.enemies.splice(i, 1);
-  } */
 
   stopInter(inter) {
     clearInterval(inter);
