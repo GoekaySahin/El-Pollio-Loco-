@@ -351,6 +351,22 @@ function exitFullscreen() {
   }
 }
 
+function soundOn() {
+  let sound = world.character.sound;
+
+  return sound;
+}
+
+function soundIconInvisible() {
+  let sound = document.getElementById("sound");
+  let mute = document.getElementById("mute");
+
+  sound.classList.add("d-none");
+  mute.classList.remove("d-none");
+}
+
+function muteIconVisible() {}
+
 function startAnimation() {
   let setting = document.getElementById("setting");
 
@@ -371,13 +387,13 @@ function startAnimation() {
 
 function optionButtonsVisible() {
   if (canvas.classList.value.includes("fullscreen")) {
-    setTimeout(fullscreenCloseVisible, 150);
-    setTimeout(controllerVisible, 350);
-    setTimeout(soundVisible, 550);
+    setTimeout(soundVisible, 200);
+    setTimeout(controllerVisible, 450);
+    setTimeout(fullscreenCloseVisible, 650);
   } else {
-    setTimeout(fullscreenVisible, 150);
-    setTimeout(controllerVisible, 350);
-    setTimeout(soundVisible, 550);
+    setTimeout(soundVisible, 200);
+    setTimeout(controllerVisible, 450);
+    setTimeout(fullscreenVisible, 650);
   }
 }
 
@@ -419,12 +435,19 @@ function controllerInvisible() {
 
 function soundVisible() {
   let sound = document.getElementById("sound");
-  sound.classList.toggle("d-none");
+  let mute = document.getElementById("mute");
+
+  if (soundOn()) {
+    sound.classList.remove("d-none");
+  } else if (!soundOn()) {
+    mute.classList.remove("d-none");
+  }
 }
 
 function soundInvisible() {
   let sound = document.getElementById("sound");
   sound.classList.add("d-none");
+  muteIconInvisible();
 }
 
 function settingHeight() {
@@ -436,6 +459,11 @@ function settingHeight() {
 function showSettings() {
   let setting = document.getElementById("setting");
   setting.classList.remove("d-none");
+}
+
+function muteIconInvisible() {
+  let mute = document.getElementById("mute");
+  mute.classList.add("d-none");
 }
 
 function closeSettings() {
@@ -474,8 +502,6 @@ function mute() {
   world.character.sound = false;
   chickenMute();
   bottleMute();
-  /*   endbossMute();
-   */
 }
 
 function muteOff() {
@@ -509,18 +535,6 @@ function chickenMuteOff() {
   });
 }
 
-/* function endbossMute() {
-  let endbossIndex = world.level.enemies.length - 1;
-  let endboss = world.level.enemies[endbossIndex];
-  endboss.sound = false;
-}
-
-function endbossMuteOff() {
-  let endbossIndex = world.level.enemies.length - 1;
-  let endboss = world.level.enemies[endbossIndex];
-  endboss.sound = true;
-} */
-
 function bottleMute() {
   world.flyingBottle.sound = false;
   world.bottle.sound = false;
@@ -530,5 +544,3 @@ function bottleMuteOff() {
   world.flyingBottle.sound = true;
   world.bottle.sound = true;
 }
-
-// Bottle will ned mute werden... Vielleicht mal in MovableObjcets verschieben dahane
