@@ -77,38 +77,59 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      if (this.scream == false) {
+      if (this.watingForPepe()) {
         this.alerta();
-      } else if (
-        this.power == this.powerChecker &&
-        this.x - this.characterX < 150 &&
-        !this.hurtTimeBoss &&
-        this.power > 0
-      ) {
-        this.attack();
-        this.moveLeft(this);
-      } else if (!(this.power == this.powerChecker)) {
-        this.hurt();
-        this.playAudio(this.boss_hurt_sound);
-        if (!this.hurtTimeBoss) {
-          this.hurtTimeBoss = true;
-        }
-      } else if (this.power <= 0 && this.width > 0) {
-        this.dead();
-        this.playAudio(this.boss_dead_sound);
-        setTimeout(this.winningSound, 800, this);
+      } else if (this.checkAttack()) {
+        this.startAttack();
+      } else if (this.powerNotEqual()) {
+        this.getHurt();
+      } else if (this.checkBossPower()) {
+        this.deadAnimation();
       } else {
         this.walking(this);
       }
     }, 90);
   }
 
-  /*   bossEnergyBar(){
-    if(this.scream == true){
-      this.bossEnergyBar.x -= 10
-      if(this.bossEnergyBar == )
+  deadAnimation() {
+    this.dead();
+    this.playAudio(this.boss_dead_sound);
+    setTimeout(this.winningSound, 800, this);
+  }
+
+  checkBossPower() {
+    return this.power <= 0 && this.width > 0;
+  }
+
+  getHurt() {
+    this.hurt();
+    this.playAudio(this.boss_hurt_sound);
+    if (!this.hurtTimeBoss) {
+      this.hurtTimeBoss = true;
     }
-  } */
+  }
+
+  powerNotEqual() {
+    return !(this.power == this.powerChecker);
+  }
+
+  startAttack() {
+    this.attack();
+    this.moveLeft(this);
+  }
+
+  watingForPepe() {
+    return this.scream == false;
+  }
+
+  checkAttack() {
+    return (
+      this.power == this.powerChecker &&
+      this.x - this.characterX < 150 &&
+      !this.hurtTimeBoss &&
+      this.power > 0
+    );
+  }
 
   hurtTimeFalse(x) {
     x.hurtTimeBoss = false;
@@ -155,5 +176,3 @@ class Endboss extends MovableObject {
     }
   }
 }
-
-// C:\Users\GÖKAY\Desktop\Aktuelles Projekt\El Pollo Loco\img\4_enemie_boss_chicken\2_alert\G5.png

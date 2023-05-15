@@ -26,15 +26,12 @@ class Chicken extends MovableObject {
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_DEAD);
     this.x = 350 + Math.random() * 3000;
-    //this.speed = 0.2 + Math.random() * 0.4;
     this.animate();
   }
 
   deadChicken() {
     this.playAnimation(this.IMAGES_DEAD);
   }
-
-  // https://daniela-scholz.developerakademie.net/el_pollo_loco/
 
   animate() {
     setInterval(() => {
