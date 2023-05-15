@@ -254,16 +254,20 @@ function clearAllIntervals() {
 }
 
 function gameOverVisible() {
-  let gameOverDiv = document.getElementById("game_over_screen");
-  let gameOverScreen = document.getElementById("game_over");
+  let gameOverScreen = document.getElementById("game_over_screen");
+  let gameOver = document.getElementById("game_over");
   let closeButton = document.getElementById("close_fullscreen");
 
+  if (canvas.classList.value.includes("full")) {
+    gameOverScreen.classList.add("w100h100");
+    gameOver.classList.add("w100h100");
+  }
   gameOverScreen.classList.remove("d-none");
-  gameOverDiv.classList.remove("d-none");
+  gameOver.classList.remove("d-none");
   restartVisible();
 
   if (!closeButton.classList.value.includes("d-none")) {
-    gameOverScreen.classList.remove("startscreen-img");
+    gameOver.classList.remove("startscreen-img");
   }
 }
 
