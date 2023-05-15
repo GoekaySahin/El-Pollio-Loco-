@@ -210,7 +210,7 @@ span {
 
 .setting-animation {
   animation-name: setting;
-  animation-duration: 1.8s;
+  animation-duration: 1.3s;
 }
 
 @keyframes setting {
@@ -224,7 +224,7 @@ span {
 
 .setting-animation-close {
   animation-name: setting-close;
-  animation-duration: 2s;
+  animation-duration: 1.3s;
 }
 
 @keyframes setting-close {
@@ -285,6 +285,12 @@ span {
     margin-top: 10vh;
   }
 } */
+
+.game-over-screen,
+.game-over {
+  width: 100%;
+  height: 100vh;
+}
 
 .sound {
   width: 30px;

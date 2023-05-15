@@ -2,6 +2,7 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
+let menu = true;
 
 function init() {
   canvas = document.getElementById("canvas");
@@ -118,7 +119,7 @@ function checkWidth() {
   }
   if (this.screen.availWidth <= 900) {
     info.classList.add("d-none");
-  } else {
+  } else if (!startScreen.classList.value.includes("d-none")) {
     info.classList.remove("d-none");
   }
   if (this.screen.availWidth < 1441) {
@@ -253,10 +254,12 @@ function clearAllIntervals() {
 }
 
 function gameOverVisible() {
+  let gameOverDiv = document.getElementById("game_over_screen");
   let gameOverScreen = document.getElementById("game_over");
   let closeButton = document.getElementById("close_fullscreen");
 
   gameOverScreen.classList.remove("d-none");
+  gameOverDiv.classList.remove("d-none");
   restartVisible();
 
   if (!closeButton.classList.value.includes("d-none")) {
@@ -347,31 +350,57 @@ function exitFullscreen() {
 function startAnimation() {
   let setting = document.getElementById("setting");
 
-  if (setting.classList.value.includes("close")) {
-    setting.classList.remove("setting-animation-close");
-  }
-  if (!setting.classList.value.includes("h140")) {
-    setting.classList.add("setting-animation");
-    setTimeout(settingHeight, 1800);
-    optionButtonsVisible();
+  if (menu && !setting.classList.value.includes("h140")) {
+    menuFalse();
+
+    if (setting.classList.value.includes("close")) {
+      setting.classList.remove("setting-animation-close");
+    }
+    if (!setting.classList.value.includes("h140")) {
+      setting.classList.add("setting-animation");
+      setTimeout(settingHeight, 1300);
+      optionButtonsVisible();
+    }
+    setTimeout(menuTrue, 1300);
   }
 }
 
 function optionButtonsVisible() {
-  setTimeout(fullscreenVisible, 250);
-  setTimeout(controllerVisible, 500);
-  setTimeout(soundVisible, 750);
+  if (canvas.classList.value.includes("fullscreen")) {
+    setTimeout(fullscreenCloseVisible, 150);
+    setTimeout(controllerVisible, 350);
+    setTimeout(soundVisible, 550);
+  } else {
+    setTimeout(fullscreenVisible, 150);
+    setTimeout(controllerVisible, 350);
+    setTimeout(soundVisible, 550);
+  }
 }
 
 function optionButtonsInvisible() {
-  setTimeout(fullscreenVisible, 250);
-  setTimeout(controllerVisible, 500);
-  setTimeout(soundVisible, 750);
+  if (canvas.classList.value.includes("fullscreen")) {
+    setTimeout(fullscreenCloseVisible, 150);
+    setTimeout(controllerInvisible, 350);
+    setTimeout(soundInvisible, 550);
+  } else {
+    setTimeout(fullscreenInvisible, 150);
+    setTimeout(controllerInvisible, 350);
+    setTimeout(soundInvisible, 550);
+  }
+}
+
+function fullscreenCloseVisible() {
+  let fullscreenClose = document.getElementById("close_fullscreen");
+  fullscreenClose.classList.toggle("d-none");
 }
 
 function fullscreenVisible() {
   let fullscreen = document.getElementById("open_fullscreen");
   fullscreen.classList.toggle("d-none");
+}
+function fullscreenInvisible() {
+  let fullscreen = document.getElementById("open_fullscreen");
+  fullscreen.classList.add("d-none");
 }
 
 function controllerVisible() {
@@ -379,9 +408,19 @@ function controllerVisible() {
   controller.classList.toggle("d-none");
 }
 
+function controllerInvisible() {
+  let controller = document.getElementById("controller");
+  controller.classList.add("d-none");
+}
+
 function soundVisible() {
   let sound = document.getElementById("sound");
   sound.classList.toggle("d-none");
+}
+
+function soundInvisible() {
+  let sound = document.getElementById("sound");
+  sound.classList.add("d-none");
 }
 
 function settingHeight() {
@@ -397,16 +436,29 @@ function showSettings() {
 
 function closeSettings() {
   let setting = document.getElementById("setting");
-  if (setting.classList.value.includes("h140")) {
-    setting.classList.remove("setting-animation");
 
-    setting.classList.add("setting-animation-close");
-    removeSettingH140();
-    optionButtonsInvisible();
+  if (menu && setting.classList.value.includes("h140")) {
+    menuFalse();
+    if (setting.classList.value.includes("h140")) {
+      setting.classList.remove("setting-animation");
+
+      setting.classList.add("setting-animation-close");
+      removeSettingH140();
+      optionButtonsInvisible();
+    }
+    setTimeout(menuTrue, 1300);
   }
 }
 
 function removeSettingH140() {
   let setting = document.getElementById("setting");
   setting.classList.remove("h140");
+}
+
+function menuTrue() {
+  menu = true;
+}
+
+function menuFalse() {
+  menu = false;
 }

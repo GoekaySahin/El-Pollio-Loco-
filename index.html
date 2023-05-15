@@ -33,7 +33,11 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
   </head>
-  <body onload="init()" onresize="checkWidth()" onclick="closeSettings()">
+  <body
+    onload="init()"
+    onresize="setTimeout(checkWidth, 150)"
+    onclick="closeSettings()"
+  >
     <h1 id="title_screen">EL Pollio Loco</h1>
     <div class="contentbox" id="content">
       <canvas id="canvas" width="720" height="480"> </canvas>
@@ -126,7 +130,7 @@
         <img src="img/icons/rotate.png" class="phone" />
       </div>
 
-      <div class="game-over-screen">
+      <div class="game-over-screen d-none">
         <img
           src="img/9_intro_outro_screens/game_over/game over!.png"
           class="game-over startscreen-img d-none"
