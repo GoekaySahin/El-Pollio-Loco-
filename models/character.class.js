@@ -275,7 +275,7 @@ class Character extends MovableObject {
 
   characterKill() {
     this.y += 20;
-    setTimeout(this.charaterImplode, 250, this);
+    setTimeout(this.charaterImplode, 550, this);
   }
 
   charaterImplode(x) {
