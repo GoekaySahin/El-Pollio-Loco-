@@ -121,7 +121,8 @@ class Character extends MovableObject {
 
       if (this.isHurt()) {
         this.hurt();
-      } else if (this.wantJump()) {
+      }
+      if (this.wantJump()) {
         this.letJump();
       }
       if (this.wantWalkRight()) {

@@ -213,15 +213,12 @@ class World {
       if (this.characterJumpsOnHead(enemy)) {
         this.damageOrDead(enemy, i);
       } else if (this.characterGetsHit(enemy)) {
-        this.characterGetsHitAnimation(enemy);
+        this.characterGetsHitAnimation();
       }
     });
   }
 
-  characterGetsHitAnimation(enemy) {
-    /*   if (enemy.width > 150 && enemy.x > -500) {
-      this.character.x - 1;
-    } */
+  characterGetsHitAnimation() {
     this.character.hit();
     this.statusBar.setPercentage(this.character.power);
     if (this.character.hurtTime()) {

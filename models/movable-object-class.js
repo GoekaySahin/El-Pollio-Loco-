@@ -192,14 +192,6 @@ class MovableObject extends DrawableObject {
   }
 
   collidingEnemyBottle(obj, bottle) {
-    /*     if (
-      bottle.x + bottle.width >= obj.x + obj.offset.left && // Rechts zu Links
-      bottle.x <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
-      bottle.y + bottle.height >= obj.y + obj.offset.top && // Top zu Bottom
-      bottle.y <= obj.y + obj.height
-    ) {
-      debugger;
-    } */
     return (
       bottle.x + bottle.width >= obj.x + obj.offset.left && // Rechts zu Links
       bottle.x <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
@@ -219,11 +211,6 @@ class MovableObject extends DrawableObject {
 
   hit() {
     if (this.lastHit == 0) {
-      setInterval(() => {
-        if (this.isHurt() && this.x > -500) {
-          //setInterval((this.x = this.x - 10), 100);
-        }
-      }, 100);
       this.power -= 20;
     }
     if (this.power <= 0) {
