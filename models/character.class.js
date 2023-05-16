@@ -7,6 +7,7 @@ class Character extends MovableObject {
   camera_x = 0;
   powerControl = 100;
   standTime;
+  IDLE = false;
 
   offset = {
     top: 80,
@@ -37,42 +38,22 @@ class Character extends MovableObject {
   IMAGES_SLEEPING = [
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
     "img/2_character_pepe/1_idle/long_idle/I-11.png",
-    "img/2_character_pepe/1_idle/long_idle/I-11.png",
-    "img/2_character_pepe/1_idle/long_idle/I-11.png",
-    "img/2_character_pepe/1_idle/long_idle/I-12.png",
-    "img/2_character_pepe/1_idle/long_idle/I-12.png",
     "img/2_character_pepe/1_idle/long_idle/I-12.png",
     "img/2_character_pepe/1_idle/long_idle/I-12.png",
     "img/2_character_pepe/1_idle/long_idle/I-13.png",
     "img/2_character_pepe/1_idle/long_idle/I-13.png",
-    "img/2_character_pepe/1_idle/long_idle/I-13.png",
-    "img/2_character_pepe/1_idle/long_idle/I-13.png",
-    "img/2_character_pepe/1_idle/long_idle/I-14.png",
-    "img/2_character_pepe/1_idle/long_idle/I-14.png",
     "img/2_character_pepe/1_idle/long_idle/I-14.png",
     "img/2_character_pepe/1_idle/long_idle/I-14.png",
     "img/2_character_pepe/1_idle/long_idle/I-15.png",
     "img/2_character_pepe/1_idle/long_idle/I-15.png",
-    "img/2_character_pepe/1_idle/long_idle/I-15.png",
-    "img/2_character_pepe/1_idle/long_idle/I-15.png",
-    "img/2_character_pepe/1_idle/long_idle/I-16.png",
-    "img/2_character_pepe/1_idle/long_idle/I-16.png",
     "img/2_character_pepe/1_idle/long_idle/I-16.png",
     "img/2_character_pepe/1_idle/long_idle/I-16.png",
     "img/2_character_pepe/1_idle/long_idle/I-17.png",
     "img/2_character_pepe/1_idle/long_idle/I-17.png",
-    "img/2_character_pepe/1_idle/long_idle/I-17.png",
-    "img/2_character_pepe/1_idle/long_idle/I-17.png",
-    "img/2_character_pepe/1_idle/long_idle/I-18.png",
-    "img/2_character_pepe/1_idle/long_idle/I-18.png",
     "img/2_character_pepe/1_idle/long_idle/I-18.png",
     "img/2_character_pepe/1_idle/long_idle/I-18.png",
     "img/2_character_pepe/1_idle/long_idle/I-19.png",
     "img/2_character_pepe/1_idle/long_idle/I-19.png",
-    "img/2_character_pepe/1_idle/long_idle/I-19.png",
-    "img/2_character_pepe/1_idle/long_idle/I-19.png",
-    "img/2_character_pepe/1_idle/long_idle/I-20.png",
-    "img/2_character_pepe/1_idle/long_idle/I-20.png",
     "img/2_character_pepe/1_idle/long_idle/I-20.png",
     "img/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
@@ -138,9 +119,7 @@ class Character extends MovableObject {
     setInterval(() => {
       this.walking_sound.pause();
 
-      if (this.cleanSleep()) {
-        this.playAnimation(this.IMAGES_SLEEPING);
-      } else if (this.isHurt()) {
+      if (this.isHurt()) {
         this.hurt();
       } else if (this.isDead()) {
         this.dead();
@@ -159,9 +138,8 @@ class Character extends MovableObject {
     this.checkDirection();
     this.startIDLE();
 
-    //this.PepeWalkingAnimation();
+    this.sleepingAnimation();
   }
-  IDLE = false;
   startIDLE() {
     setInterval(() => {
       if (!this.notInteracting() && !(this.isHurt() && !isAboveGround())) {
@@ -177,12 +155,12 @@ class Character extends MovableObject {
     return this.IDLE;
   }
 
-  PepeWalkingAnimation() {
+  sleepingAnimation() {
     setInterval(() => {
-      if (!this.isAboveGround() && !this.fallInSleep()) {
-        this.loadImage("img/2_character_pepe/2_walk/W-21.png");
+      if (this.cleanSleep()) {
+        this.playAnimation(this.IMAGES_SLEEPING);
       }
-    }, 500);
+    }, 150);
   }
 
   setCamera() {
