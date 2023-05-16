@@ -71,12 +71,12 @@ class MovableObject extends DrawableObject {
         return;
       }
       obj.width -= 5;
-      obj.height -= 15;
-      obj.y += 20;
+      obj.height -= 5;
+      obj.y += 5;
       if (obj.width < 150) {
-        setTimeout(this.enemyImplode(obj), 300);
+        setTimeout(this.enemyImplode(obj), 1000);
       }
-    }, 50);
+    }, 150);
   }
 
   enemyImplode(obj) {
@@ -213,7 +213,7 @@ class MovableObject extends DrawableObject {
     if (this.lastHit == 0) {
       setInterval(() => {
         if (this.isHurt() && this.x > -500) {
-          setInterval((this.x = this.x - 10), 100);
+          //setInterval((this.x = this.x - 10), 100);
         }
       }, 100);
       this.power -= 20;

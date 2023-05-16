@@ -141,7 +141,7 @@ class Character extends MovableObject {
   }
   startIDLE() {
     setInterval(() => {
-      if (!this.notInteracting() && !(this.isHurt() && !isAboveGround())) {
+      if (!this.notInteracting() && !(this.isHurt() && !this.isAboveGround())) {
         this.playAnimation(this.IDLE_IMAGES);
         this.IDLE = true;
       }
@@ -225,7 +225,7 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        keyboardDeactivate();
+        this.keyboardDeactivate();
         if (this.width > 0) {
           this.playAudio(this.lose);
           this.playAudio(this.game_over);
@@ -245,6 +245,7 @@ class Character extends MovableObject {
 
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
+    this.x -= 3;
     if (!(this.power == this.powerControl)) {
       this.powerControl = this.power;
       this.playAudio(this.hurt_sound);

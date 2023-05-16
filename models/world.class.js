@@ -162,7 +162,7 @@ class World {
   bottleKillChicken(enemy, bottle, i) {
     this.character.hitEnemy(enemy, bottle);
     this.character.killAnimation(enemy);
-    setTimeout(this.spliceEnemy, 250, this, i);
+    setTimeout(this.spliceEnemy, 650, this, i);
 
     bottle = 0;
   }
@@ -215,9 +215,9 @@ class World {
   }
 
   characterGetsHitAnimation(enemy) {
-    if (enemy.width > 150 && enemy.x > -500) {
-      this.character.x - 30;
-    }
+    /*   if (enemy.width > 150 && enemy.x > -500) {
+      this.character.x - 1;
+    } */
     this.character.hit();
     this.statusBar.setPercentage(this.character.power);
     if (this.character.hurtTime()) {
@@ -251,7 +251,7 @@ class World {
       }
     } else if ((enemy.width < 150 && enemy.power == 0) || enemy.power < 0) {
       this.character.killAnimation(enemy);
-      setTimeout(this.spliceEnemy, 250, this, i);
+      setTimeout(this.spliceEnemy, 1050, this, i);
     }
   }
 
