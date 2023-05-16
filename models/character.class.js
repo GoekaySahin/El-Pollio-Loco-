@@ -121,8 +121,6 @@ class Character extends MovableObject {
 
       if (this.isHurt()) {
         this.hurt();
-      } else if (this.isDead()) {
-        this.dead();
       } else if (this.wantJump()) {
         this.letJump();
       }
@@ -137,6 +135,7 @@ class Character extends MovableObject {
 
     this.checkDirection();
     this.startIDLE();
+    this.dead();
 
     this.sleepingAnimation();
   }
@@ -223,12 +222,17 @@ class Character extends MovableObject {
   }
 
   dead() {
-    this.playAnimation(this.IMAGES_DEAD);
-    if (this.width > 0) {
-      this.playAudio(this.lose);
-      this.playAudio(this.game_over);
-    }
-    this.characterKill();
+    setInterval(() => {
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+        keyboardDeactivate();
+        if (this.width > 0) {
+          this.playAudio(this.lose);
+          this.playAudio(this.game_over);
+        }
+        this.characterKill();
+      }
+    }, 120);
   }
 
   setIdleTrue() {
@@ -253,13 +257,14 @@ class Character extends MovableObject {
       this.fallInSleep() &&
       !this.isAboveGround() &&
       this.x < 3000 &&
-      !this.isHurt()
+      !this.isHurt() &&
+      this.power > 0
     );
   }
 
   characterKill() {
     this.y += 20;
-    setTimeout(this.charaterImplode, 80, this);
+    setTimeout(this.charaterImplode, 250, this);
   }
 
   charaterImplode(x) {
@@ -279,5 +284,12 @@ class Character extends MovableObject {
     let timepassed = new Date().getTime() - this.standTime;
     timepassed = timepassed / 1000;
     return timepassed > 3.4;
+  }
+
+  keyboardDeactivate() {
+    keyboard.UP = false;
+    keyboard.RIGHT = false;
+    keyboard.LEFT = false;
+    keyboard.SPACE = false;
   }
 }
