@@ -1,6 +1,7 @@
 body {
   margin: 0;
   background-image: url("img/background/background_ai.png");
+  background-repeat: no-repeat;
   background-size: cover;
   font-family: "Quinthero", Arial, Helvetica, sans-serif;
   width: 100%;
@@ -317,10 +318,18 @@ span {
     justify-content: center;
   }
 }
+@media (width > 900px) {
+  .respons-control {
+    display: none;
+  }
+}
 
 @media only screen and (max-width: 900px) {
   body {
     overflow: hidden;
+  }
+  .respons-control {
+    display: flex;
   }
 
   h1 {
@@ -348,6 +357,9 @@ span {
 
   .startscreen-img {
     width: 100%;
+    height: 100vh;
+  }
+  .landscape {
     height: 100vh;
   }
 }
@@ -399,12 +411,6 @@ span {
     margin-left: 61px;
   }
   .landscape {
-    width: 720px;
-  }
-}
-
-@media (width < 720px) {
-  body {
     width: 720px;
   }
 }
