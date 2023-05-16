@@ -105,8 +105,22 @@ class Character extends MovableObject {
     "img/2_character_pepe/5_dead/D-57.png",
   ];
 
+  IDLE_IMAGES = [
+    "img/2_character_pepe/1_idle/idle/I-1.png",
+    "img/2_character_pepe/1_idle/idle/I-2.png",
+    "img/2_character_pepe/1_idle/idle/I-3.png",
+    "img/2_character_pepe/1_idle/idle/I-4.png",
+    "img/2_character_pepe/1_idle/idle/I-5.png",
+    "img/2_character_pepe/1_idle/idle/I-6.png",
+    "img/2_character_pepe/1_idle/idle/I-7.png",
+    "img/2_character_pepe/1_idle/idle/I-8.png",
+    "img/2_character_pepe/1_idle/idle/I-9.png",
+    "img/2_character_pepe/1_idle/idle/I-10.png",
+  ];
+
   constructor() {
     super().loadImage("img/2_character_pepe/2_walk/W-21.png");
+    this.loadImages(this.IDLE_IMAGES);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
     this.loadImages(this.IMAGES_HURT);
@@ -143,8 +157,24 @@ class Character extends MovableObject {
     }, 1000 / 60);
 
     this.checkDirection();
+    this.startIDLE();
 
-    this.PepeWalkingAnimation();
+    //this.PepeWalkingAnimation();
+  }
+  IDLE = false;
+  startIDLE() {
+    setInterval(() => {
+      if (!this.notInteracting() && !(this.isHurt() && !isAboveGround())) {
+        this.playAnimation(this.IDLE_IMAGES);
+        this.IDLE = true;
+      }
+    }, 150);
+  }
+
+  notInteracting() {
+    if (!(keyboard.UP && keyboard.RIGHT && keyboard.LEFT && keyboard.SPACE));
+    setTimeout(this.setIdleFalse, 150, this);
+    return this.IDLE;
   }
 
   PepeWalkingAnimation() {
@@ -172,6 +202,7 @@ class Character extends MovableObject {
   }
 
   letWalkRight() {
+    this.setIdleTrue();
     this.moveRight(this);
     if (this.onGround()) {
       this.standTimer();
@@ -180,6 +211,7 @@ class Character extends MovableObject {
   }
 
   letWalkLeft() {
+    this.setIdleTrue();
     this.turnLeft();
     this.moveLeft(this);
     this.standTimer();
@@ -219,6 +251,14 @@ class Character extends MovableObject {
       this.playAudio(this.game_over);
     }
     this.characterKill();
+  }
+
+  setIdleTrue() {
+    this.IDLE = true;
+  }
+
+  setIdleFalse(x) {
+    x.IDLE = false;
   }
 
   hurt() {

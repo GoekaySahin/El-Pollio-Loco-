@@ -56,6 +56,9 @@ function startGame() {
 }
 
 function gameStart() {
+  if (world.game_start == undefined) {
+    location.reload();
+  }
   return !world.game_start;
 }
 
@@ -580,4 +583,18 @@ function bottleMuteOff() {
 function showControl() {
   let control = document.getElementById("control");
   control.classList.toggle("d-none");
+  checkCharacterPosition();
+}
+
+function setControlPermanentDnone() {
+  let control = document.getElementById("control");
+  control.classList.add("d-none");
+}
+
+function checkCharacterPosition() {
+  setInterval(() => {
+    if (world.character.x >= 4100) {
+      setControlPermanentDnone();
+    }
+  }, 100);
 }
