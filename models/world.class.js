@@ -190,8 +190,12 @@ class World {
   }
 
   turnOffsetOn(enemy) {
-    enemy.offset.left = -15;
-    enemy.offset.right = -15;
+    if (enemy.width > 150) {
+      enemy.offset.left = 30;
+    } else {
+      enemy.offset.left = 0;
+      enemy.offset.right = 0;
+    }
   }
 
   hitEnemyTrue(that) {

@@ -13,8 +13,8 @@ class Endboss extends MovableObject {
 
   offset = {
     top: 00,
-    left: 0,
-    right: 0,
+    left: 100,
+    right: 1000,
     bottom: 0,
   };
 
@@ -92,6 +92,7 @@ class Endboss extends MovableObject {
   }
 
   deadAnimation() {
+    world.character.keyboardDeactivate();
     this.dead();
     this.playAudio(this.boss_dead_sound);
     setTimeout(this.winningSound, 800, this);
