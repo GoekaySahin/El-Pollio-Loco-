@@ -158,10 +158,22 @@ function widthBiggerThanHeigth(rotatePhone) {
 
 function rotatePhoneVisible(rotatePhone) {
   rotatePhone.classList.remove("d-none");
+  contentFit();
+}
+
+function contentFit() {
+  let content = document.getElementById("content");
+  content.classList.add("only-w100");
+}
+
+function contentFitRemove() {
+  let content = document.getElementById("content");
+  content.classList.remove("only-w100");
 }
 
 function rotatePhoneInvisible(rotatePhone) {
   rotatePhone.classList.add("d-none");
+  contentFitRemove();
 }
 
 function removeTitle() {

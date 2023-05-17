@@ -122,9 +122,6 @@ class Character extends MovableObject {
       if (this.isHurt()) {
         this.hurt();
       }
-      if (this.wantJump()) {
-        this.letJump();
-      }
       if (this.wantWalkRight()) {
         this.letWalkRight();
       }
@@ -134,6 +131,7 @@ class Character extends MovableObject {
       this.setCamera();
     }, 1000 / 60);
 
+    this.letJump();
     this.checkDirection();
     this.startIDLE();
     this.dead();
@@ -149,7 +147,8 @@ class Character extends MovableObject {
     setInterval(() => {
       if (
         !this.notInteracting() &&
-        !(this.isHurt() && !this.isAboveGround()) &&
+        !this.isHurt() &&
+        !this.isAboveGround() &&
         this.enemyDead()
       ) {
         this.playAnimation(this.IDLE_IMAGES);
@@ -178,14 +177,17 @@ class Character extends MovableObject {
 
   checkDirection() {
     setInterval(() => {
-      if (keyboard.RIGHT || keyboard.LEFT) {
+      if (
+        (keyboard.RIGHT && !this.isHurt()) ||
+        (keyboard.LEFT && !this.isHurt())
+      ) {
         this.playAnimation(this.IMAGES_WALKING);
         this.standTimer();
       }
       if (this.isAboveGround()) {
         this.playAnimation(this.IMAGES_JUMPING);
       }
-    }, 93);
+    }, 150);
   }
 
   letWalkRight() {
@@ -222,9 +224,14 @@ class Character extends MovableObject {
   }
 
   letJump() {
-    this.jump();
-    this.playAudio(this.jump_sound);
-    this.standTimer();
+    setInterval(() => {
+      if (this.wantJump()) {
+        this.jump();
+        this.playAudio(this.jump_sound);
+        this.standTimer();
+        this.playAnimation(this.IMAGES_JUMPING);
+      }
+    }, 180);
   }
 
   wantJump() {
@@ -255,7 +262,9 @@ class Character extends MovableObject {
 
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
-    this.x -= 3;
+    if (this.x > -600) {
+      this.x -= 3;
+    }
     if (!(this.power == this.powerControl)) {
       this.powerControl = this.power;
       this.playAudio(this.hurt_sound);
@@ -275,7 +284,7 @@ class Character extends MovableObject {
 
   characterKill() {
     this.y += 20;
-    setTimeout(this.charaterImplode, 550, this);
+    setTimeout(this.charaterImplode, 850, this);
   }
 
   charaterImplode(x) {

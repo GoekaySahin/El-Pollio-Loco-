@@ -27,8 +27,8 @@ class ThrowableObject extends MovableObject {
 
   bottle_splash_sound = new Audio("audio/drowBottle.mp3");
   enemy;
-  speedX = 20;
-  speedY = 10;
+  speedX = 10;
+  speedY = 20;
 
   constructor(x, y) {
     super().loadImage("img/6_salsa_bottle/salsa_bottle.png");
@@ -42,21 +42,25 @@ class ThrowableObject extends MovableObject {
   }
 
   throw() {
-    this.speedY = 20;
+    //this.speedY = 20;
+
     this.applyGravity();
 
     setInterval(() => {
       if (this.collision == true && this.width > 0) {
         this.bottleSplash();
-      } else if (this.collision == false) {
-        this.bottleFly();
       }
     }, 25);
+    this.bottleFly();
   }
 
   bottleFly() {
-    this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
-    this.x += 10;
+    setInterval(() => {
+      if (this.collision == false) {
+        this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
+        this.x += this.speedX;
+      }
+    }, 50);
   }
 
   bottleSplash() {

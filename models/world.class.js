@@ -99,6 +99,9 @@ class World {
     if (this.possibilityToDrawBottle(event)) {
       this.drawBottle();
     }
+    /*     if (this.character.otherDirection) {
+      debugger;
+    } */
   }
 
   drawBottle() {
@@ -106,6 +109,13 @@ class World {
       this.character.x + 80,
       this.character.y + 100
     );
+    if (this.character.otherDirection) {
+      world.flyingBottle.speedX = -15;
+      bottle.speedX = -15;
+      this.character.moveLeft(bottle);
+    } else if (!this.character.otherDirection) {
+      bottle.speedX = 20;
+    }
     this.checkSoundBottle(bottle);
     this.character.standTimer();
     this.checkCollisionBottle(bottle);
@@ -118,8 +128,8 @@ class World {
     return (
       event.code === "Space" &&
       this.character.bottle > 0 &&
-      !this.doubleTimeChecker &&
-      !this.character.otherDirection
+      !this.doubleTimeChecker /* &&
+      !this.character.otherDirection */
     );
   }
 
@@ -168,11 +178,7 @@ class World {
   }
 
   bottleOnChicken(enemy, bottle) {
-    return (
-      this.character.isColliding(enemy, bottle) &&
-      enemy.width < 150 &&
-      this.character.x < enemy.x
-    );
+    return this.character.isColliding(enemy, bottle) && enemy.width < 150;
   }
 
   bottomSplash(bottle) {
