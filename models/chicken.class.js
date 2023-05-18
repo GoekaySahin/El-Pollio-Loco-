@@ -56,8 +56,8 @@ class Chicken extends MovableObject {
   isEnemyAround(point) {
     level1.enemies.forEach((enemy, i) => {
       if (
-        (point >= enemy.x + enemy.width + 350 ||
-          point <= enemy.x - enemy.width - 350) &&
+        (point >= enemy.x + enemy.width + 700 ||
+          point <= enemy.x - enemy.width - 700) &&
         this.x == 120 &&
         enemy instanceof Chicken
       ) {

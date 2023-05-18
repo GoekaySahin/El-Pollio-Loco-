@@ -104,6 +104,7 @@ function setGame() {
   btn.classList.add("d-none");
   startScreen.classList.add("d-none");
   world.character.startCharacter();
+
   world.game_start = true;
 }
 
@@ -648,6 +649,18 @@ function restartGameComplete() {
   restartCharacter();
   restartChickens();
   restartCloud();
+  removeGameOverScreen();
+  restartStatusBar();
+  restartbottleBar();
+  restartCoinBar();
+}
+
+function removeGameOverScreen() {
+  let gameOverScreen = document.getElementById("game_over_screen");
+  let restart = document.getElementById("restart");
+
+  gameOverScreen.classList.add("d-none");
+  restart.classList.add("d-none");
 }
 
 function restartCharacter() {
@@ -663,7 +676,6 @@ function restartChickens() {
   endbossInit(endbosses);
   keyboradEnabel(); */
   /*   restartCloud();
-  restartStatusBar();
   restartThrowable();
   restartWorld();
   restartBackground();
@@ -672,8 +684,6 @@ function restartChickens() {
   restartCollects(); */
   //  startGame();
 }
-
-function keyboradEnabel() {}
 
 function restartCamera() {
   world.camera_x = 0;
@@ -736,6 +746,7 @@ function setCloudVar() {
 
 function restartStatusBar() {
   world.statusBar.percent = 100;
+  world.statusBar.setPercentage(100);
 }
 
 function restartThrowable() {

@@ -79,8 +79,10 @@ class MovableObject extends DrawableObject {
       obj.width -= 5;
       obj.height -= 5;
       obj.y += 5;
-      if (obj.width < 150) {
-        setTimeout(this.enemyImplode(obj), 1000);
+      if (this.enemyImplode == undefined) {
+        world.character.enemyImplode(obj);
+      } else if (obj.width < 150) {
+        setTimeout(this.enemyImplode(obj), 400);
       }
     }, 150);
   }
@@ -190,6 +192,7 @@ class MovableObject extends DrawableObject {
 
   collidingEnemy(obj) {
     return (
+      obj.power > 0 &&
       this.x + this.width - this.offset.right >= obj.x + obj.offset.left && // Rechts zu Links
       this.x + this.offset.left <= obj.x + obj.width - obj.offset.right && // Links zu Rechts
       this.y + this.height - this.offset.bottom >= obj.y + obj.offset.top && // Top zu Bottom
