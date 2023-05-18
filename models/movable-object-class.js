@@ -47,6 +47,12 @@ class MovableObject extends DrawableObject {
 
   moveLeft(x) {
     if (x.power == undefined || x.power > 0) {
+      /*     if (x instanceof SmallChicken) {
+        this.speed = 1;
+      }
+      if (x instanceof Chicken) {
+        this.speed = 1;
+      } */
       x.x -= this.speed;
     }
   }

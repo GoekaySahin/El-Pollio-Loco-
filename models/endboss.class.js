@@ -108,7 +108,6 @@ class Endboss extends MovableObject {
   }
 
   deadAnimation() {
-    world.character.keyboardDeactivate();
     this.dead();
     this.playAudio(this.boss_dead_sound);
     setTimeout(this.winningSound, 800, this);

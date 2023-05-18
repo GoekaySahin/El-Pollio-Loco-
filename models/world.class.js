@@ -172,7 +172,9 @@ class World {
 
   bottleKillChicken(enemy, bottle, i) {
     this.character.hitEnemy(enemy, bottle);
-    this.character.killAnimation(enemy);
+    if (this.level.enemies[i].x == enemy.x) {
+      this.character.killAnimation(enemy);
+    }
     setTimeout(this.spliceEnemy, 650, this, i);
 
     bottle = 0;

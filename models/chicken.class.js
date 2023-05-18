@@ -28,14 +28,58 @@ class Chicken extends MovableObject {
     this.initChicken();
   }
 
+  startpointEnemy = 350;
+  endPointEnemy = 3000;
+  /*   firstPoint = 1850;
+  secondPoint = 1850;
+  thirdPoint = 1850;
+  fourdPoint = 1850;
+  fithdPoint = 1850;
+  sixdPoint = 1850;
+  sevendPoint = 1850;
+  eightdPoint = 1850; */
+
   initChicken(x) {
-    if (this == undefined) {
-      x.x = 350 + Math.random() * 3000;
-      x.animate();
-    } else {
-      this.x = 350 + Math.random() * 3000;
-      this.animate();
+    let point = this.startpointEnemy + Math.random() * this.endPointEnemy;
+    point = Math.round(point);
+
+    setInterval(() => {
+      this.drawChickens(point);
+    }, 100);
+  }
+
+  drawChickens(point) {
+    if (!this.isEnemyAround(point)) {
     }
+  }
+
+  isEnemyAround(point) {
+    level1.enemies.forEach((enemy, i) => {
+      if (
+        (point >= enemy.x + enemy.width + 350 ||
+          point <= enemy.x - enemy.width - 350) &&
+        this.x == 120 &&
+        enemy instanceof Chicken
+      ) {
+        console.log(true);
+        if (!this.checkIfXExist(i)) {
+          this.x = point + 200;
+          this.animate();
+        }
+      } else {
+        return;
+      }
+    });
+  }
+
+  checkIfXExist(i) {
+    level1.enemies.forEach((enemy) => {
+      return (
+        (i >= enemy.x + enemy.width + 350 ||
+          i <= enemy.x - enemy.width - 350) &&
+        this.x == 120
+      );
+    });
   }
 
   deadChicken() {
