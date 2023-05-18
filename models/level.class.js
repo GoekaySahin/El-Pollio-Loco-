@@ -7,6 +7,10 @@ class Level {
   level_end = 4400;
 
   constructor(enemies, clouds, background, collectable, collectableBottle) {
+    this.initLevel(enemies, clouds, background, collectable, collectableBottle);
+  }
+
+  initLevel(enemies, clouds, background, collectable, collectableBottle) {
     this.enemies = enemies;
     this.cloud = clouds;
     this.background = background;

@@ -22,6 +22,10 @@ class World {
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
+    this.initWorld(canvas, keyboard);
+  }
+
+  initWorld(canvas, keyboard) {
     this.canvas = canvas;
     this.draw();
     this.keyboard = keyboard;
@@ -99,9 +103,6 @@ class World {
     if (this.possibilityToDrawBottle(event)) {
       this.drawBottle();
     }
-    /*     if (this.character.otherDirection) {
-      debugger;
-    } */
   }
 
   drawBottle() {
@@ -208,9 +209,12 @@ class World {
     that.hitEnemyCollision = false;
   }
 
-  spliceEnemy(x, enemy) {
-    if (x.level.enemies[enemy].x == 0) {
-      x.level.enemies.splice(enemy, 1);
+  spliceEnemy(y, enemy) {
+    if (world.level.enemies[enemy] == undefined) {
+      return;
+    }
+    if (world.level.enemies[enemy].x == 0) {
+      world.level.enemies.splice(enemy, 1);
     }
   }
 
@@ -331,6 +335,9 @@ class World {
   }
 
   drawStartSet() {
+    if (this.canvas == undefined) {
+      this.canvas = canvas;
+    }
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.camera_x, 0);
   }

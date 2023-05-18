@@ -100,7 +100,11 @@ class Character extends MovableObject {
   ];
 
   constructor() {
-    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
+    super().initCharacter();
+  }
+
+  initCharacter() {
+    this.loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IDLE_IMAGES);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
@@ -149,7 +153,8 @@ class Character extends MovableObject {
         !this.notInteracting() &&
         !this.isHurt() &&
         !this.isAboveGround() &&
-        this.enemyDead()
+        this.enemyDead() &&
+        this.power > 0
       ) {
         this.playAnimation(this.IDLE_IMAGES);
         this.IDLE = true;
@@ -242,7 +247,6 @@ class Character extends MovableObject {
     setInterval(() => {
       if (this.isDead()) {
         this.playAnimation(this.IMAGES_DEAD);
-        this.keyboardDeactivate();
         if (this.width > 0) {
           this.playAudio(this.lose);
           this.playAudio(this.game_over);
@@ -304,12 +308,5 @@ class Character extends MovableObject {
     let timepassed = new Date().getTime() - this.standTime;
     timepassed = timepassed / 1000;
     return timepassed > 4;
-  }
-
-  keyboardDeactivate() {
-    keyboard.UP = false;
-    keyboard.RIGHT = false;
-    keyboard.LEFT = false;
-    keyboard.SPACE = false;
   }
 }

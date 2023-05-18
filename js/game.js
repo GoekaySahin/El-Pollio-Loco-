@@ -4,11 +4,44 @@ let world;
 let keyboard = new Keyboard();
 let menu = true;
 
+// INITS
+
+let chickenInit;
+let smallChickenInit;
+let endbossInit;
+
+let chickens;
+let smallChickens;
+let endbosses;
+
+let levelNew;
+
+/*    let enemiesWorld;
+    let cloudsWorld;
+    let backgroundWorld;
+    let collectableWorld;
+    let collectableBottleWorld; */
+
+// INITS END
+
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
   checkWidth();
   gameOver();
+  getInitsEnemy();
+}
+
+function setLevel() {
+  creatNewLevel();
+  world.level = level2;
+  /* enemies = world.level.enemies;
+  clouds = world.level.cloud;
+  background = world.level.background;
+  collectable = world.level.collectable;
+  collectableBottle = world.level.collectableBottle;
+  debugger;
+} */
 }
 
 let downTime = true;
@@ -609,4 +642,130 @@ function checkCharacterPosition() {
       setControlPermanentDnone();
     }
   }, 100);
+}
+
+function restartGameComplete() {
+  restartCharacter();
+  restartChickens();
+  restartCloud();
+}
+
+function restartCharacter() {
+  world.character.initCharacter();
+}
+
+function restartChickens() {
+  setLevel();
+  restartCamera();
+  /*  world.drawStartSet();
+  chickenInit(chickens);
+  smallChickenInit(smallChickens);
+  endbossInit(endbosses);
+  keyboradEnabel(); */
+  /*   restartCloud();
+  restartStatusBar();
+  restartThrowable();
+  restartWorld();
+  restartBackground();
+  restartBossBar();
+  restartCoinBar();
+  restartCollects(); */
+  //  startGame();
+}
+
+function keyboradEnabel() {}
+
+function restartCamera() {
+  world.camera_x = 0;
+  world.character.x = 100;
+  world.character.y = 50;
+  world.character.startCharacter();
+  world.character.power = 100;
+}
+
+function getInitsEnemy() {
+  world.level.enemies.forEach((enemy) => {
+    if (enemy.get_smash) {
+      chickenInit = enemy.initChicken;
+      chickens = enemy;
+    } else if (enemy.chicken_smash) {
+      smallChickenInit = enemy.initSmallChicken;
+      smallChickens = enemy;
+    } else {
+      endbossInit = enemy.initEndboss;
+      endbosses = enemy;
+    }
+  });
+  setCloudVar();
+  levelNew = world.level;
+}
+
+let enemies;
+let clouds;
+let background;
+let collectable;
+let collectableBottle;
+
+function restartLevel() {
+  world.level.enemies = [];
+  world.level.cloud = [];
+  world.level.background = [];
+  world.level.collectable = [];
+  world.level.collectableBottle = [];
+  debugger;
+}
+
+function loadNewLevel() {
+  world.level.initLevel(
+    enemies,
+    clouds,
+    background,
+    collectable,
+    collectable,
+    collectableBottle
+  );
+}
+
+function restartCloud() {
+  cloud.initCloud();
+}
+let cloud;
+function setCloudVar() {
+  cloud = world.level.cloud[0];
+}
+
+function restartStatusBar() {
+  world.statusBar.percent = 100;
+}
+
+function restartThrowable() {
+  world.flyingBottle.initThrowable();
+}
+
+function restartWorld() {
+  world.initWorld();
+}
+
+function restartBackground() {
+  world.level.background[0].initBackground();
+}
+
+function restartBossIcon() {
+  world.bossIcon.initBossIcon();
+}
+
+function restartbottleBar() {
+  world.bottleBar.initBottleBar();
+}
+
+function restartBossBar() {
+  world.bossBar.initBossBar();
+}
+
+function restartCoinBar() {
+  world.coinbar.initCoinBar();
+}
+
+function restartCollects() {
+  world.collectable.initCollects();
 }

@@ -11,7 +11,10 @@ class BottleBar extends MovableObject {
   ];
 
   constructor() {
-    super();
+    super().initBottleBar();
+  }
+
+  initBottleBar() {
     this.loadImages(this.IMAGES);
     this.x = 210;
     this.y = 0;

@@ -7,8 +7,7 @@ class StatusBarEndbossIcon extends MovableObject {
   height = 0;
 
   constructor() {
-    super();
-    this.loadImage(this.IMAGE[0]);
+    super().loadImage(this.IMAGE[0]);
   }
 
   iconVisible(x) {

@@ -64,15 +64,31 @@ class Endboss extends MovableObject {
   ];
 
   constructor() {
-    super().loadImage(this.IMAGES_ALERT[0]);
-    this.loadImages(this.IMAGES_ALERT);
-    this.loadImages(this.IMAGES_WALKING);
-    this.loadImages(this.IMAGES_ATTACK);
-    this.loadImages(this.IMAGES_HURT);
-    this.loadImages(this.IMAGES_DEAD);
-    this.x = 4800;
-    this.speed = 8 + Math.random() * 0.4;
-    this.animate();
+    super().initEndboss();
+  }
+
+  initEndboss(x) {
+    if (this == undefined) {
+      x.loadImage(x.IMAGES_ALERT[0]);
+      x.loadImages(x.IMAGES_ALERT);
+      x.loadImages(x.IMAGES_WALKING);
+      x.loadImages(x.IMAGES_ATTACK);
+      x.loadImages(x.IMAGES_HURT);
+      x.loadImages(x.IMAGES_DEAD);
+      x.x = 4800;
+      x.speed = 8 + Math.random() * 0.4;
+      x.animate();
+    } else {
+      this.loadImage(this.IMAGES_ALERT[0]);
+      this.loadImages(this.IMAGES_ALERT);
+      this.loadImages(this.IMAGES_WALKING);
+      this.loadImages(this.IMAGES_ATTACK);
+      this.loadImages(this.IMAGES_HURT);
+      this.loadImages(this.IMAGES_DEAD);
+      this.x = 4800;
+      this.speed = 8 + Math.random() * 0.4;
+      this.animate();
+    }
   }
 
   animate() {

@@ -9,8 +9,11 @@ class BossEnergyBar extends MovableObject {
   ];
 
   constructor() {
-    super();
-    this.loadImages(this.IMAGES);
+    super().loadImages(this.IMAGES);
+    this.initBossBar();
+  }
+
+  initBossBar() {
     this.x = 425;
     this.y = 320;
     this.height = 0;

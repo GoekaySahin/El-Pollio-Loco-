@@ -22,12 +22,23 @@ class SmallChicken extends MovableObject {
   IMAGES_DEAD = ["img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
 
   constructor() {
-    super().loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
-    this.loadImages(this.IMAGES_WALKING);
-    this.loadImages(this.IMAGES_DEAD);
-    this.x = 350 + Math.random() * 3000;
-    //this.speed = 0.2 + Math.random() * 0.4;
-    this.animate();
+    super().initSmallChicken();
+  }
+
+  initSmallChicken(x) {
+    if (this == undefined) {
+      x.loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
+      x.loadImages(x.IMAGES_WALKING);
+      x.loadImages(x.IMAGES_DEAD);
+      x.x = 350 + Math.random() * 3000;
+      x.animate();
+    } else {
+      this.loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
+      this.loadImages(this.IMAGES_WALKING);
+      this.loadImages(this.IMAGES_DEAD);
+      this.x = 350 + Math.random() * 3000;
+      this.animate();
+    }
   }
 
   deadChicken() {
