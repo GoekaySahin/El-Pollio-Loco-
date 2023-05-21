@@ -168,8 +168,7 @@ class World {
     return (
       this.character.isColliding(enemy, bottle) &&
       enemy.width > 150 &&
-      !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss &&
-      this.character.x <= enemy.x
+      !this.level.enemies[this.level.enemies.length - 1].hurtTimeBoss
     );
   }
 
@@ -203,7 +202,7 @@ class World {
 
   turnOffsetOn(enemy) {
     if (enemy.width > 150) {
-      enemy.offset.left = 30;
+      enemy.offset.left = 25;
     } else {
       enemy.offset.left = 0;
       enemy.offset.right = 0;

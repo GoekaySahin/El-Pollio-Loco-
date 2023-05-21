@@ -292,7 +292,7 @@ function gameOver() {
     let endboss_index = world.level.enemies.length - 1;
     if (world.character.power == 0) {
       setTimeout(gameOverVisible, 400);
-      setTimeout(clearAllIntervals, 450);
+      setTimeout(clearAllIntervals, 420);
     } else if (world.level.enemies[endboss_index].power == 0) {
       world.character.loadImage("img/2_character_pepe/2_walk/W-21.png");
       winVisible();
@@ -658,6 +658,7 @@ function restartGameComplete() {
   removeWinScreen();
   restartWorld();
   setPowerEndboss();
+  gameOver();
 }
 
 function setPowerEndboss() {
