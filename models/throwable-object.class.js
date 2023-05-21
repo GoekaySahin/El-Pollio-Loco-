@@ -69,6 +69,7 @@ class ThrowableObject extends MovableObject {
     this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
     this.playAudio(this.bottle_splash_sound);
     setTimeout(this.splashFalse, 100, this);
+    world.doubleTimeChecker = false;
   }
 
   splashFalse(x) {

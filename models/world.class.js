@@ -106,6 +106,7 @@ class World {
   }
 
   drawBottle() {
+    this.doubleTimeChecker = true;
     let bottle = new ThrowableObject(
       this.character.x + 80,
       this.character.y + 100
@@ -158,6 +159,8 @@ class World {
     if (enemy.power == 0) {
       setTimeout(this.killAnimation, 1000, enemy);
       setTimeout(this.spliceEnemy, 1800, this, i);
+
+      gameOver();
     }
   }
 

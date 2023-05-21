@@ -653,6 +653,25 @@ function restartGameComplete() {
   restartStatusBar();
   restartbottleBar();
   restartCoinBar();
+  restartBossBar();
+  restartBossIcon();
+  removeWinScreen();
+  restartWorld();
+  setPowerEndboss();
+}
+
+function setPowerEndboss() {
+  let enemyIndex = world.level.enemies.length - 1;
+
+  let endbossPower = world.level.enemies[enemyIndex];
+  endbossPower.power = 25;
+  endbossPower.powerChecker = 25;
+}
+
+function removeWinScreen() {
+  let winScreen = document.getElementById("win");
+
+  winScreen.classList.add("d-none");
 }
 
 function removeGameOverScreen() {
@@ -762,7 +781,7 @@ function restartBackground() {
 }
 
 function restartBossIcon() {
-  world.bossIcon.initBossIcon();
+  world.bossIcon.width = 0;
 }
 
 function restartbottleBar() {
