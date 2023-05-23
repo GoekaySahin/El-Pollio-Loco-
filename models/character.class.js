@@ -100,11 +100,14 @@ class Character extends MovableObject {
   ];
 
   constructor() {
-    super().initCharacter();
+    super().loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
+    this.initCharacter();
   }
 
+  /**
+   * This init function is to load the animated picture and the timer for idle.
+   */
   initCharacter() {
-    this.loadImage("img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IDLE_IMAGES);
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGES_JUMPING);
@@ -114,10 +117,18 @@ class Character extends MovableObject {
     this.standTimer();
   }
 
+  /**
+   * This function is start the animation on the character.
+   */
+
   startCharacter() {
     this.animate();
     this.applyGravity();
   }
+
+  /**
+   * This function is checks wich animation is to play.
+   */
 
   animate() {
     setInterval(() => {
@@ -143,10 +154,17 @@ class Character extends MovableObject {
     this.sleepingAnimation();
   }
 
+  /**
+   * This function is return if enboss is no more there any more.
+   */
+
   enemyDead() {
     return !(world.level.enemies[world.level.enemies.length - 1].power == 0);
   }
 
+  /**
+   * This function is to check and if true than start animation of idle.
+   */
   startIDLE() {
     setInterval(() => {
       if (
@@ -162,11 +180,19 @@ class Character extends MovableObject {
     }, 150);
   }
 
+  /**
+   * This function checks and returns if no interaction is happening.
+   */
+
   notInteracting() {
     if (!(keyboard.UP && keyboard.RIGHT && keyboard.LEFT && keyboard.SPACE));
     setTimeout(this.setIdleFalse, 150, this);
     return this.IDLE;
   }
+
+  /**
+   * This function checks if character can fall in sleep and let play the animation for sleeping.
+   */
 
   sleepingAnimation() {
     setInterval(() => {
@@ -176,10 +202,17 @@ class Character extends MovableObject {
     }, 150);
   }
 
+  /**
+   * This function is to set the camera right.
+   */
+
   setCamera() {
     this.world.camera_x = -this.x + 100;
   }
 
+  /**
+   * This function is to check wich direction is at moment.
+   */
   checkDirection() {
     setInterval(() => {
       if (
@@ -195,42 +228,61 @@ class Character extends MovableObject {
     }, 150);
   }
 
+  /**
+   * This function is to let the character walk right if possible and play rigth animaition and sound.
+   */
   letWalkRight() {
     this.setIdleTrue();
     this.moveRight(this);
-    if (this.onGround()) {
+    if (this.onGround() && this.power > 0) {
       this.standTimer();
       this.playAudio(this.walking_sound);
     }
   }
+
+  /**
+   * This function is to let the character walk left if possible and play rigth animaion and sound.
+   */
 
   letWalkLeft() {
     this.setIdleTrue();
     this.turnLeft();
     this.moveLeft(this);
     this.standTimer();
-    if (!this.isAboveGround()) {
+    if (!this.isAboveGround() && this.power > 0) {
       this.playAudio(this.walking_sound);
     }
   }
 
+  /**
+   * This function checks if walking left is possible.
+   */
   wantWalkLeft() {
     return keyboard.LEFT && this.x >= -600;
   }
 
+  /**
+   * This function is checks if character is on ground.
+   */
   onGround() {
     return !this.isAboveGround();
   }
 
+  /**
+   * This function checks if it is possible to walk right.
+   */
   wantWalkRight() {
     return (
       keyboard.RIGHT && this.x < this.world.level.level_end && !this.isHurt()
     );
   }
 
+  /**
+   * This function is to check and let character jump and play right sound and animation.
+   */
   letJump() {
     setInterval(() => {
-      if (this.wantJump()) {
+      if (this.wantJump() && this.power > 0) {
         this.jump();
         this.playAudio(this.jump_sound);
         this.standTimer();
@@ -239,31 +291,55 @@ class Character extends MovableObject {
     }, 180);
   }
 
+  /**
+   * This function returns if it is possible to jump.
+   */
   wantJump() {
     return keyboard.UP && !this.isAboveGround();
   }
 
+  /**
+   * This function is to stop the walking sound.
+   */
+  stopWalkingSound() {
+    this.walking_sound.pause();
+    this.walking_sound.currentTime = 0;
+  }
+
+  /**
+   * This function is to check of character is dead and plays right animation and sound.
+   */
   dead() {
     setInterval(() => {
       if (this.isDead()) {
+        this.stopWalkingSound();
         this.playAnimation(this.IMAGES_DEAD);
-        if (this.width > 0) {
-          this.playAudio(this.lose);
-          this.playAudio(this.game_over);
-        }
+        this.playAudio(this.lose);
+        this.playAudio(this.game_over);
+
         this.characterKill();
       }
     }, 120);
   }
 
+  /**
+   * This function is to set the variable true.
+   */
   setIdleTrue() {
     this.IDLE = true;
   }
+
+  /**
+   * This function is to set the variable an false.
+   */
 
   setIdleFalse(x) {
     x.IDLE = false;
   }
 
+  /**
+   * This function is to play the hurt animation for character.
+   */
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
     if (this.x > -600) {
@@ -276,6 +352,9 @@ class Character extends MovableObject {
     }
   }
 
+  /**
+   * This function returns the possibility if character can fall in sleep.
+   */
   cleanSleep() {
     return (
       this.fallInSleep() &&
@@ -286,24 +365,39 @@ class Character extends MovableObject {
     );
   }
 
+  /**
+   * This function is to play the kill animation on character.
+   */
   characterKill() {
     this.y += 20;
-    setTimeout(this.charaterImplode, 850, this);
+    setTimeout(this.charaterImplode, 1050, this);
   }
 
+  /**
+   * This function is used to make the character invisible.
+   */
   charaterImplode(x) {
     x.width = 0;
     this.height = 0;
   }
 
+  /**
+   * This function return if chatacter is fall in sleep.
+   */
   characterInSleep() {
     return this.xControl == this.x;
   }
 
+  /**
+   * This function resets the time checker variable.
+   */
   standTimer() {
     this.standTime = new Date().getTime();
   }
 
+  /**
+   * This function is to check the time for sleep animation.
+   */
   fallInSleep() {
     let timepassed = new Date().getTime() - this.standTime;
     timepassed = timepassed / 1000;

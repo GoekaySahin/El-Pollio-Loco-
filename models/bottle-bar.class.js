@@ -14,6 +14,9 @@ class BottleBar extends MovableObject {
     super().initBottleBar();
   }
 
+  /**
+   * This init function is to load the first bottle image (zero bottle collect at start) and set the x,y,width and height.
+   */
   initBottleBar() {
     this.loadImages(this.IMAGES);
     this.x = 210;
@@ -22,6 +25,10 @@ class BottleBar extends MovableObject {
     this.height = 50;
     this.showBottle(0);
   }
+
+  /**
+   * This function is to set the right picture of the bottle status.
+   */
 
   showBottle(count) {
     let path = this.IMAGES[count];

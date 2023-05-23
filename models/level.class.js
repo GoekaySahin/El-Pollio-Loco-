@@ -10,6 +10,10 @@ class Level {
     this.initLevel(enemies, clouds, background, collectable, collectableBottle);
   }
 
+  /**
+   * This functions is to set the level.
+   * @param {object}
+   */
   initLevel(enemies, clouds, background, collectable, collectableBottle) {
     this.enemies = enemies;
     this.cloud = clouds;

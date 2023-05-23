@@ -25,6 +25,11 @@ class SmallChicken extends MovableObject {
     super().initSmallChicken();
   }
 
+  /**
+   * This init functions is to set the smallchickens.y and on x randomly.
+   * Sets width and height and check if objcet is defin
+   * @param {object}
+   */
   initSmallChicken(x) {
     if (this == undefined) {
       x.loadImage("img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
@@ -41,12 +46,16 @@ class SmallChicken extends MovableObject {
     }
   }
 
+  /**
+   * This functions load the dead animation.
+   */
   deadChicken() {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
-  // https://daniela-scholz.developerakademie.net/el_pollo_loco/
-
+  /**
+   * This functions is check wich aimation is to play in smallChicken.
+   */
   animate() {
     setInterval(() => {
       if (this.power == 0 && this.height > 0) {

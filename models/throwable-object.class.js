@@ -37,6 +37,9 @@ class ThrowableObject extends MovableObject {
     this.initThrowable(x, y);
   }
 
+  /**
+   * This function is to set the bottle.x and y startpoint and widht and height.
+   */
   initThrowable(x, y) {
     this.x = x;
     this.y = y;
@@ -45,6 +48,9 @@ class ThrowableObject extends MovableObject {
     this.throw();
   }
 
+  /**
+   * This function is to activate the gravity for the flyning bottle and checks if bottle is on bottom.
+   */
   throw() {
     this.applyGravity();
 
@@ -56,6 +62,9 @@ class ThrowableObject extends MovableObject {
     this.bottleFly();
   }
 
+  /**
+   * This function is to play the bottle flying animation.
+   */
   bottleFly() {
     setInterval(() => {
       if (this.collision == false) {
@@ -65,6 +74,9 @@ class ThrowableObject extends MovableObject {
     }, 50);
   }
 
+  /**
+   * This function is the animation of the bottle when it splash on the bottom.
+   */
   bottleSplash() {
     this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
     this.playAudio(this.bottle_splash_sound);
@@ -72,11 +84,18 @@ class ThrowableObject extends MovableObject {
     world.doubleTimeChecker = false;
   }
 
+  /**
+   * This function is to set the varibale on the check factors false.
+   * @param {object}
+   */
   splashFalse(x) {
     x.collision = false;
     x.bottleImplode(x);
   }
 
+  /**
+   * This function is to remove the bottle after it hits an enemy or the bottom.
+   */
   bottleImplode(x) {
     x.width = 0;
     x.height = 0;

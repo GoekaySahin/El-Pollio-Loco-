@@ -5,7 +5,7 @@ class Collectable extends MovableObject {
   height = 80;
   coins;
   offset = {
-    top: 00,
+    top: 0,
     left: 0,
     right: 0,
     bottom: 0,
@@ -16,11 +16,18 @@ class Collectable extends MovableObject {
     this.initCollects();
   }
 
+  /**
+   * This functions set the rigth x and y for the coins to collect.
+   *
+   * */
   initCollects() {
     this.x = this.setX();
     this.y = 70 - Math.random();
   }
 
+  /**
+   * This functions returns random x postitions.
+   */
   setX() {
     let result = 250 + Math.random() * (4000 - Math.random() * 10);
     if (result > -20 && result < 20) {

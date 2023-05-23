@@ -10,6 +10,9 @@ class StatusBarEndbossIcon extends MovableObject {
     super().loadImage(this.IMAGE[0]);
   }
 
+  /**
+   * This function is to make the boss icon visible.
+   */
   iconVisible(x) {
     x.bossIcon.width = 50;
     x.bossIcon.height = 50;

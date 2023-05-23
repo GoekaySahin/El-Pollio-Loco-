@@ -5,11 +5,14 @@ class Chicken extends MovableObject {
   power = 5;
 
   offset = {
-    top: 00,
+    top: 0,
     left: -5,
     right: 0,
     bottom: 0,
   };
+
+  startpointEnemy = 350;
+  endPointEnemy = 3000;
 
   get_smash = new Audio("audio/chickenLose.mp3");
 
@@ -28,27 +31,15 @@ class Chicken extends MovableObject {
     this.initChicken();
   }
 
-  startpointEnemy = 350;
-  endPointEnemy = 3000;
-  /*   firstPoint = 1850;
-  secondPoint = 1850;
-  thirdPoint = 1850;
-  fourdPoint = 1850;
-  fithdPoint = 1850;
-  sixdPoint = 1850;
-  sevendPoint = 1850;
-  eightdPoint = 1850; */
-
-  initChicken(x) {
-    let point = this.startpointEnemy + Math.random() * this.endPointEnemy;
-    point = Math.round(point);
-
-    setInterval(() => {
-      this.drawChickens(point);
-    }, 100);
+  /**
+   * This init function is to set the chicken.x randomly in a range beetween 350 and 3000
+   */
+  initChicken() {
+    this.x = 350 + Math.random() * 3000;
+    this.animate();
   }
 
-  drawChickens(point) {
+  /*   drawChickens(point) {
     if (!this.isEnemyAround(point)) {
     }
   }
@@ -64,12 +55,11 @@ class Chicken extends MovableObject {
         console.log(true);
         if (!this.checkIfXExist(i)) {
           this.x = point + 200;
-          this.animate();
         }
       } else {
         return;
       }
-    });
+    } );
   }
 
   checkIfXExist(i) {
@@ -81,11 +71,18 @@ class Chicken extends MovableObject {
       );
     });
   }
+  */
 
+  /**
+   * This functions is to play the get killed animation fom chicken
+   */
   deadChicken() {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
+  /**
+   * This functions is to check and play the right animation for the chicken
+   */
   animate() {
     setInterval(() => {
       if (this.power == 0 && this.height > 0) {

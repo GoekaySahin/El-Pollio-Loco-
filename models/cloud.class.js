@@ -9,12 +9,18 @@ class Cloud extends MovableObject {
     super().initCloud();
   }
 
+  /**
+   * This functions is to load the right picture for the background cloud, set the cloud.x and animat it.
+   */
   initCloud() {
     this.loadImage("img/5_background/layers/4_clouds/1.png");
     this.x = Math.random() * 400;
     this.animation();
   }
 
+  /**
+   * This functions animat the clouds to turn slowly to left
+   */
   animation() {
     this.moveLeft(this);
   }

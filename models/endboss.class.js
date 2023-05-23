@@ -12,7 +12,7 @@ class Endboss extends MovableObject {
   boss_dead_applaud = new Audio("audio/applaud.mp3");
 
   offset = {
-    top: 00,
+    top: 0,
     left: 15,
     right: 10,
     bottom: 0,
@@ -67,6 +67,10 @@ class Endboss extends MovableObject {
     super().initEndboss();
   }
 
+  /**
+   * This init function is to load the right picture for the animation.
+   * @param {pbjcet}
+   */
   initEndboss(x) {
     if (this == undefined) {
       x.loadImage(x.IMAGES_ALERT[0]);
@@ -91,6 +95,9 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * This function is to check what animation to play.
+   */
   animate() {
     setInterval(() => {
       if (this.watingForPepe()) {
@@ -107,16 +114,25 @@ class Endboss extends MovableObject {
     }, 90);
   }
 
+  /**
+   * This function is will play the get killed animation of the endboss.
+   */
   deadAnimation() {
     this.dead();
     this.playAudio(this.boss_dead_sound);
     setTimeout(this.winningSound, 800, this);
   }
 
+  /**
+   * This function returns the power of the endboss.
+   */
   checkBossPower() {
     return this.power <= 0 && this.width > 0;
   }
 
+  /**
+   * This function is to hurt the endboss play the right audio and set the hurt time on true.
+   */
   getHurt() {
     this.hurt();
     this.playAudio(this.boss_hurt_sound);
@@ -125,19 +141,31 @@ class Endboss extends MovableObject {
     }
   }
 
+  /**
+   * This function returns if power is not equal.
+   */
   powerNotEqual() {
     return !(this.power == this.powerChecker);
   }
 
+  /**
+   * This function is to start the attack animation for the endboss.
+   */
   startAttack() {
     this.attack();
     this.moveLeft(this);
   }
 
+  /**
+   * This function returns scream true, this will happen if character is near endboss
+   */
   watingForPepe() {
     return this.scream == false;
   }
 
+  /**
+   * This function checks if character is realy near of endbos to start the attack.
+   */
   checkAttack() {
     return (
       this.power == this.powerChecker &&
@@ -147,45 +175,79 @@ class Endboss extends MovableObject {
     );
   }
 
+  /**
+   * This function sets the variable false and makes powerchecker and power equal.
+   * @param {pbjcet}
+   */
   hurtTimeFalse(x) {
     x.hurtTimeBoss = false;
     x.powerChecker = x.power;
   }
+
+  /**
+   * This function is to turn the hurt time boss var true.
+   * @param {pbjcet}
+   */
   hurtTimeTrue(x) {
     x.hurtTimeBoss = true;
   }
 
+  /**
+   * This function is to play the alerta animation of the endboss.
+   */
   alerta() {
     this.playAnimation(this.IMAGES_ALERT);
 
     this.speed = 12;
   }
 
+  /**
+   * This function plays the attack animation.
+   */
   attack() {
     this.playAnimation(this.IMAGES_ATTACK);
     this.speed = 4;
   }
 
+  /**
+   * This function plays the get killed animation of the enemy.
+   */
   dead() {
     this.playAnimation(this.IMAGES_DEAD);
     setTimeout(this.implodeBoss, 1500, this);
   }
 
+  /**
+   * This function makes the endboss impolde.
+   * @param {pbjcet}
+   */
   implodeBoss(x) {
     x.width = 0;
   }
 
+  /**
+   * This function plays if endboss gets hurt and set the vars for hurt time.
+   */
   hurt() {
     this.playAnimation(this.IMAGES_HURT);
 
     setTimeout(this.hurtTimeFalse, 800, this);
   }
+
+  /**
+   * This function let the endboss play the walking animation.
+   * @param {pbjcet}.
+   */
   walking(bossChicken) {
     bossChicken.playAnimation(bossChicken.IMAGES_WALKING);
     this.speed = 12;
     bossChicken.moveLeft(bossChicken);
   }
 
+  /**
+   * This function is to play the winnig sound if character wins over endboss.
+   * @param {pbjcet}.
+   */
   winningSound(x) {
     if (x.width > 0) {
       x.playAudio(x.boss_dead_applaud);

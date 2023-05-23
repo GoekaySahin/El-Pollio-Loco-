@@ -13,6 +13,9 @@ class BossEnergyBar extends MovableObject {
     this.initBossBar();
   }
 
+  /**
+   * This init function is to set the boss energy bars x,y and width with heigth.
+   */
   initBossBar() {
     this.x = 425;
     this.y = 320;
@@ -21,10 +24,18 @@ class BossEnergyBar extends MovableObject {
     this.showPower(5);
   }
 
+  /**
+   * This function is to show the picture of boss energy level.
+   */
+
   showPower(index) {
     let path = this.IMAGES[index];
     this.img = this.imageCache[path];
   }
+
+  /**
+   * This function is to make the powerbar visible with a small animation.
+   */
 
   powerVisible() {
     setInterval(() => {
@@ -40,6 +51,9 @@ class BossEnergyBar extends MovableObject {
     }, 100);
   }
 
+  /**
+   * This function is set the right power level.
+   */
   changePower() {
     this.showPower();
   }

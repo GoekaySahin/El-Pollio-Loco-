@@ -18,6 +18,9 @@ class MovableObject extends DrawableObject {
   get_bottle = new Audio("audio/getABottle.mp3");
   get_coins = new Audio("audio/collectCoins.mp3");
 
+  /**
+   * This function is to check if characte is on a jump, and if so to activate gravity.
+   */
   applyGravity() {
     setInterval(() => {
       if ((this.isAboveGround() || this.speedY > 0) && this.power > 0) {
@@ -30,6 +33,9 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**
+   * This function is to check if character is over ground.
+   */
   isAboveGround() {
     if (this instanceof ThrowableObject) {
       return true;
@@ -38,6 +44,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * This function is to move the objcet to right.
+   * @param {pbjcet}.
+   */
   moveRight(x) {
     if (x.power > 0) {
       x.x += this.speed;
@@ -45,32 +55,38 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * This function is to move the objcet to left.
+   * @param {object}.
+   */
   moveLeft(x) {
     if (x.power == undefined || x.power > 0) {
-      /*     if (x instanceof SmallChicken) {
-        this.speed = 1;
-      }
-      if (x instanceof Chicken) {
-        this.speed = 1;
-      } */
       x.x -= this.speed;
     }
   }
 
+  /**
+   * This function is to play animation of the right picture of the.
+   * @param {array, object}.
+   */
   playAnimation(images, x) {
     if (this.imageCounter == undefined) {
-      let i = x.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren SEXY
+      let i = x.imageCounter % images.length;
       let path = images[i];
       x.img = x.imageCache[path];
       x.imageCounter++;
     } else {
-      let i = this.imageCounter % images.length; // anstatt einer schleife wird hier der Modulu verwendet um stetig bilder zu generieren SEXY
+      let i = this.imageCounter % images.length;
       let path = images[i];
       this.img = this.imageCache[path];
       this.imageCounter++;
     }
   }
 
+  /**
+   * This function is to play the kill animation on the.
+   * @param {object}.
+   */
   killAnimation(obj) {
     setInterval(() => {
       if (obj.height == 0 || obj.width == 0 || obj.y == 450) {
@@ -87,6 +103,10 @@ class MovableObject extends DrawableObject {
     }, 150);
   }
 
+  /**
+   * This function makes the obj invisible, let it impode.
+   * @param {object}.
+   */
   enemyImplode(obj) {
     obj.x = 0;
     obj.y = 0;
@@ -94,20 +114,32 @@ class MovableObject extends DrawableObject {
     obj.height = 0;
   }
 
+  /**
+   * This function is to turn character in other direction.
+   */
   turnLeft() {
     this.otherDirection = true;
   }
 
+  /**
+   * This function is to speed up the movement to the air.
+   */
   jump() {
     this.speedY = 30;
     this.startTimeout();
   }
 
+  /**
+   * This function is to make a small jump if jump on enemy.
+   */
   smalJump() {
     this.speedY = 20;
     this.standTimer();
   }
 
+  /**
+   * This function is to check the time when character is flying down on enemy to make a good reaction.
+   */
   startTimeout() {
     this.startTime = Date.now() / 1000;
 
@@ -123,16 +155,25 @@ class MovableObject extends DrawableObject {
     }, 100);
   }
 
+  /**
+   * This function resets the variable.
+   */
   clearTime() {
     this.endTime = 0;
     this.startTime = 0;
   }
 
+  /**
+   * This function is to check time.
+   */
   endTimeout() {
     this.endTime = Date.now() / 1000;
     this.logTime();
   }
 
+  /**
+   * This function is to set the postion of character back to startpoint if character alive.
+   */
   flyDown() {
     if (this.power > 0) {
       if (this.y == 182) {
@@ -147,16 +188,18 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  flyCheck(pos) {
-    console.log(this.y > pos);
-  }
-
+  /**
+   * This function is to reset the position after a jump.
+   */
   tarePos() {
     if (this.power > 0) {
       this.pos = this.y;
     }
   }
 
+  /**
+   * This function is check flytime.
+   */
   logTime() {
     if (
       this.timeInAir > this.endTime - this.startTime &&
@@ -169,6 +212,10 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * This function if collision is happening and check with what is collinding.
+   * @param {object, object}
+   */
   isColliding(obj, bottle) {
     if (bottle == null) {
       if (this.collects(obj)) {
@@ -181,6 +228,9 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * This function returns if objcet is a colletable.
+   */
   collects(obj) {
     if (!(obj.src == undefined) && obj.img.src.includes("Collectable")) {
       return (
@@ -190,6 +240,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * This function return if a collision with enemy and character is happening.
+   * @param {object}.
+   */
   collidingEnemy(obj) {
     return (
       obj.power > 0 &&
@@ -200,6 +254,10 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * This function returning if colliding with enemy and bottle is happening.
+   * @param {object, object}.
+   */
   collidingEnemyBottle(obj, bottle) {
     return (
       bottle.x + bottle.width >= obj.x + obj.offset.left && // Rechts zu Links
@@ -209,6 +267,10 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * This function is set the range to colliding with colletable.
+   * @param {object}.
+   */
   collidingCollects(obj) {
     return (
       this.x - 80 + this.width >= obj.x &&
@@ -218,6 +280,9 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  /**
+   * This function is to check if hit and reduce power.
+   */
   hit() {
     if (this.lastHit == 0) {
       this.power -= 20;
@@ -231,20 +296,32 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * This function checks if is hurt means if he gets hurt, characte has 1 sec time wich he cant get hurt a second time.
+   */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
+  /**
+   * This function is returns hurtime.
+   */
   hurtTime() {
     return !this.isHurt();
   }
 
+  /**
+   * This function checks if power of the object is dead.
+   */
   isDead() {
     return this.power == 0;
   }
 
+  /**
+   * This function is to prevent that character cant collect more than 5 coins.
+   */
   getCoin() {
     if (this.coins > 5 || this.coins == 5) {
       return 5;
@@ -253,6 +330,10 @@ class MovableObject extends DrawableObject {
     return this.coins;
   }
 
+  /**
+   * This function check how enemy gets hit.
+   * @param {object, object} enemy and bottle.
+   */
   hitEnemy(obj, bottle) {
     if (bottle == undefined) {
       obj.power -= 5;
@@ -264,6 +345,9 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * This function prevents character to get more than 5 bottles.
+   */
   countBottle() {
     if (this.bottle > 5 || this.bottle == 5) {
       return 5;
@@ -272,10 +356,14 @@ class MovableObject extends DrawableObject {
     return this.bottle;
   }
 
-  stopInter(inter) {
+  /*   stopInter(inter) {
     clearInterval(inter);
-  }
+  } */
 
+  /**
+   * This function is plays the sound of the object.
+   * @param {object}
+   */
   playAudio(obj) {
     if (this.sound) {
       obj.play();
