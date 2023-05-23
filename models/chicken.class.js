@@ -32,7 +32,7 @@ class Chicken extends MovableObject {
   }
 
   /**
-   * This init function is to set the chicken.x randomly in a range beetween 350 and 3000
+   * This init function is to set the chicken.x randomly in a range beetween 350 and 3000.
    */
   initChicken() {
     this.x = 350 + Math.random() * 3000;
@@ -74,14 +74,14 @@ class Chicken extends MovableObject {
   */
 
   /**
-   * This functions is to play the get killed animation fom chicken
+   * This function is to play the get killed animation fom chicken.
    */
   deadChicken() {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
   /**
-   * This functions is to check and play the right animation for the chicken
+   * This function is to check and play the right animation for the chicken.
    */
   animate() {
     setInterval(() => {

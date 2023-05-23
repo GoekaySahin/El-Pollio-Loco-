@@ -17,7 +17,7 @@ class Collectable extends MovableObject {
   }
 
   /**
-   * This functions set the rigth x and y for the coins to collect.
+   * This function set the rigth x and y for the coins to collect.
    *
    * */
   initCollects() {
@@ -26,7 +26,7 @@ class Collectable extends MovableObject {
   }
 
   /**
-   * This functions returns random x postitions.
+   * This function returns random x postitions.
    */
   setX() {
     let result = 250 + Math.random() * (4000 - Math.random() * 10);

@@ -26,7 +26,7 @@ class SmallChicken extends MovableObject {
   }
 
   /**
-   * This init functions is to set the smallchickens.y and on x randomly.
+   * This init function is to set the smallchickens.y and on x randomly.
    * Sets width and height and check if objcet is defin
    * @param {object}
    */
@@ -47,14 +47,14 @@ class SmallChicken extends MovableObject {
   }
 
   /**
-   * This functions load the dead animation.
+   * This function load the dead animation.
    */
   deadChicken() {
     this.playAnimation(this.IMAGES_DEAD);
   }
 
   /**
-   * This functions is check wich aimation is to play in smallChicken.
+   * This function is check wich aimation is to play in smallChicken.
    */
   animate() {
     setInterval(() => {

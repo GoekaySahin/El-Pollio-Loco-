@@ -11,7 +11,7 @@ class Level {
   }
 
   /**
-   * This functions is to set the level.
+   * This function is to set the level.
    * @param {object}
    */
   initLevel(enemies, clouds, background, collectable, collectableBottle) {
