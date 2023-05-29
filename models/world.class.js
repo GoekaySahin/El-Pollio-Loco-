@@ -155,12 +155,12 @@ class World {
     } else if (!this.character.otherDirection) {
       bottle.speedX = 20;
     }
-    bottleThrowSettings(bottle);
+    this.bottleThrowSettings(bottle);
   }
 
   /**
    * This function makes the settings to make throw of bottle possible.
-   * ^@param {object}
+   * @param {object}
    */
   bottleThrowSettings(bottle) {
     this.checkSoundBottle(bottle);

@@ -9,7 +9,6 @@ class Endboss extends MovableObject {
   hurtTimeBoss = false;
 
   boss_dead_guitar = new Audio("audio/guitar.mp3");
-  boss_dead_applaud = new Audio("audio/applaud.mp3");
 
   offset = {
     top: 0,
@@ -120,7 +119,6 @@ class Endboss extends MovableObject {
   deadAnimation() {
     this.dead();
     this.playAudio(this.boss_dead_sound);
-    setTimeout(this.winningSound, 800, this);
   }
 
   /**
@@ -242,15 +240,5 @@ class Endboss extends MovableObject {
     bossChicken.playAnimation(bossChicken.IMAGES_WALKING);
     this.speed = 12;
     bossChicken.moveLeft(bossChicken);
-  }
-
-  /**
-   * This function is to play the winnig sound if character wins over endboss.
-   * @param {pbjcet}.
-   */
-  winningSound(x) {
-    if (x.width > 0) {
-      x.playAudio(x.boss_dead_applaud);
-    }
   }
 }
