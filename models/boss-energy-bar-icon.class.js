@@ -11,7 +11,8 @@ class StatusBarEndbossIcon extends MovableObject {
   }
 
   /**
-   * This function is to make the boss icon visible.
+   * This function is to make the boss icon visible
+   * @param {object} x StatusBarEndbossIcon
    */
   iconVisible(x) {
     x.bossIcon.width = 50;

@@ -16,7 +16,7 @@ class CoinBar extends MovableObject {
   }
 
   /**
-   * This function sets the x,y,width and height of the coinbar.
+   * This function sets the x,y,width and height of the coinbar
    */
   initCoinBar() {
     this.x = 410;
@@ -27,7 +27,8 @@ class CoinBar extends MovableObject {
   }
 
   /**
-   * This function is to set the right picture to how much coin user collect.
+   * This function is to set the right picture to how much coin user collect
+   * @param {number} count of the path on IMAGES
    */
   setCoinsBar(count) {
     let path = this.IMAGES[count];

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: boss-energy-bar-icon.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: boss-energy-bar-icon.class.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class StatusBarEndbossIcon extends MovableObject {
+  IMAGE = ["img/7_statusbars/3_icons/icon_health_endboss.png"];
 
+  x = 422;
+  y = 427;
+  width = 0;
+  height = 0;
 
-    <h3> </h3>
+  constructor() {
+    super().loadImage(this.IMAGE[0]);
+  }
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  /**
+   * This function is to make the boss icon visible
+   * @param {object} x StatusBarEndbossIcon
+   */
+  iconVisible(x) {
+    x.bossIcon.width = 50;
+    x.bossIcon.height = 50;
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

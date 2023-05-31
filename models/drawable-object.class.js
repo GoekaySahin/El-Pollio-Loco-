@@ -8,8 +8,8 @@ class DrawableObject {
   img;
 
   /**
-   * This function load the picture.
-   * @param {link} to load from.
+   * This function is to set the right picture
+   * @param {number} path index number for the IMAGES array
    */
   loadImage(path) {
     this.img = new Image(); // <--- abbildung eines img tags von html this.img = document.getELementById('image').
@@ -17,8 +17,8 @@ class DrawableObject {
   }
 
   /**
-   * This function takes a arry of links, to load the right picture.
-   * @param {arry} with links.
+   * This function is to set the right pictures for the animation
+   * @param {array} arr paths to the right picture
    */
   loadImages(arr) {
     arr.forEach((path) => {
@@ -29,10 +29,9 @@ class DrawableObject {
   }
 
   /**
-   * This function is to draw the the pictures in the canvas.
-   * @param {CanvasRenderingContext2D}.
+   * This function is to load an 2d animation
+   * @param {CanvasRenderingContext2D} ctx to load the 2d effekt
    */
-
   draw(ctx) {
     try {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -42,8 +41,8 @@ class DrawableObject {
   }
 
   /**
-   * This function is to draw the frame in the canvas.
-   * @param {CanvasRenderingContext2D}.
+   * This function ti draw the animation in the canvas
+   * @param {CanvasRenderingContext2D} ctx for the 2d animation
    */
   drawFrame(ctx) {
     ctx.beginPath();

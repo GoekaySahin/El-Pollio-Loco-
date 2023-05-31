@@ -97,7 +97,8 @@ const level1 = new Level(
     new CollectableBottle("img/6_salsa_bottle/1_salsa_bottle_on_ground.png"),
   ]
 );
-/**.
+
+/**
  * This function is used to generate the level, when click on restart.
  * @param {object} class wich will creat the level2 in the canvas.
  *

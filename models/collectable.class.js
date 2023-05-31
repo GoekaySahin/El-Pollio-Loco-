@@ -17,16 +17,16 @@ class Collectable extends MovableObject {
   }
 
   /**
-   * This function set the rigth x and y for the coins to collect.
-   *
-   * */
+   * This function set the rigth x and y for the coins to collect
+   */
   initCollects() {
     this.x = this.setX();
     this.y = 70 - Math.random();
   }
 
   /**
-   * This function returns random x postitions.
+   * This function returns random x postitions
+   * @returns random number
    */
   setX() {
     let result = 250 + Math.random() * (4000 - Math.random() * 10);

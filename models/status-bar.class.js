@@ -17,7 +17,7 @@ class StatusBar extends DrawableObject {
   }
 
   /**
-   * This function is to set the statusbar.x, y and width and height.
+   * This function is to set the statusbar.x, y and width and height
    */
   initStatusBar() {
     this.x = 10;
@@ -28,8 +28,8 @@ class StatusBar extends DrawableObject {
   }
 
   /**
-   * This function is to show the right picture.
-   * @param {number}
+   * This function is to show the right picture
+   * @param {number} percent of the percentce to set
    */
   setPercentage(percent) {
     this.percent = percent;

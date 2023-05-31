@@ -17,7 +17,7 @@ class CollectableBottle extends MovableObject {
   }
 
   /**
-   * This init function to set the right x and y is randomly.
+   * This init function to set the right x and y is randomly
    */
   initBottle() {
     this.x = this.setX();
@@ -25,7 +25,8 @@ class CollectableBottle extends MovableObject {
   }
 
   /**
-   * This function is to set the right x for the coins randomly in a range between 250 and 4000 and returns it.
+   * This function is to set the right x for the coins randomly in a range between 250 and 4000 and returns it
+   * @returns random number
    */
   setX() {
     let result = 250 + Math.random() * (4000 - Math.random() * 10);

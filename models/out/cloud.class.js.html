@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: cloud.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,45 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: cloud.class.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Cloud extends MovableObject {
+  width = 350;
+  height = 250;
+  y = 50;
+  cloudIndex = 400;
+  x = this.cloudIndex;
 
+  constructor() {
+    super().initCloud();
+  }
 
-    <h3> </h3>
+  /**
+   * This function is to load the right picture for the background cloud, set the cloud.x and animat it
+   */
+  initCloud() {
+    this.loadImage("img/5_background/layers/4_clouds/1.png");
+    this.x = Math.random() * 400;
+    this.animation();
+  }
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  /**
+   * This function animat the clouds to turn slowly to left
+   */
+  animation() {
+    this.moveLeft(this);
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: background.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,37 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: background.class.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Background extends MovableObject {
+  width = 720;
+  height = 480;
 
+  constructor(path, x) {
+    super().loadImage(path);
 
-    <h3> </h3>
+    this.initBackground(x);
+  }
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+  /**
+   * This init function is to set the background.x and his height
+   * @param {objcet} x of background
+   */
+  initBackground(x) {
+    this.x = x;
+    this.y = 480 - this.height;
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

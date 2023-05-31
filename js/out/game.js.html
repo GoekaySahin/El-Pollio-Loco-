@@ -1,4 +1,32 @@
-let canvas;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
@@ -56,10 +84,10 @@ document.onkeydown = function (e) {
     keyboard.DOWN = true;
   } else if (e.key == "w") {
     keyboard.UP = true;
-  } else if (e.code == "Space" && downTime) {
+  } else if (e.code == "Space" &amp;&amp; downTime) {
     keyboard.SPACE = true;
     setTimeout(setFalse, 40);
-  } else if (e.key == "d" && e.key == "w") {
+  } else if (e.key == "d" &amp;&amp; e.key == "w") {
     keyboard.UP = true;
     keyboard.RIGHT = true;
   }
@@ -90,7 +118,7 @@ function hideResponsControl(resControl) {
 function startGame() {
   let resControl = document.getElementById("respons_control");
 
-  if (window.screen.width < 900) {
+  if (window.screen.width &lt; 900) {
     showResponsControl(resControl);
   } else {
     hideResponsControl(resControl);
@@ -165,7 +193,7 @@ document.onkeyup = function (e) {
  */
 function checkOrientation() {
   if (window.matchMedia("(orientation: landscape)").matches) {
-    if (window.innerHeight < 480) {
+    if (window.innerHeight &lt; 480) {
       newHeight = window.innerHeight;
       document.getElementById("canvas").style.height = `${newHeight}px`;
     }
@@ -189,12 +217,12 @@ function checkWidth() {
   } else if (widthSmallerThanHeight(startScreen)) {
     rotatePhoneVisible(rotatePhone);
   }
-  if (this.screen.availWidth <= 900) {
+  if (this.screen.availWidth &lt;= 900) {
     controlInvisible(info);
   } else if (startscreenVisible(startScreen)) {
     controlVisible(info);
   }
-  if (this.screen.availWidth < 1441) {
+  if (this.screen.availWidth &lt; 1441) {
     removeTitle();
   } else if (this.screen.availWidth > 1440) {
     addTitle();
@@ -234,7 +262,7 @@ function controlInvisible(info) {
  */
 function widthSmallerThanHeight(startScreen) {
   return (
-    this.screen.availWidth < this.screen.availHeight &&
+    this.screen.availWidth &lt; this.screen.availHeight &amp;&amp;
     !startScreen.classList.value.includes("fullscreen-modus")
   );
 }
@@ -245,7 +273,7 @@ function widthSmallerThanHeight(startScreen) {
  */
 function widthBiggerThanHeigth(rotatePhone) {
   return (
-    this.screen.availWidth > this.screen.availHeight &&
+    this.screen.availWidth > this.screen.availHeight &amp;&amp;
     !rotatePhone.classList.value.includes("d-none")
   );
 }
@@ -399,7 +427,7 @@ function winVisible() {
   if (!closeFull.classList.value.includes("d-none")) {
     win.classList.add("w100");
   } else if (
-    closeFull.classList.value.includes("d-none") &&
+    closeFull.classList.value.includes("d-none") &amp;&amp;
     win.classList.value.includes("w100")
   ) {
     win.classList.remove("w100");
@@ -415,7 +443,7 @@ function restartVisible() {
  * This function is to stop all intervals.
  */
 function clearAllIntervals() {
-  for (let i = 1; i < 9999; i++) {
+  for (let i = 1; i &lt; 9999; i++) {
     window.clearInterval(i);
   }
 }
@@ -586,7 +614,7 @@ function soundIconInvisible() {
 function startAnimation() {
   let setting = document.getElementById("setting");
 
-  if (menu && !setting.classList.value.includes("h140")) {
+  if (menu &amp;&amp; !setting.classList.value.includes("h140")) {
     menuFalse();
 
     if (setting.classList.value.includes("close")) {
@@ -724,7 +752,7 @@ function muteIconInvisible() {
 function closeSettings() {
   let setting = document.getElementById("setting");
 
-  if (menu && setting.classList.value.includes("h140")) {
+  if (menu &amp;&amp; setting.classList.value.includes("h140")) {
     menuFalse();
     if (setting.classList.value.includes("h140")) {
       setting.classList.remove("setting-animation");
@@ -1071,3 +1099,26 @@ function restartCoinBar() {
 function restartCollects() {
   world.collectable.initCollects();
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bottleMute">bottleMute</a></li><li><a href="global.html#bottleMuteOff">bottleMuteOff</a></li><li><a href="global.html#checkCharacterPosition">checkCharacterPosition</a></li><li><a href="global.html#checkGameOverSize">checkGameOverSize</a></li><li><a href="global.html#checkOrientation">checkOrientation</a></li><li><a href="global.html#checkWidth">checkWidth</a></li><li><a href="global.html#chickenMute">chickenMute</a></li><li><a href="global.html#chickenMuteOff">chickenMuteOff</a></li><li><a href="global.html#clearAllIntervals">clearAllIntervals</a></li><li><a href="global.html#closeFullscreen">closeFullscreen</a></li><li><a href="global.html#closeSettings">closeSettings</a></li><li><a href="global.html#contentFit">contentFit</a></li><li><a href="global.html#contentFitRemove">contentFitRemove</a></li><li><a href="global.html#controlInvisible">controlInvisible</a></li><li><a href="global.html#controlVisible">controlVisible</a></li><li><a href="global.html#controllerInvisible">controllerInvisible</a></li><li><a href="global.html#controllerVisible">controllerVisible</a></li><li><a href="global.html#enterFullscreen">enterFullscreen</a></li><li><a href="global.html#exitFullscreen">exitFullscreen</a></li><li><a href="global.html#fullscreenCloseVisible">fullscreenCloseVisible</a></li><li><a href="global.html#fullscreenInvisible">fullscreenInvisible</a></li><li><a href="global.html#fullscreenVisible">fullscreenVisible</a></li><li><a href="global.html#gameOver">gameOver</a></li><li><a href="global.html#gameOverVisible">gameOverVisible</a></li><li><a href="global.html#gameStart">gameStart</a></li><li><a href="global.html#getInitsEnemy">getInitsEnemy</a></li><li><a href="global.html#hideResponsControl">hideResponsControl</a></li><li><a href="global.html#loadNewLevel">loadNewLevel</a></li><li><a href="global.html#menuFalse">menuFalse</a></li><li><a href="global.html#menuTrue">menuTrue</a></li><li><a href="global.html#moveRight">moveRight</a></li><li><a href="global.html#mute">mute</a></li><li><a href="global.html#muteIconInvisible">muteIconInvisible</a></li><li><a href="global.html#muteIconToggle">muteIconToggle</a></li><li><a href="global.html#muteOff">muteOff</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#optionButtonsInvisible">optionButtonsInvisible</a></li><li><a href="global.html#optionButtonsVisible">optionButtonsVisible</a></li><li><a href="global.html#removeGameOverScreen">removeGameOverScreen</a></li><li><a href="global.html#removeSettingH140">removeSettingH140</a></li><li><a href="global.html#removeTitle">removeTitle</a></li><li><a href="global.html#removeWinScreen">removeWinScreen</a></li><li><a href="global.html#restartBackground">restartBackground</a></li><li><a href="global.html#restartBossBar">restartBossBar</a></li><li><a href="global.html#restartBossIcon">restartBossIcon</a></li><li><a href="global.html#restartCamera">restartCamera</a></li><li><a href="global.html#restartCharacter">restartCharacter</a></li><li><a href="global.html#restartCloud">restartCloud</a></li><li><a href="global.html#restartCoinBar">restartCoinBar</a></li><li><a href="global.html#restartCollects">restartCollects</a></li><li><a href="global.html#restartGameComplete">restartGameComplete</a></li><li><a href="global.html#restartLevel">restartLevel</a></li><li><a href="global.html#restartStatusBar">restartStatusBar</a></li><li><a href="global.html#restartThrowable">restartThrowable</a></li><li><a href="global.html#restartWorld">restartWorld</a></li><li><a href="global.html#restartbottleBar">restartbottleBar</a></li><li><a href="global.html#rotatePhoneVisible">rotatePhoneVisible</a></li><li><a href="global.html#screenMaxWidth">screenMaxWidth</a></li><li><a href="global.html#screenMaxWidthClose">screenMaxWidthClose</a></li><li><a href="global.html#setCloudVar">setCloudVar</a></li><li><a href="global.html#setControlPermanentDnone">setControlPermanentDnone</a></li><li><a href="global.html#setFalse">setFalse</a></li><li><a href="global.html#setGame">setGame</a></li><li><a href="global.html#setLevel">setLevel</a></li><li><a href="global.html#setPowerEndboss">setPowerEndboss</a></li><li><a href="global.html#settingHeight">settingHeight</a></li><li><a href="global.html#showControl">showControl</a></li><li><a href="global.html#showResponsControl">showResponsControl</a></li><li><a href="global.html#showSettings">showSettings</a></li><li><a href="global.html#soundIconInvisible">soundIconInvisible</a></li><li><a href="global.html#soundIconToggle">soundIconToggle</a></li><li><a href="global.html#soundInvisible">soundInvisible</a></li><li><a href="global.html#soundOn">soundOn</a></li><li><a href="global.html#soundVisible">soundVisible</a></li><li><a href="global.html#spaceKeyEvent">spaceKeyEvent</a></li><li><a href="global.html#startAnimation">startAnimation</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#startscreenVisible">startscreenVisible</a></li><li><a href="global.html#stopSounds">stopSounds</a></li><li><a href="global.html#switchScreenButton">switchScreenButton</a></li><li><a href="global.html#toggleSoundIcons">toggleSoundIcons</a></li><li><a href="global.html#turnLeft">turnLeft</a></li><li><a href="global.html#widthBiggerThanHeigth">widthBiggerThanHeigth</a></li><li><a href="global.html#widthSmallerThanHeight">widthSmallerThanHeight</a></li><li><a href="global.html#winVisible">winVisible</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue May 30 2023 22:26:59 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

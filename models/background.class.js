@@ -9,9 +9,9 @@ class Background extends MovableObject {
   }
 
   /**
-   * This init function is to set the background.x and his height.
+   * This init function is to set the background.x and his height
+   * @param {objcet} x of background
    */
-
   initBackground(x) {
     this.x = x;
     this.y = 480 - this.height;
