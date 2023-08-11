@@ -9,6 +9,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
@@ -30,6 +31,7 @@ canvas {
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-block-end: 200px;
 }
 
 .d-none {

@@ -204,8 +204,18 @@ function checkWidth() {
 }
 
 function checkOrientationLast(rotatePhone) {
-  if (window.orientation == 90) {
-    rotatePhone.classList.add("d-none");
+  let canvas = document.getElementById("canvas");
+  let start = document.getElementById("start");
+  if (window.innerWidth < 1024) {
+    if (window.orientation == 90) {
+      rotatePhone.classList.add("d-none");
+      /*     canvas.width = window.innerWidth;
+    start.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    start.height = window.innerHeight; */
+    } else {
+      rotatePhone.classList.remove("d-none");
+    }
   }
 }
 
