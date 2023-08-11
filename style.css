@@ -528,3 +528,9 @@ span {
     scale: 0.7;
   }
 }
+
+@media (width <= 900px) and (height <= 390px) {
+  body {
+    height: 146vh;
+  }
+}
