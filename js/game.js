@@ -199,6 +199,14 @@ function checkWidth() {
   } else if (this.screen.availWidth > 1440) {
     addTitle();
   }
+
+  checkOrientationLast(rotatePhone);
+}
+
+function checkOrientationLast(rotatePhone) {
+  if ((this.orientation = 90)) {
+    rotatePhone.classList.remove("d-none");
+  }
 }
 
 /**
