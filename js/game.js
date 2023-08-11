@@ -204,8 +204,8 @@ function checkWidth() {
 }
 
 function checkOrientationLast(rotatePhone) {
-  if ((this.orientation = 90)) {
-    rotatePhone.classList.remove("d-none");
+  if (window.orientation == 90) {
+    rotatePhone.classList.add("d-none");
   }
 }
 
@@ -242,7 +242,7 @@ function controlInvisible(info) {
  */
 function widthSmallerThanHeight(startScreen) {
   return (
-    this.screen.availWidth < this.screen.availHeight &&
+    window.screen.availWidth < window.screen.availHeight &&
     !startScreen.classList.value.includes("fullscreen-modus")
   );
 }
@@ -253,7 +253,7 @@ function widthSmallerThanHeight(startScreen) {
  */
 function widthBiggerThanHeigth(rotatePhone) {
   return (
-    this.screen.availWidth > this.screen.availHeight &&
+    window.screen.availWidth > window.screen.availHeight &&
     !rotatePhone.classList.value.includes("d-none")
   );
 }
