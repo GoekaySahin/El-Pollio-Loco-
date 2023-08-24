@@ -83,7 +83,6 @@ class Character extends MovableObject {
     "img/2_character_pepe/5_dead/D-54.png",
     "img/2_character_pepe/5_dead/D-55.png",
     "img/2_character_pepe/5_dead/D-56.png",
-    "img/2_character_pepe/5_dead/D-57.png",
   ];
 
   IDLE_IMAGES = [
@@ -135,10 +134,10 @@ class Character extends MovableObject {
       if (this.isHurt()) {
         this.hurt();
       }
-      if (this.wantWalkRight()) {
+      if (this.wantWalkRight() && !this.isDead()) {
         this.letWalkRight();
       }
-      if (this.wantWalkLeft()) {
+      if (this.wantWalkLeft() && !this.isDead()) {
         this.letWalkLeft();
       }
       this.setCamera();
@@ -229,7 +228,7 @@ class Character extends MovableObject {
    */
   letWalkRight() {
     this.setIdleTrue();
-    this.moveRight(this);
+    if (!this.isDead()) this.moveRight(this);
     if (this.onGround() && this.power > 0) {
       this.standTimer();
       this.playAudio(this.walking_sound);
@@ -254,7 +253,7 @@ class Character extends MovableObject {
    * @returns boolean if he is not on level end and keyboard left is down
    */
   wantWalkLeft() {
-    return keyboard.LEFT && this.x >= -600;
+    return keyboard.LEFT && this.x >= -600 && !this.isDead();
   }
 
   /**
@@ -271,7 +270,10 @@ class Character extends MovableObject {
    */
   wantWalkRight() {
     return (
-      keyboard.RIGHT && this.x < this.world.level.level_end && !this.isHurt()
+      keyboard.RIGHT &&
+      this.x < this.world.level.level_end &&
+      !this.isHurt() &&
+      !this.isDead()
     );
   }
 
