@@ -164,14 +164,19 @@ document.onkeyup = function (e) {
  *  This function is to set check teh viewport.
  */
 function checkOrientation() {
-  if (window.matchMedia("(orientation: landscape)").matches) {
-    if (window.innerHeight < 480) {
-      newHeight = window.innerHeight;
+  if (screen.orientation.type.includes("landscape")) {
+    if (screen.availHeight < 480) {
+      newHeight = screen.availHeight;
       document.getElementById("canvas").style.height = `${newHeight}px`;
+      document.getElementById("canvas").style.height = `95%`;
     }
-  } else {
-    document.getElementById("canvas").style.height = `100%`;
   }
+
+  /* if (window.innerHeight <= 390 && window.innerWidth <= 900) {
+    newHeight = window.innerHeight;
+    document.getElementById("canvas").style.height = `${newHeight}px`;
+    document.getElementById("canvas").style.height = `95%`;
+  } */
 }
 
 /**
@@ -189,7 +194,7 @@ function checkWidth() {
   } else if (widthSmallerThanHeight(startScreen)) {
     rotatePhoneVisible(rotatePhone);
   }
-  if (this.screen.availWidth <= 900) {
+  if (this.screen.availWidth <= 1000) {
     controlInvisible(info);
   } else if (startscreenVisible(startScreen)) {
     controlVisible(info);
@@ -199,23 +204,17 @@ function checkWidth() {
   } else if (this.screen.availWidth > 1440) {
     addTitle();
   }
+  checkIfMobile(rotatePhone);
 
-  checkOrientationLast(rotatePhone);
+  //checkOrientationLast(rotatePhone);
 }
-
-function checkOrientationLast(rotatePhone) {
-  let canvas = document.getElementById("canvas");
-  let start = document.getElementById("start");
-  if (window.innerWidth < 1024) {
-    if (window.orientation == 90) {
-      rotatePhone.classList.add("d-none");
-      /*     canvas.width = window.innerWidth;
-    start.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    start.height = window.innerHeight; */
-    } else {
-      rotatePhone.classList.remove("d-none");
-    }
+function checkIfMobile(rotatePhone) {
+  if (screen.availWidth < 1024) {
+    rotatePhone.classList.remove("d-none");
+    // Screen not playable on mobile
+  } else {
+    //remove d
+    rotatePhone.classList.add("d-none");
   }
 }
 
