@@ -174,7 +174,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IDLE_IMAGES);
         this.IDLE = true;
       }
-    }, 150);
+    }, 300);
   }
 
   /**
